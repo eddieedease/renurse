@@ -29,10 +29,15 @@
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/font-awesome/css/font-awesome.css",
               "src/styles.css",
-              "node_modules/@swimlane/ngx-datatable/release/themes/bootstrap.css",
-              "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
+              "node_modules/@swimlane/ngx-datatable/release/themes/bootstrap.css"
             ],
-            "scripts": []
+            "scripts": [
+              "js/vendor/moder.js",
+              "js/vendor/jquery.js",
+              "js/popper.js",
+              "js/plugins.js",
+              "js/main.js"
+            ]
           },
           "configurations": {
             "production": {
