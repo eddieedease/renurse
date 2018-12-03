@@ -30,7 +30,6 @@
               "node_modules/@swimlane/ngx-datatable/release/themes/bootstrap.css",
               "src/styles.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "jscss/plugin.css",
               "jscss/default.css",
               "jscss/style.css",
               "jscss/responsive.css"

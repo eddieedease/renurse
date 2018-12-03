@@ -184,7 +184,7 @@
 }
 
 .logo {
-  padding: 30px 0px;
+  padding: px 0px;
 }
 
 ul.main__menu>li:hover>a {
@@ -642,7 +642,7 @@ ul.main__menu>li:hover>a {
 }
 
 .slider-content.slider-text-animation>a {
-  background: #001430 none repeat scroll 0 0;
+  background: #e74628 none repeat scroll 0 0;
   border-radius: 24px;
   color: #ffffff;
   display: inline-block;
@@ -1056,7 +1056,7 @@ ul.main__menu>li:hover>a {
 }
 
 .htc__support__inner h2 {
-  color: #001430;
+  color: #e74628;
   font-size: 36px;
   font-weight: bold;
   line-height: 45px;
@@ -1294,7 +1294,7 @@ ul.main__menu>li:hover>a {
 }
 
 .ht__sin__solve h4 {
-  color: #001430;
+  color: #e74628 ;
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 17px;
@@ -1337,7 +1337,7 @@ ul.main__menu>li:hover>a {
   08. Gallery Area
 ----------------------------------------*/
 .section__title h2 {
-  color: #001430;
+  color: #e74628;
   font-size: 35px;
   font-weight: bold;
   margin-bottom: 10px;
@@ -5078,7 +5078,7 @@ a.ui-state-default {
 }
 
 .section_title--2>h2 {
-  color: #001430;
+  color: #e74628;
   font-size: 40px;
   font-weight: bold;
   line-height: 32px;
@@ -5092,7 +5092,7 @@ a.ui-state-default {
 }
 
 .single_how_work>h4 {
-  color: #001430;
+  color: #e74628;
   font-size: 20px;
   font-weight: bold;
   margin-top: 28px;

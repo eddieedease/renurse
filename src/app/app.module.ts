@@ -35,12 +35,14 @@ import { PublicationsComponent } from './publications/publications.component';
 import { ResearchComponent } from './research/research.component';
 import { AdminComponent } from './admin/admin.component';
 import { LockedComponent } from './locked/locked.component';
+import { ContactComponent } from './contact/contact.component';
 
 const appRoutes: Routes = [
   { path: 'landing', component: LandingComponent },
   { path: 'publications', component: PublicationsComponent},
   { path: 'research', component: ResearchComponent},
   { path: 'loggedin', component: LockedComponent},
+  { path: 'contact', component: ContactComponent},
   { path: 'admin', component: AdminComponent },
   { path: '',
     redirectTo: '/landing',
@@ -56,7 +58,8 @@ const appRoutes: Routes = [
     PublicationsComponent,
     ResearchComponent,
     AdminComponent,
-    LockedComponent
+    LockedComponent,
+    ContactComponent
   ],
   imports: [
     RouterModule.forRoot(

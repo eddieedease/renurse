@@ -7,19 +7,19 @@
                 <div class="row ">
                     <div class="col-lg-6 col-md-8 col-12">
                         <div class="ht__header__top__left">
-                            <p><span><i class="zmdi zmdi-phone"></i></span>+88 011 2225 555 </p>
-                            <p><span><i class="zmdi zmdi-alarm-check"></i></span>Mon to sat 07 am to 12 am</p>
+                            <p><span><i class="zmdi zmdi-phone"></i></span>Samen sterker </p>
+                            <p><span><i class="zmdi zmdi-alarm-check"></i></span>:)</p>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-4 col-12">
-                        <div class="ht__header__top__right">
+                        <!-- <div class="ht__header__top__right">
                             <div class="social_icon">
                                 <a href="#"><i class="zmdi zmdi-twitter"></i></a>
                                 <a href="#"><i class="zmdi zmdi-pinterest"></i></a>
                                 <a href="#"><i class="zmdi zmdi-google-plus"></i></a>
                                 <a href="#"><i class="zmdi zmdi-whatsapp"></i></a>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-3 col-lg-3 col-sm-6 col-xs-7">
                         <div class="logo">
-                            <a href="index.html">
+                            <a routerLink="/">
                                 <img src="assets/logo/logo.png" alt="logo">
                             </a>
                         </div>
@@ -39,15 +39,18 @@
                     <div class="col-md-9 col-lg-9 d-none d-lg-block">
                         <nav class="main__menu__nav ">
                             <ul class="main__menu">
-                                <li class="drop"><a href="index.html">Home</a>
+                                <!-- <li class="drop"><a href="index.html">Home</a>
                                     <ul class="dropdown">
                                         <li><a href="index.html">Home version 01</a></li>
                                         <li><a href="index-2.html">Home version 02</a></li>
                                         <li><a href="index-box.html">Home Box Layout</a></li>
                                     </ul>
-                                </li>
-                                <li class="drop"><a href="about-us.html">About</a></li>
-                                <li class="drop"><a href="service.html">Services</a>
+                                </li> -->
+                                <li class="drop"><a routerLink="/">Home</a></li>
+                                <li class="drop"><a routerLink="/about">Over ons</a></li>
+                                <li class="drop"><a routerLink="/research">Onderzoeken</a></li>
+                                <li class="drop"><a routerLink="/publications">Publicaties</a></li>
+                                <!-- <li class="drop"><a href="service.html">Services</a>
                                     <ul class="dropdown">
                                         <li><a href="service.html">Service</a></li>
                                         <li><a href="single-services.html">Single Service </a></li>
@@ -72,8 +75,9 @@
                                         <li><a href="blog-details-no-sidebar.html">Blog Details no sidebar</a></li>
                                         <li><a href="404.html">404</a></li>
                                     </ul>
-                                </li>
-                                <li class="drop"><a href="contact-us.html">Contact</a></li>
+                                </li> -->
+                                <li class="drop"><a routerLink="/contact">Contact</a></li>
+                                <li class="drop"><a style="color:blue"><b>Inloggen</b></a></li>
                             </ul>
                         </nav>
                     </div>
@@ -86,6 +90,88 @@
         <!-- End Mainmenu Area -->
     </header>
     <router-outlet></router-outlet>
+
+
+    <!-- Start Footer Area -->
+<footer class="footer_area">
+    <div class="footer_top">
+        <div class="container">
+            <div class="row">
+               
+                <div class="col-lg-3 col-md-6">
+                    <div class="single_footer widget footer_1">
+                        <div class="single_footer_title">
+                            <h2>Links</h2>
+                        </div>
+                        <div class="single_footer_menu">
+                            <ul>
+                                <li><a href="#">About</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="single_footer widget footer_2">
+                        <div class="single_footer_title">
+                            <h2>Solutions</h2>
+                        </div>
+                        <div class="single_footer_menu">
+                            <ul>
+                                <li><a href="#">Aging And addiction</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-lg-3 col-md-6">
+                    <!-- <div class="single_footer widget footer_3 ">
+                        <div class="single_footer_title">
+                            <h2>Support</h2>
+                        </div>
+                        <div class="single_footer_menu">
+                            <ul>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div> -->
+                </div> 
+                <div class="col-lg-2 col-md-6">
+                    <div class="single_footer widget footer_4">
+                        <div class="single_footer_title">
+                            <h2>Contact</h2>
+                        </div>
+                        <div class="single_footer_desc">
+                            <p>125, Las Vegus, Main City, Street lane, USA</p>
+                            <p>+12345 365 789 <br> +01235 789 654 </p>
+                            <p>info@example.com<br> www.example.com </p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="copyright__content">
+                        <div class="copyright__inner">
+                            <p>Copyright © <a href="#">RENursE</a>  </p>
+                        </div>
+                        <div class="social__icon">
+                            <a href="#"><i class="zmdi zmdi-twitter"></i></a>
+                            <a href="#"><i class="zmdi zmdi-pinterest"></i></a>
+                            <a href="#"><i class="zmdi zmdi-google-plus"></i></a>
+                            <a href="#"><i class="zmdi zmdi-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Copyright Area -->
+</footer>
     </div>
 
 
