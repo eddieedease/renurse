@@ -29,10 +29,12 @@
               "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/@swimlane/ngx-datatable/release/themes/bootstrap.css",
               "src/styles.css",
+              "jscss/plugin.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "jscss/default.css",
               "jscss/style.css",
               "jscss/responsive.css"
+              
             ],
             "scripts": [
               "jscss/vendor/moder.js",

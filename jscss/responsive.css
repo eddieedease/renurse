@@ -1297,6 +1297,7 @@
 		height: 425px;
 	}
 	.slider-wrapper.bg-opacity::before {
+		opacity: 0.2;
 		background: rgba(0, 0, 0, 0) -webkit-gradient(linear, left top, right top, color-stop(20%, #26aef9), to(#22f285)) repeat scroll 0 0;
 		background: rgba(0, 0, 0, 0) linear-gradient(to right, #26aef9 20%, #22f285 100%) repeat scroll 0 0;
 	}

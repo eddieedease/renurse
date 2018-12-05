@@ -626,7 +626,7 @@ ul.main__menu>li:hover>a {
   content: "";
   height: 100%;
   left: 0;
-  opacity: 0.5;
+  opacity: 0.25;
   position: absolute;
   top: 0;
   width: 100%;
@@ -666,8 +666,7 @@ ul.main__menu>li:hover>a {
   opacity: 0;
   position: absolute;
   top: 0;
-  -webkit-transition: all 0.5s ease 0s;
-  transition: all 0.5s ease 0s;
+
   width: 100%;
   z-index: -1;
 }
@@ -684,8 +683,8 @@ ul.main__menu>li:hover>a {
 .slider-text-animation h2,
 .slider-text-animation h1,
 .slider-text-animation a {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
   -webkit-animation-name: fadeOutDown;
