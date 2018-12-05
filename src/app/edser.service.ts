@@ -34,9 +34,15 @@ import {
 })
 export class EdserService {
 
-  constructor(private http_: Http, private router: Router) { 
+  // subject admin var
+  private dMin = new Subject < any > ();
+
+  constructor(private http_: Http, private router: Router) {
 
   }
+
+
+
 
   // debugfunction for test dev
   debugLog(_debug: any) {
@@ -46,7 +52,18 @@ export class EdserService {
   }
 
 
-   // testcall
+
+  // Communication between ADMIN and layoutview components
+  updatedMin(dmin: boolean) {
+    this.dMin.next(dmin);
+  }
+
+  getdMin(): Observable < any > {
+    return this.dMin.asObservable();
+  }
+
+
+  // testcall
   // API TESTCALL
   API_testCall(): Observable < any > {
     const url = environment.apilink + 'testcall?rnd=' + new Date().getTime();

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { EdserService } from '../edser.service';
+
 @Component({
   selector: 'app-research',
   templateUrl: './research.component.html',
@@ -7,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResearchComponent implements OnInit {
 
-  constructor() { }
+  constructor(private edSer: EdserService) {
+      this.edSer.updatedMin(false);
+  }
+
 
   ngOnInit() {
   }

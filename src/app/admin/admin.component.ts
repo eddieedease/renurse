@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { EdserService } from '../edser.service';
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(private edSer: EdserService) {
+      this.edSer.updatedMin(true);
+  }
 
   ngOnInit() {
   }
