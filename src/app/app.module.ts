@@ -36,6 +36,8 @@ import { ResearchComponent } from './research/research.component';
 import { AdminComponent } from './admin/admin.component';
 import { LockedComponent } from './locked/locked.component';
 import { ContactComponent } from './contact/contact.component';
+import { WysigComponent } from './wysig/wysig.component';
+import { WysigPipe } from './wysig-pipe.pipe';
 
 const appRoutes: Routes = [
   { path: 'landing', component: LandingComponent },
@@ -59,7 +61,9 @@ const appRoutes: Routes = [
     ResearchComponent,
     AdminComponent,
     LockedComponent,
-    ContactComponent
+    ContactComponent,
+    WysigComponent,
+    WysigPipe
   ],
   imports: [
     RouterModule.forRoot(
