@@ -34,6 +34,12 @@ $container = $app->getContainer();
 $container['upload_directory'] = __DIR__ . "/../uploads";
 
 require 'routes/users.php';
+/* require 'routes/groups.php';
+require 'routes/publications.php';
+require 'routes/files.php';
+require 'routes/mail.php';
+require 'routes/cfg.php'; */
+
 /* require 'routes/collects.php';
 require 'routes/rewards.php';
 require 'routes/files.php'; */

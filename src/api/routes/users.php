@@ -7,7 +7,20 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 // USERS USERS USERS USERS USERS
 // USERS USERS USERS USERS USERS
 // USERS USERS USERS USERS USERS
-
+$app->get('/testcall', function (Request $request, Response $response) {
+    /* $lessontitle = $request->getAttribute('lessontitle');
+    include 'db.php';
+    $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
+    $sqladdlesson = "INSERT INTO lessons (name) VALUES ('$lessontitle')";
+    $stmtaddlesson = $dbh->prepare($sqladdlesson);
+    $stmtaddlesson->execute();
+    $resultaddlesson = $stmtaddlesson->fetchAll(PDO::FETCH_ASSOC);
+    $test = $dbh->lastInsertId(); */
+    $debug = array('succes' => 'testcall');
+    $response = json_encode($debug);
+    return $response;
+}
+);
 
 
 // EXTRA Functions

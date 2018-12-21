@@ -14,6 +14,8 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
+    // scroll to top
+    window.scrollTo(0, 0);
   }
 
 }

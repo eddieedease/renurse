@@ -15,6 +15,8 @@ export class PublicationsComponent implements OnInit {
 
 
   ngOnInit() {
+    // scroll to top
+    window.scrollTo(0, 0);
   }
 
 }

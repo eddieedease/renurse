@@ -11,10 +11,13 @@ export class ContactComponent implements OnInit {
 
   constructor(private edSer: EdserService) {
       this.edSer.updatedMin(false);
+    
   }
 
 
   ngOnInit() {
+    // scroll to top
+    window.scrollTo(0, 0);
   }
 
 }
