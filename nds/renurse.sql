@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Gegenereerd op: 06 dec 2018 om 10:16
--- Serverversie: 5.6.34-log
--- PHP-versie: 7.1.5
+-- Host: localhost
+-- Generation Time: Dec 21, 2018 at 10:27 AM
+-- Server version: 5.6.38
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -25,179 +23,177 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `config`
+-- Table structure for table `cfg`
 --
 
-CREATE TABLE `config` (
+CREATE TABLE `cfg` (
   `id` int(11) NOT NULL,
-  `title` text NOT NULL,
-  `name` text NOT NULL,
-  `slogan` text NOT NULL,
+  `Name` text NOT NULL,
+  `adminemail` text NOT NULL,
   `version` text NOT NULL,
-  `email` text NOT NULL,
-  `intro` text NOT NULL,
-  `extra1` text NOT NULL,
-  `extra2` text NOT NULL,
-  `extra3` text NOT NULL,
-  `dmin` text NOT NULL,
-  `pwd` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Gegevens worden geëxporteerd voor tabel `config`
---
-
-INSERT INTO `config` (`id`, `title`, `name`, `slogan`, `version`, `email`, `intro`, `extra1`, `extra2`, `extra3`, `dmin`, `pwd`) VALUES
-(1, 'RENursE', 'Marika', 'Betere zorg, samen', 'V0.2', 'wetenschapsbureau@etz.nl', 'Voorbeeld', '0', '0', '0', 'admin', '1721159c58afa5f80b61dfbfa3dced75');
+  `maintenance` int(11) NOT NULL,
+  `extra` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `files`
+-- Table structure for table `files`
 --
 
 CREATE TABLE `files` (
   `id` int(11) NOT NULL,
   `name` text NOT NULL,
   `type` text NOT NULL,
-  `url` text NOT NULL,
-  `date` datetime DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `togroup` int(11) NOT NULL,
+  `imgurl` text NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `locks`
+-- Table structure for table `groups`
 --
 
-CREATE TABLE `locks` (
+CREATE TABLE `groups` (
   `id` int(11) NOT NULL,
   `name` text NOT NULL,
-  `intro` text NOT NULL,
-  `users` text NOT NULL,
+  `wysig` text NOT NULL,
+  `active` int(11) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `publications`
+-- Table structure for table `publications`
 --
 
 CREATE TABLE `publications` (
   `id` int(11) NOT NULL,
-  `title` text NOT NULL,
-  `thumb` text NOT NULL,
-  `summary` text NOT NULL,
-  `files` text NOT NULL,
+  `name` text NOT NULL,
+  `active` int(11) NOT NULL,
+  `coverurl` text NOT NULL,
   `wysig` text NOT NULL,
-  `date` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `research`
---
-
-CREATE TABLE `research` (
-  `id` int(11) NOT NULL,
-  `title` int(11) NOT NULL,
-  `thumb` int(11) NOT NULL,
-  `summary` text NOT NULL,
-  `files` text NOT NULL,
-  `wysig` text NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Tabelstructuur voor tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `username` text NOT NULL,
-  `pwd` text NOT NULL,
+  `name` text NOT NULL,
+  `surname` text NOT NULL,
   `email` text NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `pwd` text NOT NULL,
+  `secret` text NOT NULL,
+  `active` int(11) NOT NULL,
+  `lastlogin` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Indexen voor geëxporteerde tabellen
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `surname`, `email`, `pwd`, `secret`, `active`, `lastlogin`) VALUES
+(1, 'Eddie', 'Maas', 'eddie@edease.nl', '1721159c58afa5f80b61dfbfa3dced75', 'nosecretyet', 1, '2018-12-21 10:27:17');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_to_groups`
+--
+
+CREATE TABLE `users_to_groups` (
+  `id` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `groupsid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Indexen voor tabel `config`
+-- Indexes for table `cfg`
 --
-ALTER TABLE `config`
+ALTER TABLE `cfg`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexen voor tabel `files`
+-- Indexes for table `files`
 --
 ALTER TABLE `files`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexen voor tabel `locks`
+-- Indexes for table `groups`
 --
-ALTER TABLE `locks`
+ALTER TABLE `groups`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexen voor tabel `publications`
+-- Indexes for table `publications`
 --
 ALTER TABLE `publications`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexen voor tabel `research`
---
-ALTER TABLE `research`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexen voor tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT voor geëxporteerde tabellen
+-- Indexes for table `users_to_groups`
+--
+ALTER TABLE `users_to_groups`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT voor een tabel `config`
+-- AUTO_INCREMENT for table `cfg`
 --
-ALTER TABLE `config`
+ALTER TABLE `cfg`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `files`
+--
+ALTER TABLE `files`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `groups`
+--
+ALTER TABLE `groups`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `publications`
+--
+ALTER TABLE `publications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
--- AUTO_INCREMENT voor een tabel `files`
+-- AUTO_INCREMENT for table `users_to_groups`
 --
-ALTER TABLE `files`
+ALTER TABLE `users_to_groups`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT voor een tabel `locks`
---
-ALTER TABLE `locks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT voor een tabel `publications`
---
-ALTER TABLE `publications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT voor een tabel `research`
---
-ALTER TABLE `research`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT voor een tabel `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
