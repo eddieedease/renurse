@@ -4,12 +4,15 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 
 // CONFIG FUNCTIONALITY
 
-// 1 GET CONFIG
+// 1 GET SECTIONS
 
 
-// 2 ADJUST CONFIG
+// 2 MAKE NEW SECTION
 
 
-// 3 SET ADMIN Password
+// 3 EDIT SECTION
+
+
+// 4 DEL SECTION
 
 ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 21, 2018 at 10:27 AM
+-- Generation Time: Jan 01, 2019 at 09:31 PM
 -- Server version: 5.6.38
 -- PHP Version: 7.2.1
 
@@ -82,6 +82,21 @@ CREATE TABLE `publications` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sections`
+--
+
+CREATE TABLE `sections` (
+  `id` int(11) NOT NULL,
+  `title` text NOT NULL,
+  `wysig` text NOT NULL,
+  `position` int(11) NOT NULL,
+  `lastedit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -144,6 +159,12 @@ ALTER TABLE `publications`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sections`
+--
+ALTER TABLE `sections`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -181,6 +202,12 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `publications`
 --
 ALTER TABLE `publications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `sections`
+--
+ALTER TABLE `sections`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

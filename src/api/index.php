@@ -32,12 +32,21 @@ $app = new \Slim\App;
 $container = $app->getContainer();
 $container['upload_directory'] = __DIR__ . "/../uploads";
 
+// SETTINGS UP TESTCALL
+$app->get('/testcall', function (Request $request, Response $response) {
+    $debug = array('succes' => 'testcall');
+    $response = json_encode($debug);
+    return $response;
+}
+);
+
 require 'routes/users.php';
 require 'routes/groups.php';
 require 'routes/publications.php';
 require 'routes/files.php';
 require 'routes/mail.php';
 require 'routes/cfg.php';
+require 'routes/sections.php';
 
 /* require 'routes/collects.php';
 require 'routes/rewards.php';
