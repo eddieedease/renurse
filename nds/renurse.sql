@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 01, 2019 at 09:31 PM
+-- Generation Time: Jan 15, 2019 at 02:27 PM
 -- Server version: 5.6.38
 -- PHP Version: 7.2.1
 
@@ -60,7 +60,7 @@ CREATE TABLE `groups` (
   `id` int(11) NOT NULL,
   `name` text NOT NULL,
   `wysig` text NOT NULL,
-  `active` int(11) NOT NULL,
+  `active` int(11) NOT NULL DEFAULT '1',
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -73,7 +73,22 @@ CREATE TABLE `groups` (
 CREATE TABLE `publications` (
   `id` int(11) NOT NULL,
   `name` text NOT NULL,
-  `active` int(11) NOT NULL,
+  `active` int(11) NOT NULL DEFAULT '1',
+  `coverurl` text NOT NULL,
+  `wysig` text NOT NULL,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `research`
+--
+
+CREATE TABLE `research` (
+  `id` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `active` int(11) NOT NULL DEFAULT '1',
   `coverurl` text NOT NULL,
   `wysig` text NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -103,11 +118,11 @@ CREATE TABLE `sections` (
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` text NOT NULL,
-  `surname` text NOT NULL,
+  `lastname` text NOT NULL,
   `email` text NOT NULL,
   `pwd` text NOT NULL,
   `secret` text NOT NULL,
-  `active` int(11) NOT NULL,
+  `active` int(11) NOT NULL DEFAULT '1',
   `lastlogin` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -115,7 +130,7 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `surname`, `email`, `pwd`, `secret`, `active`, `lastlogin`) VALUES
+INSERT INTO `users` (`id`, `name`, `lastname`, `email`, `pwd`, `secret`, `active`, `lastlogin`) VALUES
 (1, 'Eddie', 'Maas', 'eddie@edease.nl', '1721159c58afa5f80b61dfbfa3dced75', 'nosecretyet', 1, '2018-12-21 10:27:17');
 
 -- --------------------------------------------------------
@@ -156,6 +171,12 @@ ALTER TABLE `groups`
 -- Indexes for table `publications`
 --
 ALTER TABLE `publications`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `research`
+--
+ALTER TABLE `research`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -202,6 +223,12 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `publications`
 --
 ALTER TABLE `publications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `research`
+--
+ALTER TABLE `research`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
