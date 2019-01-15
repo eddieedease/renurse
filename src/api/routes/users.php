@@ -9,6 +9,50 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 // USERS USERS USERS USERS USERS
 
 
+// 1) Create user
+// TODO: WORK OUT
+$app->post('/createuser', function (Request $request, Response $response) {
+    $data = array('Jsonresponse' => 'item1');
+    $response = json_encode($data);
+    return $response;
+});
+
+// 2) Get users
+// TODO: Work OUT
+$app->get('/getusers', function (Request $request, Response $response) {
+    $data = array('Jsonresponse' => 'item1');
+    $response = json_encode($data);
+    return $response;
+});
+
+//3 ) Edit user
+// TODO: Work out
+$app->post('/edituser', function (Request $request, Response $response) {
+    $data = array('Jsonresponse' => 'item1');
+    $response = json_encode($data);
+    return $response;
+});
+
+// 4) Delete User
+// TODO: Work out
+$app->get('/deleteuser', function (Request $request, Response $response) {
+    $data = array('Jsonresponse' => 'item1');
+    $response = json_encode($data);
+    return $response;
+});
+
+
+// 5) Login functionality
+// TODO: Work out
+$app->get('/login', function (Request $request, Response $response) {
+    $data = array('Jsonresponse' => 'item1');
+    $response = json_encode($data);
+    return $response;
+});
+
+
+
+
 
 
 

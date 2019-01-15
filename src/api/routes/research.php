@@ -2,36 +2,36 @@
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 
-// API PUBLICATIONS
-// PUBLICATIONS PUBLICATIONS
+// API researchS
+// researchS researchS
 
-// 1) Create publication
+// 1) Create research
 // TODO: WORK OUT
-$app->post('/createpublication', function (Request $request, Response $response) {
+$app->post('/createresearch', function (Request $request, Response $response) {
     $data = array('Jsonresponse' => 'item1');
     $response = json_encode($data);
     return $response;
 });
 
-// 2) Get publications
+// 2) Get researchs
 // TODO: Work OUT
-$app->get('/getpublications', function (Request $request, Response $response) {
+$app->get('/getresearches', function (Request $request, Response $response) {
     $data = array('Jsonresponse' => 'item1');
     $response = json_encode($data);
     return $response;
 });
 
-//3 ) Edit publication
+//3 ) Edit research
 // TODO: Work out
-$app->post('/editpublication', function (Request $request, Response $response) {
+$app->post('/editresearch', function (Request $request, Response $response) {
     $data = array('Jsonresponse' => 'item1');
     $response = json_encode($data);
     return $response;
 });
 
-// 4) Delete publication
+// 4) Delete research
 // TODO: Work out
-$app->get('/deletepublication', function (Request $request, Response $response) {
+$app->get('/deleteresearch', function (Request $request, Response $response) {
     $data = array('Jsonresponse' => 'item1');
     $response = json_encode($data);
     return $response;
