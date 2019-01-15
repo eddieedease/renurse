@@ -23,7 +23,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 // import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
-import { LoadingModule } from 'ngx-loading';
+import { NgxLoadingModule } from 'ngx-loading';
 import { ToastrModule } from 'ngx-toastr';
 
 // Service
@@ -76,7 +76,7 @@ const appRoutes: Routes = [
     JsonpModule,
     FormsModule,
     BrowserAnimationsModule,
-    LoadingModule,
+    NgxLoadingModule.forRoot({}),
     NgxUploaderModule,
     NgxDatatableModule,
     BsDropdownModule.forRoot(),

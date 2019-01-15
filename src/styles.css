@@ -1,0 +1,4 @@
+/* toastr ng7 fix */
+#toast-container > div {
+    opacity:1;
+}
