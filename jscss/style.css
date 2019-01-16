@@ -1261,6 +1261,8 @@ ul.main__menu>li:hover>a {
 }
 
 .htc__try__details {
+  border-radius: 20px;
+
   background: rgba(244, 249, 255, 0.9) none repeat scroll 0 0;
   padding: 40px;
 }

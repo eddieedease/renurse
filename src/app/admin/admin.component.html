@@ -1,59 +1,109 @@
+<ng-template #adminmodal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Inloggen Admin</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <!-- registration form-->
+      <div class="col-sm text-center">
+        <svg *ngIf="showLoginSpinner" class="spinner text-center" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+          <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
+      </div>
+      <form class="">
+      
+        <!-- <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Organisatie
+          </button> {{dropdownOrga}}
+          <br><br>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <button class="dropdown-item" type="button" (click)="dropdownOrga = 'EDease'" >EDease</button>
+            <button class="dropdown-item" type="button" (click)="dropdownOrga = 'DTS'">DTS</button>
+            <button class="dropdown-item" type="button" (click)="dropdownOrga = 'Zandbak'">Zandbak</button>
+          </div>
+        </div> -->
+        <fieldset class="form-group has-danger">
+          <label for="mail" class="form-control-label">Email adres:</label>
+          <input [(ngModel)]="admId" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+        </fieldset>
+        <fieldset class="form-group has-danger">
+          <label for="password" class="form-control-label">Wachtwoord:</label>
+          <input [(ngModel)]="admPwd" [ngModelOptions]="{standalone: true}" type="password" class="form-control form-control-danger"
+            id="password">
+        </fieldset>
+
+
+        <hr class="m-y-2" />
+
+        <!-- <div class="form-check">
+          <label class="form-check-label">
+            <input type="checkbox" [(ngModel)]="keepLoggedIn" [ngModelOptions]="{standalone: true}" class="form-check-input"> Blijf ingelogd op dit apparaat
+          </label>
+        </div> -->
+        <hr class="m-b-2" />
+        <button (click)="adminLoginAttempt()" type="submit" class="btn btn-primary btn-lg">Login</button>
+        
+      </form>
+      <div class="row">
+        <div class="col-sm">
+
+        </div>
+        
+        <div class="col-sm">
+
+        </div>
+      </div>
+      <!-- /registration form-->
+    </div>
+</ng-template>
+
+
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
   <a routerLink="/" class="navbar-brand col-sm-3 col-md-2 mr-0" >RENursE Admin</a>
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
-      <a class="nav-link">Log uit</a>
+      <a class="nav-link" style="cursor: pointer" *ngIf="!adminisLoggedIn" (click)='openModal(adminmodal)'>Log In</a>
+      <a class="nav-link" style="cursor: pointer" *ngIf="adminisLoggedIn" (click)='LogOut()'>Log Uit</a>
     </li>
   </ul>
 </nav>
 
-<div class="container-fluid">
+<div *ngIf="adminisLoggedIn" class="container-fluid">
   <div class="row">
     <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-      <div class="sidebar-sticky">
-        <ul class="nav flex-column"><br>
-         
-          <li class="nav-item">
-            <a class="nav-link" >
-              <span data-feather="file"></span>
-              Onderzoeken
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" >
-              <span data-feather="shopping-cart"></span>
-              Publicaties
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" >
-              <span ></span>
-              Gebruikers & Toegang
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" >
-              <span ></span>
-              Instellingen
-            </a>
-          </li>
-        </ul>
+      <div class="sidebar-sticky" style="padding:20px">
+       <p>v1.0 <br>
+        <a href="https://edease.nl" target="_blank">EaseCMS</a><br>
+        door
+        <a href="https://edease.nl" target="_blank">EDease</a><br>
+
+      
+      </p>
       </div>
     </nav>
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      
+      
+      <!-- Research -->
+   
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dashboard</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group mr-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-          </div>
-        </div>
+        <h1>Admin</h1>
       </div>
 
+      <tabset type="pills">
+          <tab heading="Onderzoeken"><br><h2>Onderzoeken</h2></tab>
+          <tab heading="Publicaties"><br><h2>Publicaties</h2></tab>
+          <tab heading="Gebruikers en groepen"><br><h2>Gebruikers & groepen</h2></tab>
+          <tab heading="Instellingen"><br><h2>Instellingen</h2></tab>
+        </tabset>
 
-      <h2>Section title</h2>
+      
+ 
+      
      
     </main>
   </div>

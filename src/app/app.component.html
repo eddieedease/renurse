@@ -115,47 +115,13 @@
           <div class="col-md-9 col-lg-9 d-none d-lg-block">
             <nav class="main__menu__nav">
               <ul class="main__menu">
-                <!-- <li class="drop"><a href="index.html">Home</a>
-                                    <ul class="dropdown">
-                                        <li><a href="index.html">Home version 01</a></li>
-                                        <li><a href="index-2.html">Home version 02</a></li>
-                                        <li><a href="index-box.html">Home Box Layout</a></li>
-                                    </ul>
-                                </li> -->
                 <li class="drop"><a routerLink="/">Home</a></li>
                 <li class="drop"><a routerLink="/research">Onderzoeken</a></li>
                 <li class="drop"><a routerLink="/publications">Publicaties</a></li>
                 <li class="drop"><a routerLink="/contact">Contact</a></li>
-                <li class="drop"><a (click)='openModal(loginmodal)' style="color:blue; cursor:pointer"><b>Inloggen</b></a></li>
-                <li class="drop"><a  style="color:orange; cursor:pointer"><b>Uitloggen</b></a></li>
-
-                <!-- <li class="drop"><a href="service.html">Services</a>
-                                    <ul class="dropdown">
-                                        <li><a href="service.html">Service</a></li>
-                                        <li><a href="single-services.html">Single Service </a></li>
-                                    </ul>
-                                </li>
-                                <li class="drop"><a href="blog.html">Blog</a>
-                                    <ul class="dropdown">
-                                        <li><a href="blog.html">Blog Page</a></li>
-                                        <li><a href="blog-details.html">Blog Details</a></li>
-                                        <li><a href="blog-details-no-sidebar.html">Blog Details no sidebar</a></li>
-                                     </ul>
-                                </li>
-                                <li class="drop"><a href="#">Pages</a>
-                                    <ul class="dropdown">
-                                        <li><a href="about-us.html">about us</a></li>
-                                        <li><a href="contact-us.html">Contact us</a></li>
-                                        <li><a href="service.html">Services Pages</a></li>
-                                        <li><a href="single-services.html">Single Services</a></li>
-                                        <li><a href="doctor-details.html">Doctor Details</a></li>
-                                        <li><a href="blog.html">Blog Page</a></li>
-                                        <li><a href="blog-details.html">Blog Details</a></li>
-                                        <li><a href="blog-details-no-sidebar.html">Blog Details no sidebar</a></li>
-                                        <li><a href="404.html">404</a></li>
-                                    </ul>
-                                </li> -->
-
+                <li class="drop"><a  *ngIf="isLoggedIn"  routerLink="/loggedin">Download</a></li>
+                <li class="drop"><a *ngIf="!isLoggedIn" (click)='openModal(loginmodal)' style="color:blue; cursor:pointer"><b>Inloggen</b></a></li>
+                <li class="drop"><a  *ngIf="isLoggedIn"  (click)='logOut()' style="color:orange; cursor:pointer"><b>Uitloggen</b></a></li>
               </ul>
             </nav>
           </div>

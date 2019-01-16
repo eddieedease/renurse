@@ -1,36 +1,38 @@
-import { Component, TemplateRef } from "@angular/core";
+import { Component, TemplateRef } from '@angular/core';
 
-import { Subscription } from "rxjs";
+import { Subscription } from 'rxjs';
 
-import { EdserService } from "./edser.service";
+import { EdserService } from './edser.service';
 
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 // modal service
-import { BsModalService } from "ngx-bootstrap/modal";
-import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
-import { ToastrService } from "ngx-toastr";
+import { ToastrService } from 'ngx-toastr';
 
-import { environment } from "../environments/environment";
+import { environment } from '../environments/environment';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = "Renurse";
+  title = 'Renurse';
   subscription: Subscription;
 
   // Var for showing hiding header/footer
   dMin = false;
 
   // user creds
-  usrId = "";
-  usrPwd = "";
+  usrId = '';
+  usrPwd = '';
 
   modalRef: BsModalRef;
+
+  isLoggedIn = false;
 
   router;
 
@@ -67,7 +69,7 @@ export class AppComponent {
 
   loginAttempt() {
     // check some thing and  enable spinning loader
-    if (this.usrId !== "" && this.usrPwd !== "") {
+    if (this.usrId !== '' && this.usrPwd !== '') {
       // adding a fake timer
       this.showLoginSpinner = true;
       setTimeout(() => {
@@ -81,11 +83,16 @@ export class AppComponent {
 
   // TODO: catch on suceesss
   gotLoginResponse(_event) {
+    // TODO: Check if is ok
+    this.isLoggedIn = true;
     this.showLoginSpinner = false;
     this.modalRef.hide();
-    this.router.navigate(["shop"]);
+    this.toastr.success('Welkom', 'succes!');
+    this.router.navigate(['loggedin']);
+  }
 
-    this.toastr.success("Welkom", "succes!");
-    this.router.navigate(["loggedin"]);
+  logOut() {
+    this.router.navigate(['landing']);
+    this.isLoggedIn = false;
   }
 }
