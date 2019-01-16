@@ -7,6 +7,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 // GROUPS GROUPS GROUPS GROUPS GROUPS
 // GROUPS GROUPS GROUPS GROUPS GROUPS
 // GROUPS GROUPS GROUPS GROUPS GROUPS
+
 // 1) Create group
 // TODO: WORK OUT
 $app->post('/creategroup', function (Request $request, Response $response) {
@@ -88,7 +89,7 @@ $app->get('/deletegroup/{groupid}', function (Request $request, Response $respon
 // 5) Add/delete user from group
 // TODO: Work out
 // NOTE: User can be added or removed
-$app->get('/usertogroup', function (Request $request, Response $response) {
+$app->get('/userandgroup', function (Request $request, Response $response) {
     $data = array('Jsonresponse' => 'item1');
     $response = json_encode($data);
     return $response;

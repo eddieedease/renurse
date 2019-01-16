@@ -10,19 +10,43 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 
 
 // 1) Create user
-// TODO: WORK OUT
+// TODO: TEST OUT
 $app->post('/createuser', function (Request $request, Response $response) {
-    $data = array('Jsonresponse' => 'item1');
-    $response = json_encode($data);
+    $parsedBody = $request->getParsedBody();
+    // TODO: ADD SOME SALTING RIGHT THERE
+    // Some logic to check the pwd's
+    $name = $parsedBody[name];
+    $lastname = $parsedBody[lastname];
+    $email = $parsedBody[email];
+    $pwd = $parsedBody[pwd];
+    // hash it
+    $pwd = md5($pwd);
+    // create secret
+    $secret = randomSecret();
+    
+    // UPDATE, I THINKKKK, It's better to make 2 API CALLS, first store the data. If this succeeds, another 'file upload' for thumbnail
+    include 'db.php';
+    // Insert the link into our DATABASE
+    $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
+    $sqladdgroup = "INSERT INTO users (name, lastname, email, pwd, secret) VALUES ('$name', '$lastname','$email', '$pwd', '$secret')";
+    $stmtaddgroup = $dbh->prepare($sqladdgroup);
+    $stmtaddgroup->execute();
+    $resultaddgroup= $stmtaddgroup->fetchAll(PDO::FETCH_ASSOC);
+    $groupID = $dbh->lastInsertId();
+    //     NOTE colleting everything for converting
+    $result = array();
+    array_push($result, $resultaddgroup);
+    $debug = array('status' => 'success', 'addgroup' => $groupname, 'insertId' => $groupID);
+    //     convert it all to jSON TODO change result
+    $response = json_encode($debug);
     return $response;
-});
-
+}
+);
 
 
 // 2) Get users
 // TODO: Work OUT
 $app->get('/getusers', function (Request $request, Response $response) {
-
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
     //     NOTE 5 pieces --> [0] actions [1] arcades [2] archive [3] highscores [4] teams
@@ -42,13 +66,24 @@ $app->get('/getusers', function (Request $request, Response $response) {
 //3 ) Edit user
 // TODO: Work out
 $app->post('/edituser', function (Request $request, Response $response) {
+    $parsedBody = $request->getParsedBody();
+    // TODO: ADD SOME SALTING RIGHT THERE
+    // Some logic to check the pwd's
+    $name = $parsedBody[name];
+    $lastname = $parsedBody[lastname];
+    $email = $parsedBody[email];
+    $pwd = $parsedBody[pwd];
+    // hash it
+    $pwd = md5($pwd);
+
+    
     $data = array('Jsonresponse' => 'item1');
     $response = json_encode($data);
     return $response;
 });
 
 // 4) Delete User
-// TODO: Work out
+// TODO: TEST out
 $app->get('/deleteuser/{userid}', function (Request $request, Response $response) {
     $userid = $request->getAttribute('userid');
     $userid = (int)$userid;
@@ -78,6 +113,8 @@ $app->post('/login/{usrname}', function (Request $request, Response $response) {
     //  get the secret
     $parsedBody = $request->getParsedBody();
     $pwd = $parsedBody[pwd];
+    
+    
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
     $sqllogin = "SELECT id, name, lastname, pwd, email, secret FROM users WHERE email = '$usrname'";
@@ -108,10 +145,15 @@ $app->post('/login/{usrname}', function (Request $request, Response $response) {
 
 
 // 6) CHANGE PWD of user (user do this self)
-$app->get('/changepwd/{requestid}/{oldpwd}/{pwd}', function (Request $request, Response $response) {
+// TODO: TEST OUT
+$app->get('/changepwd/{requestid}', function (Request $request, Response $response) {
     $requestid = $request->getAttribute('requestid');
-    $pwd = $request->getAttribute('pwd');
-    $oldpwd = $request->getAttribute('oldpwd');
+    $parsedBody = $request->getParsedBody();
+    $oldpwd = $parsedBody[oldpwd];
+    // hash it to check against stored one
+    $oldpwd = md5($oldpwd);
+    $newpwd = $parsedBody[newpwd];
+    
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
     // first off, get user row info, and compare old and new pwd
@@ -122,7 +164,8 @@ $app->get('/changepwd/{requestid}/{oldpwd}/{pwd}', function (Request $request, R
     $aipassword = $resultlogin[0]['pwd'];
     if ($oldpwd == $aipassword) {
         // OKE CHANGE STUFF
-        $newpwd = $pwd;
+        // Store new pwd as hash
+        $newpwd = md5($newpwd);
         $sqlchangepwd = "UPDATE users SET pwd = '$newpwd' WHERE id = '$requestid'";
         $stmtchangepwd = $dbh->prepare($sqlchangepwd);
         $stmtchangepwd->execute();
@@ -147,6 +190,17 @@ $app->get('/changepwd/{requestid}/{oldpwd}/{pwd}', function (Request $request, R
 // EXTRA Functions
 // create random function
 function randomPassword() {
+    $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    $pass = array(); //remember to declare $pass as an array
+    $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+    for ($i = 0; $i < 16; $i++) {
+        $n = rand(0, $alphaLength);
+        $pass[] = $alphabet[$n];
+    }
+    return implode($pass); //turn the array into a string
+}
+
+function randomSecret() {
     $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
     $pass = array(); //remember to declare $pass as an array
     $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache

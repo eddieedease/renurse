@@ -95,10 +95,81 @@
       </div>
 
       <tabset type="pills">
-          <tab heading="Onderzoeken"><br><h2>Onderzoeken</h2></tab>
-          <tab heading="Publicaties"><br><h2>Publicaties</h2></tab>
-          <tab heading="Gebruikers en groepen"><br><h2>Gebruikers & groepen</h2></tab>
+          <tab heading="Onderzoeken">
+            <br><h2>Onderzoeken</h2>
+            <ngx-datatable class="bootstrap" [rows]="ResearchRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
+            [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+            <ngx-datatable-column name="Leerling" prop="userid" [sortable]="true">
+
+              <ng-template let-column="column" let-sort="sortFn">
+                <span style="cursor:pointer">
+                  {{column.name}}
+                </span>
+              </ng-template>
+
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <div [innerHTML]="row['name']"></div>
+              </ng-template>
+            </ngx-datatable-column>
+          
+          </ngx-datatable>
+
+          </tab>
+          <tab heading="Publicaties"><br><h2>Publicaties</h2><br>
+            <ngx-datatable class="bootstrap" [rows]="pubRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
+            [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+            <ngx-datatable-column name="Leerling" prop="userid" [sortable]="true">
+              
+              <ng-template let-column="column" let-sort="sortFn">
+                <span style="cursor:pointer">
+                  {{column.name}}
+                </span>
+              </ng-template>
+
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <div [innerHTML]="row['name']"></div>
+              </ng-template>
+            </ngx-datatable-column>
+          
+          </ngx-datatable></tab>
+          <tab heading="Groepen"><br><h2>Groepen</h2><br>
+            <ngx-datatable class="bootstrap" [rows]="groupRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
+            [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+            <ngx-datatable-column name="Leerling" prop="userid" [sortable]="true">
+              
+              <ng-template let-column="column" let-sort="sortFn">
+                <span style="cursor:pointer">
+                  {{column.name}}
+                </span>
+              </ng-template>
+
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <div [innerHTML]="row['name']"></div>
+              </ng-template>
+            </ngx-datatable-column>
+          
+          </ngx-datatable></tab>
+
+          <tab heading="Gebruikers"><br><h2>Groepen</h2><br>
+            <ngx-datatable class="bootstrap" [rows]="userRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
+            [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+            <ngx-datatable-column name="Leerling" prop="userid" [sortable]="true">
+              
+              <ng-template let-column="column" let-sort="sortFn">
+                <span style="cursor:pointer">
+                  {{column.name}}
+                </span>
+              </ng-template>
+
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <div [innerHTML]="row['name']"></div>
+              </ng-template>
+            </ngx-datatable-column>
+          
+          </ngx-datatable></tab>
+
           <tab heading="Instellingen"><br><h2>Instellingen</h2></tab>
+        
         </tabset>
 
       
