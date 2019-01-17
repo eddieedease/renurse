@@ -5,6 +5,10 @@
     -webkit-animation: rotator 1.4s linear infinite;
             animation: rotator 1.4s linear infinite;
   }
+
+  #toast-container > div {
+    opacity:1;
+  }
   
   @-webkit-keyframes rotator {
     0% {

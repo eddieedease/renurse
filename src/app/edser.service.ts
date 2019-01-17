@@ -262,8 +262,11 @@ export class EdserService {
       .pipe(map(res => res.json()));
   }
 
-  // GROUPS API
-  // GROUPS
+  // GROUPS API Bridge
+  // GROUPS GROUPS GROUPS
+  // GROUPS GROUPS GROUPS
+  // GROUPS GROUPS GROUPS
+
   API_editGroup(_groupname, _groupwysig): Observable < any > {
     // tslint:disable-next-line:max-line-length
     const url = environment.apilink + 'editgroup/?rnd=' + new Date().getTime();
@@ -309,6 +312,244 @@ export class EdserService {
       .pipe(throttleTime(5000))
       .pipe(map(res => res.json()));
   }
+
+
+
+  // RESEARCH RESEARCH RESEARCH
+  // RESEARCH RESEARCH RESEARCH
+  // RESEARCH RESEARCH RESEARCH
+  // RESEARCH RESEARCH RESEARCH
+
+  // GET ALL RESEARCH
+  API_getresearch(): Observable < any > {
+  const url = environment.apilink + 'getresearches?rnd=' + new Date().getTime();
+  // tslint:disable-next-line:prefer-const
+  const headers = new Headers({
+    'Content-Type': 'application/json'
+  });
+
+  const options = new RequestOptions({
+    headers: headers
+  });
+
+  return this.http_.get(url, options)
+    .pipe(throttleTime(5000))
+    .pipe(map(res => res.json()));
+}
+
+// Create research
+API_createresearch(_name, _wysig): Observable < any > {
+  // tslint:disable-next-line:max-line-length
+  const url = environment.apilink + 'createresearch/?rnd=' + new Date().getTime();
+  // let blobReplaceUserId = jsonblobstring.replace('__userid__', '' + this.curID);
+  const upt = {
+    'name': _name,
+    'wysig': _wysig
+  };
+  const body = JSON.stringify(upt);
+  // const howmanykb = this.byteCount(body);
+  // Line beneath show how many KB
+  // console.log('JSONBLOB = ' + howmanykb + ' Bytes');
+  const headers = new Headers({
+    'Content-Type': 'application/json',
+    'Cache-control': 'no-cache',
+    'Expires': '0',
+    'Pragma': 'no-cache'
+    /*  ,'Authorization': 'bearer ' + this.curTOKEN */
+  });
+  const options = new RequestOptions({
+    headers: headers,
+    method: 'post'
+  });
+  return this.http_.post(url, body, options)
+    .pipe(throttleTime(5000))
+    .pipe(map(res => res.json()));
+}
+
+
+// Create research
+API_editresearch(_id, _name, _wysig): Observable < any > {
+  // tslint:disable-next-line:max-line-length
+  const url = environment.apilink + 'editresearch/ ' + _id  + '?rnd=' + new Date().getTime();
+  // let blobReplaceUserId = jsonblobstring.replace('__userid__', '' + this.curID);
+  const upt = {
+    'name': _name,
+    'wysig': _wysig
+  };
+  const body = JSON.stringify(upt);
+  // const howmanykb = this.byteCount(body);
+  // Line beneath show how many KB
+  // console.log('JSONBLOB = ' + howmanykb + ' Bytes');
+  const headers = new Headers({
+    'Content-Type': 'application/json',
+    'Cache-control': 'no-cache',
+    'Expires': '0',
+    'Pragma': 'no-cache'
+    /*  ,'Authorization': 'bearer ' + this.curTOKEN */
+  });
+  const options = new RequestOptions({
+    headers: headers,
+    method: 'post'
+  });
+  return this.http_.post(url, body, options)
+    .pipe(throttleTime(5000))
+    .pipe(map(res => res.json()));
+}
+
+
+// DELETE research
+API_deleteresearch(research_id): Observable < any > {
+  const url = environment.apilink + 'deleteresearch/' + research_id + '?rnd=' + new Date().getTime();
+  // tslint:disable-next-line:prefer-const
+  const headers = new Headers({
+    'Content-Type': 'application/json'
+  });
+
+  const options = new RequestOptions({
+    headers: headers
+  });
+
+  return this.http_.get(url, options)
+    .pipe(throttleTime(5000))
+    .pipe(map(res => res.json()));
+}
+
+
+// publication publication publication
+  // publication publication publication
+  // publication publication publication
+  // publication publication publication
+
+  // GET ALL publication
+  API_getpublications(): Observable < any > {
+    const url = environment.apilink + 'getpublications?rnd=' + new Date().getTime();
+    // tslint:disable-next-line:prefer-const
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+  
+    const options = new RequestOptions({
+      headers: headers
+    });
+  
+    return this.http_.get(url, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+  
+  // Create publication
+  API_createpublication(_name, _wysig): Observable < any > {
+    // tslint:disable-next-line:max-line-length
+    const url = environment.apilink + 'createpublication/?rnd=' + new Date().getTime();
+    // let blobReplaceUserId = jsonblobstring.replace('__userid__', '' + this.curID);
+    const upt = {
+      'name': _name,
+      'wysig': _wysig
+    };
+    const body = JSON.stringify(upt);
+    // const howmanykb = this.byteCount(body);
+    // Line beneath show how many KB
+    // console.log('JSONBLOB = ' + howmanykb + ' Bytes');
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Cache-control': 'no-cache',
+      'Expires': '0',
+      'Pragma': 'no-cache'
+      /*  ,'Authorization': 'bearer ' + this.curTOKEN */
+    });
+    const options = new RequestOptions({
+      headers: headers,
+      method: 'post'
+    });
+    return this.http_.post(url, body, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+  
+  
+  // Create publication
+  API_editpublication(_id, _name, _wysig): Observable < any > {
+    // tslint:disable-next-line:max-line-length
+    const url = environment.apilink + 'editpublication/ ' + _id  + '?rnd=' + new Date().getTime();
+    // let blobReplaceUserId = jsonblobstring.replace('__userid__', '' + this.curID);
+    const upt = {
+      'name': _name,
+      'wysig': _wysig
+    };
+    const body = JSON.stringify(upt);
+    // const howmanykb = this.byteCount(body);
+    // Line beneath show how many KB
+    // console.log('JSONBLOB = ' + howmanykb + ' Bytes');
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Cache-control': 'no-cache',
+      'Expires': '0',
+      'Pragma': 'no-cache'
+      /*  ,'Authorization': 'bearer ' + this.curTOKEN */
+    });
+    const options = new RequestOptions({
+      headers: headers,
+      method: 'post'
+    });
+    return this.http_.post(url, body, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+  
+  
+  // DELETE publication
+  API_deletepublication(publication_id): Observable < any > {
+    const url = environment.apilink + 'deletepublication/' + publication_id + '?rnd=' + new Date().getTime();
+    // tslint:disable-next-line:prefer-const
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+  
+    const options = new RequestOptions({
+      headers: headers
+    });
+  
+    return this.http_.get(url, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+
+
+// Create research
+// FOR BOTH RESEARCH AND PUBLICATIONS AND GROUPS
+API_changecover(_id, _type, _url): Observable < any > {
+  // tslint:disable-next-line:max-line-length
+  let url;
+  // let blobReplaceUserId = jsonblobstring.replace('__userid__', '' + this.curID);
+  switch (_type) {
+    case 'research':
+      url = environment.apilink + 'setresearchcover/ ' + _id  + '?rnd=' + new Date().getTime();
+      break;
+    case 'publication':
+      url = environment.apilink + 'setpublicationcover/ ' + _id  + '?rnd=' + new Date().getTime();
+    break;
+    case 'group':
+      url = environment.apilink + 'setgroupcover/ ' + _id  + '?rnd=' + new Date().getTime();
+    break;
+  }
+  const upt = {
+    'coverurl': _url
+  };
+  const body = JSON.stringify(upt);
+  const headers = new Headers({
+    'Content-Type': 'application/json',
+    'Cache-control': 'no-cache',
+    'Expires': '0',
+    'Pragma': 'no-cache'
+    });
+  const options = new RequestOptions({
+    headers: headers,
+    method: 'post'
+  });
+  return this.http_.post(url, body, options)
+    .pipe(throttleTime(5000))
+    .pipe(map(res => res.json()));
+}
 
 
 }

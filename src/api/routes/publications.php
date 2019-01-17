@@ -85,9 +85,13 @@ $app->get('/deletepublication/{publicationid}', function (Request $request, Resp
 
 // 5) set publication cover
 // TODO: Work out
-$app->post('/setpubcover/{pubid}', function (Request $request, Response $response) {
+$app->post('/setpublicationcover/{pubid}', function (Request $request, Response $response) {
     $pubid = $request->getAttribute('pubid');
     $pubid = (int)$pubid;
+    $parsedBody = $request->getParsedBody();
+    // TODO: ADD SOME SALTING RIGHT THERE
+    // Some logic to check the pwd's
+    $coverurl = $parsedBody[coverurl];
 
     // TODO SET POST COVERURL WHERE pubid 
 

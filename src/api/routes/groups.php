@@ -21,7 +21,7 @@ $app->post('/creategroup', function (Request $request, Response $response) {
     include 'db.php';
     // Insert the link into our DATABASE
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
-    $sqladdgroup = "INSERT INTO group (name, wysig) VALUES ('$groupname', '$groupwysig')";
+    $sqladdgroup = "INSERT INTO groups (name, wysig) VALUES ('$groupname', '$groupwysig')";
     $stmtaddgroup = $dbh->prepare($sqladdgroup);
     $stmtaddgroup->execute();
     $resultaddgroup= $stmtaddgroup->fetchAll(PDO::FETCH_ASSOC);
@@ -90,6 +90,25 @@ $app->get('/deletegroup/{groupid}', function (Request $request, Response $respon
 // TODO: Work out
 // NOTE: User can be added or removed
 $app->get('/userandgroup', function (Request $request, Response $response) {
+    $data = array('Jsonresponse' => 'item1');
+    $response = json_encode($data);
+    return $response;
+});
+
+
+
+// 5) set publication cover
+// TODO: Work out
+$app->post('/setgroupcover/{researchid}', function (Request $request, Response $response) {
+    $researchid = $request->getAttribute('researchid');
+    $researchid = (int)$researchid;
+    $parsedBody = $request->getParsedBody();
+    // TODO: ADD SOME SALTING RIGHT THERE
+    // Some logic to check the pwd's
+    $coverurl = $parsedBody[coverurl];
+
+
+    // TODO SET POST COVERURL WHERE researchid 
     $data = array('Jsonresponse' => 'item1');
     $response = json_encode($data);
     return $response;

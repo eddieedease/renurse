@@ -7,6 +7,10 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 // FILES FILES FILES FILES FILES
 // FILES FILES FILES FILES FILES
 
+// TODO:
+// Upload Logo
+// Delete logo
+
 
 // 1) UPLOAD A FILE TO A GROUP
 // TODO: Work out
@@ -69,6 +73,35 @@ $app->get('/getfilesfromgroup/{groupid}', function (Request $request, Response $
     $response = json_encode($resultfiles);
     return $response;
 });
+
+
+// 5) UPLOAD LOGO
+// TODO: Work out
+// CAN BE A TYPE OF:
+// 1) PUBLICATIONCOVER, RESEARCHCOVER, GROUPCOVER, PARTNERLOGO
+$app->post('/uploadfile', function (Request $request, Response $response) {
+    $data = array('Jsonresponse' => 'item1');
+    $response = json_encode($data);
+    return $response;
+});
+
+
+// 6) GET LOGO's
+// TODO: Work out
+$app->get('/getlogos', function (Request $request, Response $response) {
+    $data = array('Jsonresponse' => 'item1');
+    $response = json_encode($data);
+    return $response;
+});
+
+// 7) DELETE LOGO
+// TODO: Work out
+$app->get('/deletelogo', function (Request $request, Response $response) {
+    $data = array('Jsonresponse' => 'item1');
+    $response = json_encode($data);
+    return $response;
+});
+
 
 
 ?>

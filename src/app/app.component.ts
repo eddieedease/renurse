@@ -87,8 +87,12 @@ export class AppComponent {
     this.isLoggedIn = true;
     this.showLoginSpinner = false;
     this.modalRef.hide();
-    this.toastr.success('Welkom', 'succes!');
+    
     this.router.navigate(['loggedin']);
+
+    this.toastr.success('Welkom', 'succes!', {
+      timeOut: 20000
+    });
   }
 
   logOut() {

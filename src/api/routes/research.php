@@ -13,7 +13,6 @@ $app->post('/createresearch', function (Request $request, Response $response) {
     // Some logic to check the pwd's
     $researchname = $parsedBody[researchname];
     $researchwysig = $parsedBody[researchwysig];
-    
     // UPDATE, I THINKKKK, It's better to make 2 API CALLS, first store the data. If this succeeds, another 'file upload' for thumbnail
     include 'db.php';
     // Insert the link into our DATABASE
@@ -44,10 +43,8 @@ $app->get('/getresearches', function (Request $request, Response $response) {
     $stmtresearches = $dbh->prepare($sqlresearchs);
     $stmtresearchs->execute();
     $resultresearchs = $stmtresearchs->fetchAll(PDO::FETCH_ASSOC);
-
     // debug
     $data = array('Jsonresponse' => 'item1');
-    
     $response = json_encode($resultresearchs);
     return $response;
 });
@@ -65,7 +62,6 @@ $app->post('/editresearch', function (Request $request, Response $response) {
 $app->get('/deleteresearch/{researchid}', function (Request $request, Response $response) {
     $researchid = $request->getAttribute('researchid');
     $researchid = (int)$researchid;
-
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
     //     NOTE 5 pieces --> [0] actions [1] arcades [2] archive [3] highscores [4] teams
@@ -88,9 +84,13 @@ $app->get('/deleteresearch/{researchid}', function (Request $request, Response $
 $app->post('/setresearchcover/{researchid}', function (Request $request, Response $response) {
     $researchid = $request->getAttribute('researchid');
     $researchid = (int)$researchid;
+    $parsedBody = $request->getParsedBody();
+    // TODO: ADD SOME SALTING RIGHT THERE
+    // Some logic to check the pwd's
+    $coverurl = $parsedBody[coverurl];
+
 
     // TODO SET POST COVERURL WHERE researchid 
-
     $data = array('Jsonresponse' => 'item1');
     $response = json_encode($data);
     return $response;
