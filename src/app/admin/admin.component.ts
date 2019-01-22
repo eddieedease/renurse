@@ -127,6 +127,9 @@ export class AdminComponent implements OnInit, AfterViewInit {
   currentUserLastName;
   curentUserEmail;
 
+  // another for the current WYSIG
+  currentwysig;
+
   // uploader
   optionsUploader: UploaderOptions;
   formData: FormData;
@@ -232,6 +235,20 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
 
 
+  /**
+   * The TinyMCE key up-handler
+   */
+  keyupHandlerFunction(das) {
+    this.currentwysig = das;
+    // this.tinyComponent.callFromParent(das);
+  }
 
+  /**
+   * For future Use, give back current carrotposition in TinyMCE
+   */
+  giveRangeBack(_carPos) {
+    this.edSer.debugLog(_carPos);
+    // this.serser.debugLog('carret position = ' + _carPos);
+  }
 
 }

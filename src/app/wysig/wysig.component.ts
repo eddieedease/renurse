@@ -17,6 +17,7 @@ export class WysigComponent implements  AfterViewInit, OnDestroy {
 
   @Input() elementId: String;
   @Input() prefill: String;
+  // tslint:disable-next-line:no-output-on-prefix
   @Output() onEditorKeyup = new EventEmitter < any > ();
   @Output() carretPosition = new EventEmitter < any > ();
 
@@ -40,7 +41,7 @@ export class WysigComponent implements  AfterViewInit, OnDestroy {
         skin_url: '../assets/skins/lightgray',
         // tslint:disable-next-line:max-line-length
         toolbar1: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent table | link | code',
-        height: 400,
+        height: 200,
         branding: false,
         relative_urls: false,
         indent: false,

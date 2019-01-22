@@ -34,6 +34,8 @@
           id="password">
       </fieldset>
 
+  
+
 
       <hr class="m-y-2" />
 
@@ -78,6 +80,11 @@
                 <input [(ngModel)]="currentResearchWysig" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
               </fieldset>
             <hr class="m-b-2" />
+            <div class="htmladjust2">
+              <app-wysig [elementId]="'researchwysig'" [(prefill)]="currentwysig" (onEditorKeyup)="keyupHandlerFunction($event)"
+                (carretPosition)="giveRangeBack($event)">
+              </app-wysig>
+            </div>
             <button type="submit" class="btn btn-primary btn-lg">Opslaan</button>
           </form>
         <!-- /registration form-->
@@ -104,6 +111,11 @@
                   <input [(ngModel)]="currentPublicationWysig" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
               </fieldset>
               <hr class="m-b-2" />
+              <div class="htmladjust2">
+                <app-wysig [elementId]="'publicationwysig'" [(prefill)]="currentwysig" (onEditorKeyup)="keyupHandlerFunction($event)"
+                  (carretPosition)="giveRangeBack($event)">
+                </app-wysig>
+              </div>
               <button type="submit" class="btn btn-primary btn-lg">Opslaan</button>
             </form>
           <!-- /registration form-->
@@ -129,6 +141,11 @@
                     <input [(ngModel)]="currentGroupWysig" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
                 </fieldset>
                 <hr class="m-b-2" />
+                <div class="htmladjust2">
+                  <app-wysig [elementId]="'groupwysig'" [(prefill)]="currentwysig" (onEditorKeyup)="keyupHandlerFunction($event)"
+                    (carretPosition)="giveRangeBack($event)">
+                  </app-wysig>
+                </div>
                 <button type="submit" class="btn btn-primary btn-lg">Opslaan</button>
               </form>
           </div>
