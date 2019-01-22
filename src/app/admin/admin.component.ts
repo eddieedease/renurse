@@ -1,8 +1,10 @@
 import {
   Component,
+  EventEmitter,
   OnInit,
+  ViewChild,
   TemplateRef,
-  ViewChild
+  AfterViewInit
 } from '@angular/core';
 
 import {
@@ -13,8 +15,26 @@ import {
 } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import {
+  Router
+} from '@angular/router';
+
+import {
   DatatableComponent
 } from '@swimlane/ngx-datatable';
+
+import {
+  UploadOutput,
+  UploadInput,
+  UploadFile,
+  humanizeBytes,
+  UploaderOptions
+} from 'ngx-uploader';
+
+import {
+  DomSanitizer,
+  SafeResourceUrl,
+  SafeUrl
+} from '@angular/platform-browser';
 
 import {
   ToastrService
@@ -24,16 +44,37 @@ import {
   EdserService
 } from '../edser.service';
 
-import { environment } from '../../environments/environment';
+import {
+  environment
+} from '../../environments/environment';
+
+import {
+  WysigComponent
+} from '../wysig/wysig.component';
+import {
+  ViewEncapsulation
+} from '@angular/core';
+
+import {
+  WysigPipe
+} from '../wysig-pipe.pipe';
+
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  styleUrls: ['./admin.component.css'],
+  providers: [WysigPipe]
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent implements OnInit, AfterViewInit {
 
   @ViewChild(DatatableComponent) table: DatatableComponent;
+
+  // tinymce component
+  public wysigComponent: WysigComponent;
+  //  we want control over the WYsigComponent
+  @ViewChild(WysigComponent) public tinyComponent: WysigComponent;
+  sureModalTask;
 
   // what kind of datatable rows do we have?
   userRows = [];
@@ -69,7 +110,33 @@ export class AdminComponent implements OnInit {
   admId;
   admPwd;
 
-  constructor(private edSer: EdserService, private modalService: BsModalService, private toastr: ToastrService) {
+  // Modal Values
+  currentResearchTitle;
+  currentResearchcover;
+  currentResearchWysig;
+
+  currentPublicationTitle;
+  currentPublicationCover;
+  currentPublicationWysig;
+
+  currentGroupTitle;
+  currentGroupSumUsers;
+  currentGroupWysig;
+
+  currentUserName;
+  currentUserLastName;
+  curentUserEmail;
+
+  // uploader
+  optionsUploader: UploaderOptions;
+  formData: FormData;
+  files: UploadFile[];
+  uploadInput: EventEmitter < UploadInput > ;
+  humanizeBytes: Function;
+
+
+
+  constructor(private wysigpipe: WysigPipe, private edSer: EdserService, private router: Router, public sanitizer: DomSanitizer, private toastr: ToastrService, private modalService: BsModalService) {
     this.edSer.updatedMin(true);
     // NOTE Trying to trigger via code
     // this.modalRef = this.modalService.show(this._adminModalRef);
@@ -87,9 +154,13 @@ export class AdminComponent implements OnInit {
     // if admin do unlock
     if (environment.production === false) {
       this.adminisLoggedIn = true;
-    } else {
-    }
+    } else {}
   }
+
+  ngAfterViewInit() {
+
+  }
+
 
 
   adminLoginAttempt() {
@@ -150,5 +221,17 @@ export class AdminComponent implements OnInit {
     // Whenever the filter changes, always go back to the first page
     this.table.offset = 0;
   }
+
+
+  // opening a modal
+  openLargeModal(template: TemplateRef < any > ) {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'gray modal-lg' })
+    );  }
+
+
+
+
 
 }

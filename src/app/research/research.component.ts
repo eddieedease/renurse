@@ -1,6 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  TemplateRef,
+  OnInit
+} from '@angular/core';
 
-import { EdserService } from '../edser.service';
+import {
+  EdserService
+} from '../edser.service';
+
+// modal service
+import {
+  BsModalService
+} from 'ngx-bootstrap/modal';
+import {
+  BsModalRef
+} from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
+import {
+  ToastrService
+} from 'ngx-toastr';
+
+import {
+  Router,
+  ActivatedRoute,
+  Params
+} from '@angular/router';
 
 @Component({
   selector: 'app-research',
@@ -9,8 +33,13 @@ import { EdserService } from '../edser.service';
 })
 export class ResearchComponent implements OnInit {
 
-  constructor(private edSer: EdserService) {
-      this.edSer.updatedMin(false);
+  modalRef: BsModalRef;
+
+  constructor(private edSer: EdserService,
+    private thisrouter: Router,
+    private modalService: BsModalService,
+    private toastr: ToastrService) {
+    this.edSer.updatedMin(false);
   }
 
 
@@ -18,5 +47,14 @@ export class ResearchComponent implements OnInit {
     // scroll to top
     window.scrollTo(0, 0);
   }
+
+
+
+  // opening a modal
+  openModal(template: TemplateRef < any > ) {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'gray modal-lg' })
+    );  }
 
 }

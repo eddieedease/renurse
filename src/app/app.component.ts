@@ -1,18 +1,37 @@
-import { Component, TemplateRef } from '@angular/core';
+import {
+  Component,
+  TemplateRef
+} from '@angular/core';
 
-import { Subscription } from 'rxjs';
+import {
+  Subscription
+} from 'rxjs';
 
-import { EdserService } from './edser.service';
+import {
+  EdserService
+} from './edser.service';
 
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import {
+  Router,
+  ActivatedRoute,
+  Params
+} from '@angular/router';
 
 // modal service
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import {
+  BsModalService
+} from 'ngx-bootstrap/modal';
+import {
+  BsModalRef
+} from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
-import { ToastrService } from 'ngx-toastr';
+import {
+  ToastrService
+} from 'ngx-toastr';
 
-import { environment } from '../environments/environment';
+import {
+  environment
+} from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -51,8 +70,7 @@ export class AppComponent {
 
     if (environment.production === false) {
       this.doTestCall();
-    } else {
-    }
+    } else {}
   }
 
   doTestCall() {
@@ -63,7 +81,7 @@ export class AppComponent {
     this.edSer.debugLog(_resp);
   }
 
-  openModal(template: TemplateRef<any>) {
+  openModal(template: TemplateRef < any > ) {
     this.modalRef = this.modalService.show(template);
   }
 
@@ -87,7 +105,7 @@ export class AppComponent {
     this.isLoggedIn = true;
     this.showLoginSpinner = false;
     this.modalRef.hide();
-    
+
     this.router.navigate(['loggedin']);
 
     this.toastr.success('Welkom', 'succes!', {

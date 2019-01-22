@@ -6,63 +6,166 @@
     </button>
   </div>
   <div class="modal-body">
-      <!-- registration form-->
-      <div class="col-sm text-center">
-        <svg *ngIf="showLoginSpinner" class="spinner text-center" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-          <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-        </svg>
-      </div>
-      <form class="">
-      
-        <!-- <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Organisatie
-          </button> {{dropdownOrga}}
-          <br><br>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <button class="dropdown-item" type="button" (click)="dropdownOrga = 'EDease'" >EDease</button>
-            <button class="dropdown-item" type="button" (click)="dropdownOrga = 'DTS'">DTS</button>
-            <button class="dropdown-item" type="button" (click)="dropdownOrga = 'Zandbak'">Zandbak</button>
-          </div>
-        </div> -->
-        <fieldset class="form-group has-danger">
-          <label for="mail" class="form-control-label">Email adres:</label>
-          <input [(ngModel)]="admId" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
-        </fieldset>
-        <fieldset class="form-group has-danger">
-          <label for="password" class="form-control-label">Wachtwoord:</label>
-          <input [(ngModel)]="admPwd" [ngModelOptions]="{standalone: true}" type="password" class="form-control form-control-danger"
-            id="password">
-        </fieldset>
-
-
-        <hr class="m-y-2" />
-
-        <!-- <div class="form-check">
-          <label class="form-check-label">
-            <input type="checkbox" [(ngModel)]="keepLoggedIn" [ngModelOptions]="{standalone: true}" class="form-check-input"> Blijf ingelogd op dit apparaat
-          </label>
-        </div> -->
-        <hr class="m-b-2" />
-        <button (click)="adminLoginAttempt()" type="submit" class="btn btn-primary btn-lg">Login</button>
-        
-      </form>
-      <div class="row">
-        <div class="col-sm">
-
-        </div>
-        
-        <div class="col-sm">
-
-        </div>
-      </div>
-      <!-- /registration form-->
+    <!-- registration form-->
+    <div class="col-sm text-center">
+      <svg *ngIf="showLoginSpinner" class="spinner text-center" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+        <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+      </svg>
     </div>
+    <form class="">
+      <!-- <div class="dropdown">
+     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Organisatie
+     </button> {{dropdownOrga}}
+     <br><br>
+     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+      <button class="dropdown-item" type="button" (click)="dropdownOrga = 'EDease'" >EDease</button>
+      <button class="dropdown-item" type="button" (click)="dropdownOrga = 'DTS'">DTS</button>
+      <button class="dropdown-item" type="button" (click)="dropdownOrga = 'Zandbak'">Zandbak</button>
+     </div>
+    </div> -->
+      <fieldset class="form-group has-danger">
+        <label for="mail" class="form-control-label">Email adres:</label>
+        <input [(ngModel)]="admId" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+      </fieldset>
+      <fieldset class="form-group has-danger">
+        <label for="password" class="form-control-label">Wachtwoord:</label>
+        <input [(ngModel)]="admPwd" [ngModelOptions]="{standalone: true}" type="password" class="form-control form-control-danger"
+          id="password">
+      </fieldset>
+
+
+      <hr class="m-y-2" />
+
+      <!-- <div class="form-check">
+     <label class="form-check-label">
+      <input type="checkbox" [(ngModel)]="keepLoggedIn" [ngModelOptions]="{standalone: true}" class="form-check-input"> Blijf ingelogd op dit apparaat
+     </label>
+    </div> -->
+      <hr class="m-b-2" />
+      <button (click)="adminLoginAttempt()" type="submit" class="btn btn-primary btn-lg">Login</button>
+
+    </form>
+    <div class="row">
+      <div class="col-sm">
+
+      </div>
+
+      <div class="col-sm">
+
+      </div>
+    </div>
+    <!-- /registration form-->
+  </div>
 </ng-template>
+
+<ng-template #researchtemplate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Onderzoek</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <!-- registration form-->
+        <form class="">
+            <fieldset class="form-group has-danger">
+              <label class="form-control-label">Titel</label>
+              <input [(ngModel)]="currentResearchTitle" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+            </fieldset>
+            <fieldset class="form-group has-danger">
+                <label class="form-control-label">Uitlegtekst</label>
+                <input [(ngModel)]="currentResearchWysig" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+              </fieldset>
+            <hr class="m-b-2" />
+            <button type="submit" class="btn btn-primary btn-lg">Opslaan</button>
+          </form>
+        <!-- /registration form-->
+      </div>
+      
+  </ng-template>
+
+  <ng-template #publicationtemplate>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Publicatie</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <!-- registration form-->
+          <form class="">
+              <fieldset class="form-group has-danger">
+                <label class="form-control-label">Titel</label>
+                <input [(ngModel)]="currentPublicationTitle" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+              </fieldset>
+              <fieldset class="form-group has-danger">
+                  <label class="form-control-label">Uitlegtekst</label>
+                  <input [(ngModel)]="currentPublicationWysig" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+              </fieldset>
+              <hr class="m-b-2" />
+              <button type="submit" class="btn btn-primary btn-lg">Opslaan</button>
+            </form>
+          <!-- /registration form-->
+        </div>
+        
+    </ng-template>
+
+    <ng-template #grouptemplate>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Groep</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form class="">
+                <fieldset class="form-group has-danger">
+                  <label class="form-control-label">Titel</label>
+                  <input [(ngModel)]="currentGroupTitle" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+                </fieldset>
+                <fieldset class="form-group has-danger">
+                    <label class="form-control-label">Uitlegtekst</label>
+                    <input [(ngModel)]="currentGroupWysig" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+                </fieldset>
+                <hr class="m-b-2" />
+                <button type="submit" class="btn btn-primary btn-lg">Opslaan</button>
+              </form>
+          </div>
+          
+      </ng-template>
+
+      <ng-template #usertemplate>
+          <div class="modal-header">
+            <h4 class="modal-title pull-left">Gebruiker</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <form class="">
+                  <fieldset class="form-group has-danger">
+                    <label class="form-control-label">Naam</label>
+                    <input [(ngModel)]="currentUsername" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+                  </fieldset>
+                  <fieldset class="form-group has-danger">
+                      <label class="form-control-label">Achternaam</label>
+                      <input [(ngModel)]="currentUserLastName" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+                  </fieldset>
+                  <fieldset class="form-group has-danger">
+                      <label class="form-control-label">Email</label>
+                      <input [(ngModel)]="currentUserEmail" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+                  </fieldset>
+                  <hr class="m-b-2" />
+                  <button type="submit" class="btn btn-primary btn-lg">Opslaan</button>
+                </form>
+            </div>
+            
+        </ng-template>
 
 
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-  <a routerLink="/" class="navbar-brand col-sm-3 col-md-2 mr-0" >RENursE Admin</a>
+  <a routerLink="/" class="navbar-brand col-sm-3 col-md-2 mr-0">RENursE Admin</a>
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
       <a class="nav-link" style="cursor: pointer" *ngIf="!adminisLoggedIn" (click)='openModal(adminmodal)'>Log In</a>
@@ -75,29 +178,34 @@
   <div class="row">
     <nav class="col-md-2 d-none d-md-block bg-light sidebar"><br><br>
       <div class="sidebar-sticky" style="padding:20px">
-       <p>v1.0 <br>
-        <a href="https://edease.nl" target="_blank">EaseCMS</a><br>
-        door
-        <a href="https://edease.nl" target="_blank">EDease</a><br>
+        <p>v1.0 <br>
+          <a href="https://edease.nl" target="_blank">EaseCMS</a><br>
+          door
+          <a href="https://edease.nl" target="_blank">EDease</a><br>
 
-      
-      </p>
+
+        </p>
       </div>
     </nav>
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      
-      
+
+
       <!-- Research -->
-   
+
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1>Admin</h1>
       </div>
 
       <tabset type="pills">
-          <tab heading="Onderzoeken">
-            <br><h2>Onderzoeken</h2>
-            <ngx-datatable class="bootstrap" [rows]="ResearchRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
+        <tab heading="Onderzoeken">
+          <br>
+          <h2>Onderzoeken</h2>
+          <div class="btn-group float-right" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary " style="border-radius: 10px" (click)="openLargeModal(researchtemplate)"><i
+                class="fa fa-plus" aria-hidden="true"></i> Onderzoek toevoegen</button>
+          </div><br><br>
+          <ngx-datatable class="bootstrap" [rows]="ResearchRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
             [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
             <ngx-datatable-column name="Leerling" prop="userid" [sortable]="true">
 
@@ -111,15 +219,20 @@
                 <div [innerHTML]="row['name']"></div>
               </ng-template>
             </ngx-datatable-column>
-          
+
           </ngx-datatable>
 
-          </tab>
-          <tab heading="Publicaties"><br><h2>Publicaties</h2><br>
-            <ngx-datatable class="bootstrap" [rows]="pubRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
+        </tab>
+        <tab heading="Publicaties"><br>
+          <h2>Publicaties</h2><br>
+          <div class="btn-group float-right" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary" style="border-radius: 10px" (click)="openLargeModal(publicationtemplate)"><i
+                class="fa fa-plus" aria-hidden="true"></i> Onderzoek toevoegen</button>
+          </div><br><br>
+          <ngx-datatable class="bootstrap" [rows]="pubRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
             [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
             <ngx-datatable-column name="Leerling" prop="userid" [sortable]="true">
-              
+
               <ng-template let-column="column" let-sort="sortFn">
                 <span style="cursor:pointer">
                   {{column.name}}
@@ -130,13 +243,19 @@
                 <div [innerHTML]="row['name']"></div>
               </ng-template>
             </ngx-datatable-column>
-          
-          </ngx-datatable></tab>
-          <tab heading="Groepen"><br><h2>Groepen</h2><br>
-            <ngx-datatable class="bootstrap" [rows]="groupRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
+
+          </ngx-datatable>
+        </tab>
+        <tab heading="Groepen"><br>
+          <h2>Groepen</h2><br>
+          <div class="btn-group float-right" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary" style="border-radius: 10px" (click)="openLargeModal(grouptemplate)"><i
+                class="fa fa-plus" aria-hidden="true"></i> Groep toevoegen</button>
+          </div><br><br>
+          <ngx-datatable class="bootstrap" [rows]="groupRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
             [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
             <ngx-datatable-column name="Leerling" prop="userid" [sortable]="true">
-              
+
               <ng-template let-column="column" let-sort="sortFn">
                 <span style="cursor:pointer">
                   {{column.name}}
@@ -147,14 +266,20 @@
                 <div [innerHTML]="row['name']"></div>
               </ng-template>
             </ngx-datatable-column>
-          
-          </ngx-datatable></tab>
 
-          <tab heading="Gebruikers"><br><h2>Groepen</h2><br>
-            <ngx-datatable class="bootstrap" [rows]="userRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
+          </ngx-datatable>
+        </tab>
+
+        <tab heading="Gebruikers"><br>
+          <h2>Gerbuikers</h2><br>
+          <div class="btn-group float-right" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary" style="border-radius: 10px" (click)="openLargeModal(usertemplate)"><i
+                class="fa fa-plus" aria-hidden="true"></i> Gebruiker toevoegen</button>
+          </div><br><br>
+          <ngx-datatable class="bootstrap" [rows]="userRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
             [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
             <ngx-datatable-column name="Leerling" prop="userid" [sortable]="true">
-              
+
               <ng-template let-column="column" let-sort="sortFn">
                 <span style="cursor:pointer">
                   {{column.name}}
@@ -165,21 +290,23 @@
                 <div [innerHTML]="row['name']"></div>
               </ng-template>
             </ngx-datatable-column>
-          
-          </ngx-datatable></tab>
 
-          <tab heading="Instellingen"><br><h2>Instellingen</h2>
-            <br>
+          </ngx-datatable>
+        </tab>
+
+        <tab heading="Instellingen"><br>
+          <h2>Instellingen</h2>
+          <br>
           <h4>Logo's</h4>
           <p>Hier kun je partner logo's uploaden & verwijderen.</p>
-          </tab>
-          
-        </tabset>
+        </tab>
 
-      
- 
-      
-     
+      </tabset>
+
+
+
+
+
     </main>
   </div>
 </div>

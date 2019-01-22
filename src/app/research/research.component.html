@@ -1,27 +1,58 @@
+<ng-template #researchtemplate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Onderzoekstitel</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <!-- registration form-->
+        <div class="col-sm text-center">
+          <svg *ngIf="showLoginSpinner" class="spinner text-center" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+          </svg>
+        </div>
+       
+        <div class="row">
+          <div class="col-sm">
+  
+          </div>
+          
+          <div class="col-sm">
+  
+          </div>
+        </div>
+        <!-- /registration form-->
+      </div>
+      
+  </ng-template>
+
+
+
 <!-- Start Blog Area --> 
 <section class="htc__blog__area home-blog bg__white ptb--100">
   <div class="container">
       <div class="row">
           <div class="col-md-12">
               <div class="section__title text-center">
-                  <h2 class="title__line text--theme">Onderzoeken</h2>
+                  <h2 class="title__line text--theme">Onderzoeken & Publicaties</h2>
               </div>
           </div>
       </div>
       <div class=" mt--30">
           <!-- Start single Blog -->
           <div class="row">
-          <div class="col-lg-6 col-xl-6 col-md-6 col-12">
-              <div class="single_latest_post flex ">
+          <div  class="col-lg-6 col-xl-6 col-md-6 col-12">
+              <div (click)='openModal(researchtemplate)' class="single_latest_post flex ">
                   <div class="ht__blog__thumb">
-                      <a href="blog-details.html">
+                      <a>
                           <img src="assets/blog/latest_post/img-1.png" alt="blog images">
                       </a>
                   </div>
 
                   <div class="htc__blog__content">
                       <div class="blog__post_title">
-                          <h2><a href="blog-details.html">Onderzoekstitel</a></h2>
+                          <h2><a>Onderzoekstitel</a></h2>
                           <p>Uitlegtekst onderzoek.</p>
                       </div>
                       <div class="blog_post__meta">
@@ -30,7 +61,7 @@
                           </div> -->
                           <div class="post_content">
                               <div class="author_tile">
-                                  <h4><a href="#">Inititiefnemers</a></h4>
+                                  <h4><a>Inititiefnemers</a></h4>
                                   <div class="publish_info">
                                       <ul>
                                           <li>2 Days Ago</li>

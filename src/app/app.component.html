@@ -116,8 +116,7 @@
             <nav class="main__menu__nav">
               <ul class="main__menu">
                 <li class="drop"><a routerLink="/">Home</a></li>
-                <li class="drop"><a routerLink="/research">Onderzoeken</a></li>
-                <li class="drop"><a routerLink="/publications">Publicaties</a></li>
+                <li class="drop"><a routerLink="/research">Onderzoeken & Publicaties</a></li>
                 <li class="drop"><a routerLink="/contact">Contact</a></li>
                 <li class="drop"><a  *ngIf="isLoggedIn"  routerLink="/loggedin">Downloadpagina</a></li>
                 <li class="drop"><a *ngIf="!isLoggedIn" (click)='openModal(loginmodal)' style="color:blue; cursor:pointer"><b>Inloggen</b></a></li>
@@ -134,10 +133,7 @@
               <a class="nav-link" routerLink="/">Home</a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" routerLink="/research">Onderzoeken</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="/publications">Publicaties</a>
+              <a class="nav-link" routerLink="/research">Onderzoeken & Publicaties</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" routerLink="/contact">Contact</a>
@@ -157,10 +153,6 @@
           </form> -->
         </div>
       </div>
-
-
-
-
     </div>
     <!-- End Mainmenu Area -->
     <!-- End Mainmenu Area -->
