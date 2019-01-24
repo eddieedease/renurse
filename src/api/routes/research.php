@@ -40,12 +40,12 @@ $app->get('/getresearches', function (Request $request, Response $response) {
     //     NOTE 5 pieces --> [0] actions [1] arcades [2] archive [3] highscores [4] teams
     //     a query get all the correct records from the gemeenten table
     $sqlresearches = "SELECT * FROM research";
-    $stmtresearches = $dbh->prepare($sqlresearchs);
-    $stmtresearchs->execute();
-    $resultresearchs = $stmtresearchs->fetchAll(PDO::FETCH_ASSOC);
+    $stmtresearches = $dbh->prepare($sqlresearches);
+    $stmtresearches->execute();
+    $resultresearches = $stmtresearches->fetchAll(PDO::FETCH_ASSOC);
     // debug
     $data = array('Jsonresponse' => 'item1');
-    $response = json_encode($resultresearchs);
+    $response = json_encode($resultresearches);
     return $response;
 });
 

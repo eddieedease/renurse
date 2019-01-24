@@ -68,6 +68,8 @@ import {
 })
 export class AdminComponent implements OnInit, AfterViewInit {
 
+  loading = false;
+
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
   // tinymce component
@@ -115,6 +117,8 @@ export class AdminComponent implements OnInit, AfterViewInit {
   currentResearchcover;
   currentResearchWysig;
 
+
+
   currentPublicationTitle;
   currentPublicationCover;
   currentPublicationWysig;
@@ -126,6 +130,13 @@ export class AdminComponent implements OnInit, AfterViewInit {
   currentUserName;
   currentUserLastName;
   curentUserEmail;
+
+  // references for new or edit
+  // false = edit
+  newResearch = false;
+  newPublication = false;
+  newGroup = false;
+  newUser = false;
 
   // another for the current WYSIG
   currentwysig;
@@ -157,6 +168,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
     // if admin do unlock
     if (environment.production === false) {
       this.adminisLoggedIn = true;
+      this.edSer.API_getresearch().subscribe(value => this.gotResearches(value));
     } else {}
   }
 
@@ -167,10 +179,16 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
 
   adminLoginAttempt() {
+    // TODO: Implement ADMIN LOGIN
+
+
+
     if (this.admId !== '' && this.admPwd !== '') {
       this.showLoginSpinner = true;
+      // TODO: 4 now simulate
       setTimeout(() => {
         this.adminisLoggedIn = true;
+        this.edSer.API_getresearch().subscribe(value => this.gotResearches(value));
         this.modalRef.hide();
       }, 1000);
     }
@@ -227,11 +245,43 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
 
   // opening a modal
-  openLargeModal(template: TemplateRef < any > ) {
+  openLargeModal(template: TemplateRef < any > , _whichwhat) {
+    this.currentwysig = '';
+    switch (_whichwhat) {
+      case 'newresearch':
+        this.newResearch = true;
+        break;
+      case 'newpublication':
+        this.newPublication = true;
+        break;
+      case 'newgroup':
+        this.newGroup = true;
+        break;
+      case 'newuser':
+        this.newUser = true;
+        break;
+        // TODO: For the fetching for editting, we will need an additional parameter id
+      case 'editresearch':
+        this.newResearch = false;
+        break;
+      case 'editpublication':
+        this.newPublication = false;
+        break;
+      case 'editgroup':
+        this.newGroup = false;
+        break;
+      case 'edituser':
+        this.newUser = false;
+        break;
+    }
+
     this.modalRef = this.modalService.show(
       template,
-      Object.assign({}, { class: 'gray modal-lg' })
-    );  }
+      Object.assign({}, {
+        class: 'gray modal-lg'
+      })
+    );
+  }
 
 
 
@@ -249,6 +299,133 @@ export class AdminComponent implements OnInit, AfterViewInit {
   giveRangeBack(_carPos) {
     this.edSer.debugLog(_carPos);
     // this.serser.debugLog('carret position = ' + _carPos);
+  }
+
+
+  getSome(_getwhat) {
+    switch (_getwhat) {
+      case 'research':
+        this.getResearches();
+        break;
+      case 'publications':
+        this.getPublications();
+        break;
+      case 'groups':
+        this.getGroups();
+        break;
+      case 'users':
+        this.getUsers();
+        break;
+    }
+  }
+
+  // HTTP API CALLS HANDLING VIA SERVICE
+  // RESEARCHES
+  getResearches() {
+    this.loading = true;
+    this.edSer.API_getresearch().subscribe(value => this.gotResearches(value));
+  }
+
+  gotResearches(_event) {
+    this.edSer.debugLog(_event);
+    this.loading = false;
+  }
+
+  adjustResearches(_case) {
+    switch (_case) {
+      case 'new':
+
+        break;
+      case 'edit':
+
+        break;
+    }
+  }
+
+  researchAdjusted(_event) {
+    this.edSer.debugLog(_event);
+    this.loading = false;
+  }
+
+  // PUBLICATIONS
+  getPublications() {
+    this.loading = true;
+    this.edSer.API_getpublications().subscribe(value => this.gotPublications(value));
+  }
+
+  gotPublications(_event) {
+    this.edSer.debugLog(_event);
+    this.loading = false;
+  }
+
+  adjustPublications(_case) {
+    switch (_case) {
+      case 'new':
+
+        break;
+      case 'edit':
+
+        break;
+    }
+  }
+
+  publicationsAdjusted(_event) {
+    this.edSer.debugLog(_event);
+    this.loading = false;
+  }
+
+  // GROUPS
+  getGroups() {
+    this.loading = true;
+    this.edSer.API_getGroups().subscribe(value => this.gotGroups(value));
+  }
+
+  gotGroups(_event) {
+    this.edSer.debugLog(_event);
+    this.loading = false;
+  }
+
+  adjustGroups(_case) {
+    switch (_case) {
+      case 'new':
+
+        break;
+      case 'edit':
+
+        break;
+    }
+  }
+
+  groupsAdjusted(_event) {
+    this.edSer.debugLog(_event);
+    this.loading = false;
+  }
+
+  // USERS
+  getUsers() {
+    this.loading = true;
+    this.edSer.API_getusers().subscribe(value => this.gotUsers(value));
+  }
+
+  gotUsers(_event) {
+    this.edSer.debugLog(_event);
+    this.loading = false;
+  }
+
+  adjustUsers(_case) {
+    switch (_case) {
+      case 'new':
+
+        break;
+      case 'edit':
+
+        break;
+    }
+  }
+
+  usersAdjusted(_event) {
+    this.edSer.debugLog(_event);
+    this.loading = false;
   }
 
 }

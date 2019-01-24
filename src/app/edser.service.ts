@@ -266,6 +266,22 @@ export class EdserService {
   // GROUPS GROUPS GROUPS
   // GROUPS GROUPS GROUPS
   // GROUPS GROUPS GROUPS
+  API_getGroups(): Observable < any > {
+    const url = environment.apilink + 'getgroups?rnd=' + new Date().getTime();
+    // tslint:disable-next-line:prefer-const
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+  
+    const options = new RequestOptions({
+      headers: headers
+    });
+  
+    return this.http_.get(url, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+  
 
   API_editGroup(_groupname, _groupwysig): Observable < any > {
     // tslint:disable-next-line:max-line-length

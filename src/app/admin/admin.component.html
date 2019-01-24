@@ -1,3 +1,6 @@
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }">
+</ngx-loading>
+
 <ng-template #adminmodal>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Inloggen Admin</h4>
@@ -76,7 +79,7 @@
               <input [(ngModel)]="currentResearchTitle" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
             </fieldset>
             <fieldset class="form-group has-danger">
-                <label class="form-control-label">Uitlegtekst</label>
+                <label class="form-control-label">Introtekst</label>
                 <input [(ngModel)]="currentResearchWysig" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
               </fieldset>
             <hr class="m-b-2" />
@@ -85,7 +88,8 @@
                 (carretPosition)="giveRangeBack($event)">
               </app-wysig>
             </div>
-            <button type="submit" class="btn btn-primary btn-lg">Opslaan</button>
+            <button *ngIf="newResearch" type="submit" class="btn btn-primary btn-lg">Opslaan</button>
+            <button *ngIf="!newResearch" type="submit" class="btn btn-primary btn-lg">Bijwerken</button>
           </form>
         <!-- /registration form-->
       </div>
@@ -107,7 +111,7 @@
                 <input [(ngModel)]="currentPublicationTitle" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
               </fieldset>
               <fieldset class="form-group has-danger">
-                  <label class="form-control-label">Uitlegtekst</label>
+                  <label class="form-control-label">Introtekst</label>
                   <input [(ngModel)]="currentPublicationWysig" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
               </fieldset>
               <hr class="m-b-2" />
@@ -116,7 +120,8 @@
                   (carretPosition)="giveRangeBack($event)">
                 </app-wysig>
               </div>
-              <button type="submit" class="btn btn-primary btn-lg">Opslaan</button>
+              <button *ngIf="newPublication" type="submit" class="btn btn-primary btn-lg">Opslaan</button>
+              <button *ngIf="!newPublication" type="submit" class="btn btn-primary btn-lg">Bijwerken</button>
             </form>
           <!-- /registration form-->
         </div>
@@ -137,7 +142,7 @@
                   <input [(ngModel)]="currentGroupTitle" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
                 </fieldset>
                 <fieldset class="form-group has-danger">
-                    <label class="form-control-label">Uitlegtekst</label>
+                    <label class="form-control-label">Introtekst</label>
                     <input [(ngModel)]="currentGroupWysig" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
                 </fieldset>
                 <hr class="m-b-2" />
@@ -146,10 +151,11 @@
                     (carretPosition)="giveRangeBack($event)">
                   </app-wysig>
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg">Opslaan</button>
+                <button *ngIf="newGroup" type="submit" class="btn btn-primary btn-lg">Opslaan</button>
+              <button *ngIf="!newGroup" type="submit" class="btn btn-primary btn-lg">Bijwerken</button>
               </form>
           </div>
-          
+           
       </ng-template>
 
       <ng-template #usertemplate>
@@ -174,7 +180,8 @@
                       <input [(ngModel)]="currentUserEmail" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
                   </fieldset>
                   <hr class="m-b-2" />
-                  <button type="submit" class="btn btn-primary btn-lg">Opslaan</button>
+                  <button *ngIf="newUser" type="submit" class="btn btn-primary btn-lg">Opslaan</button>
+                  <button *ngIf="!newUser" type="submit" class="btn btn-primary btn-lg">Bijwerken</button>
                 </form>
             </div>
             
@@ -215,11 +222,11 @@
       </div>
 
       <tabset type="pills">
-        <tab heading="Onderzoeken">
+        <tab  heading="Onderzoeken" (select)="getSome('research')">
           <br>
           <h2>Onderzoeken</h2>
           <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary " style="border-radius: 10px" (click)="openLargeModal(researchtemplate)"><i
+            <button type="button" class="btn btn-primary " style="border-radius: 10px" (click)="openLargeModal(researchtemplate, 'newresearch')"><i
                 class="fa fa-plus" aria-hidden="true"></i> Onderzoek toevoegen</button>
           </div><br><br>
           <ngx-datatable class="bootstrap" [rows]="ResearchRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
@@ -240,10 +247,10 @@
           </ngx-datatable>
 
         </tab>
-        <tab heading="Publicaties"><br>
+        <tab (select)="getSome('publications')" heading="Publicaties"><br>
           <h2>Publicaties</h2><br>
           <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary" style="border-radius: 10px" (click)="openLargeModal(publicationtemplate)"><i
+            <button type="button" class="btn btn-primary" style="border-radius: 10px" (click)="openLargeModal(publicationtemplate, 'newpublication')"><i
                 class="fa fa-plus" aria-hidden="true"></i> Onderzoek toevoegen</button>
           </div><br><br>
           <ngx-datatable class="bootstrap" [rows]="pubRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
@@ -263,10 +270,10 @@
 
           </ngx-datatable>
         </tab>
-        <tab heading="Groepen"><br>
+        <tab (select)="getSome('groups')" heading="Groepen"><br>
           <h2>Groepen</h2><br>
           <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary" style="border-radius: 10px" (click)="openLargeModal(grouptemplate)"><i
+            <button type="button" class="btn btn-primary" style="border-radius: 10px" (click)="openLargeModal(grouptemplate, 'newgroup')"><i
                 class="fa fa-plus" aria-hidden="true"></i> Groep toevoegen</button>
           </div><br><br>
           <ngx-datatable class="bootstrap" [rows]="groupRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
@@ -287,10 +294,10 @@
           </ngx-datatable>
         </tab>
 
-        <tab heading="Gebruikers"><br>
+        <tab (select)="getSome('users')" heading="Gebruikers"><br>
           <h2>Gerbuikers</h2><br>
           <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary" style="border-radius: 10px" (click)="openLargeModal(usertemplate)"><i
+            <button type="button" class="btn btn-primary" style="border-radius: 10px" (click)="openLargeModal(usertemplate, 'newusers')"><i
                 class="fa fa-plus" aria-hidden="true"></i> Gebruiker toevoegen</button>
           </div><br><br>
           <ngx-datatable class="bootstrap" [rows]="userRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
