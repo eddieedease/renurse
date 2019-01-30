@@ -8,6 +8,12 @@ import {
   EdserService
 } from '../edser.service';
 
+import {
+  DomSanitizer,
+  SafeResourceUrl,
+  SafeUrl
+} from '@angular/platform-browser';
+
 // modal service
 import {
   BsModalService
@@ -19,7 +25,7 @@ import {
 import {
   ToastrService
 } from 'ngx-toastr';
-
+import {ViewEncapsulation} from '@angular/core';
 import {
   Router,
   ActivatedRoute,
@@ -29,15 +35,23 @@ import {
 @Component({
   selector: 'app-research',
   templateUrl: './research.component.html',
-  styleUrls: ['./research.component.css']
+  styleUrls: ['./research.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ResearchComponent implements OnInit {
 
   modalRef: BsModalRef;
 
+  // array holding researchitems
+  researchArray = [];
+
+  currentResearchTitle = '';
+  currentResearchWysig = '';
+
   constructor(private edSer: EdserService,
     private thisrouter: Router,
     private modalService: BsModalService,
+    private sanitizer: DomSanitizer,
     private toastr: ToastrService) {
     this.edSer.updatedMin(false);
   }
@@ -46,12 +60,27 @@ export class ResearchComponent implements OnInit {
   ngOnInit() {
     // scroll to top
     window.scrollTo(0, 0);
+    // get publications
+    this.edSer.API_getresearch().subscribe(value => this.gotPublications(value));
+
   }
 
-
+  gotPublications(_event) {
+    this.edSer.debugLog(_event);
+    this.researchArray = _event;
+  }
 
   // opening a modal
-  openModal(template: TemplateRef < any > ) {
+  openModal(template: TemplateRef < any > , _id ) {
+
+    this.researchArray.forEach(element => {
+      if (element.id === _id) {
+        this.edSer.debugLog('we have a hit');
+        this.currentResearchTitle = element.uname;
+        this.currentResearchWysig = element.wysig;
+      }
+    });
+    
     this.modalRef = this.modalService.show(
       template,
       Object.assign({}, { class: 'gray modal-lg' })

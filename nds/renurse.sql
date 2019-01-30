@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 24, 2019 at 07:35 PM
+-- Generation Time: Jan 30, 2019 at 07:14 PM
 -- Server version: 5.6.34-log
 -- PHP Version: 7.1.5
 
@@ -66,6 +66,13 @@ CREATE TABLE `groups` (
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `groups`
+--
+
+INSERT INTO `groups` (`id`, `name`, `wysig`, `active`, `date`) VALUES
+(1, 'Groep1', 'De groeptekst', 1, '2019-01-30 17:48:18');
+
 -- --------------------------------------------------------
 
 --
@@ -81,6 +88,13 @@ CREATE TABLE `publications` (
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `publications`
+--
+
+INSERT INTO `publications` (`id`, `name`, `active`, `coverurl`, `wysig`, `date`) VALUES
+(1, 'testpublicatie', 1, '', '<p>De tekst</p>', '2019-01-30 18:47:24');
+
 -- --------------------------------------------------------
 
 --
@@ -89,12 +103,24 @@ CREATE TABLE `publications` (
 
 CREATE TABLE `research` (
   `id` int(11) NOT NULL,
-  `name` text NOT NULL,
+  `uname` text NOT NULL,
   `active` int(11) NOT NULL DEFAULT '1',
   `coverurl` text NOT NULL,
   `wysig` text NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `research`
+--
+
+INSERT INTO `research` (`id`, `uname`, `active`, `coverurl`, `wysig`, `date`) VALUES
+(1, 'Onderzoek1', 1, '', '<br><p>TeSRASDADAWwrerewrewr</p>', '2019-01-30 18:47:53'),
+(2, 'gfdg', 1, '', '<p>erterte</p>', '2019-01-30 19:21:23'),
+(3, 'No 1', 1, '', '<p>sdfsdfdsewr</p>', '2019-01-30 19:22:05'),
+(4, 'Hallo ok', 1, '', '<p>Jasdakjl;qwleqweqw<strong><em>sdfdsfdsfds</em></strong></p>', '2019-01-30 19:22:19'),
+(5, 'ewrw', 1, '', '<blockquote><p>ewrwrewrwrw</p></blockquote>', '2019-01-30 19:48:46'),
+(6, 'waarsq2', 1, '', '<p>er</p>', '2019-01-30 19:50:51');
 
 -- --------------------------------------------------------
 
@@ -119,7 +145,7 @@ CREATE TABLE `sections` (
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `name` text NOT NULL,
+  `uname` text NOT NULL,
   `lastname` text NOT NULL,
   `email` text NOT NULL,
   `pwd` text NOT NULL,
@@ -132,8 +158,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `lastname`, `email`, `pwd`, `secret`, `active`, `lastlogin`) VALUES
-(1, 'Eddie', 'Maas', 'eddie@edease.nl', '1721159c58afa5f80b61dfbfa3dced75', 'nosecretyet', 1, '2018-12-21 10:27:17');
+INSERT INTO `users` (`id`, `uname`, `lastname`, `email`, `pwd`, `secret`, `active`, `lastlogin`) VALUES
+(8, 'test342', 'test', 'checksome@checksome.nl', 'ru5m6qp3', 'jQABO5u5Rxi2CvL5', 1, '2019-01-30 10:35:35'),
+(9, 'werew', 'werw', 'wiedan', 'vsq4tw3h', 'SM9WwlXIsQNgnfmG', 1, '2019-01-30 16:47:22'),
+(10, 'werwer', 'werewrwerw', 'OKOKOK', 'v7voka7m', '2ewuecqnjKCPvYT9', 1, '2019-01-30 17:27:45'),
+(11, 'eew', 'werwe', 'wer', 'jly4yvb7', 'OSVVJHPHDK8HFmhM', 1, '2019-01-30 17:31:54');
 
 -- --------------------------------------------------------
 
@@ -217,17 +246,17 @@ ALTER TABLE `files`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `publications`
 --
 ALTER TABLE `publications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `research`
 --
 ALTER TABLE `research`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `sections`
 --
@@ -237,7 +266,7 @@ ALTER TABLE `sections`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `users_to_groups`
 --

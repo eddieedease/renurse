@@ -78,18 +78,14 @@
               <label class="form-control-label">Titel</label>
               <input [(ngModel)]="currentResearchTitle" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
             </fieldset>
-            <fieldset class="form-group has-danger">
-                <label class="form-control-label">Introtekst</label>
-                <input [(ngModel)]="currentResearchWysig" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
-              </fieldset>
             <hr class="m-b-2" />
             <div class="htmladjust2">
-              <app-wysig [elementId]="'researchwysig'" [(prefill)]="currentwysig" (onEditorKeyup)="keyupHandlerFunction($event)"
+              <app-wysig [elementId]="'researchwysig'" [(prefill)]="currentResearchWysig" (onEditorKeyup)="keyupHandlerFunction($event)"
                 (carretPosition)="giveRangeBack($event)">
               </app-wysig>
             </div>
-            <button *ngIf="newResearch" type="submit" class="btn btn-primary btn-lg">Opslaan</button>
-            <button *ngIf="!newResearch" type="submit" class="btn btn-primary btn-lg">Bijwerken</button>
+            <button *ngIf="newResearch" type="submit" (click)="adjustResearches('new')" class="btn btn-primary btn-lg">Opslaan</button>
+            <button *ngIf="!newResearch" (click)="adjustResearches('edit')" type="submit" class="btn btn-primary btn-lg">Bijwerken</button>
           </form>
         <!-- /registration form-->
       </div>
@@ -169,7 +165,7 @@
               <form class="">
                   <fieldset class="form-group has-danger">
                     <label class="form-control-label">Naam</label>
-                    <input [(ngModel)]="currentUsername" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+                    <input [(ngModel)]="currentUserName" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
                   </fieldset>
                   <fieldset class="form-group has-danger">
                       <label class="form-control-label">Achternaam</label>
@@ -180,11 +176,10 @@
                       <input [(ngModel)]="currentUserEmail" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
                   </fieldset>
                   <hr class="m-b-2" />
-                  <button *ngIf="newUser" type="submit" class="btn btn-primary btn-lg">Opslaan</button>
-                  <button *ngIf="!newUser" type="submit" class="btn btn-primary btn-lg">Bijwerken</button>
+                  <button *ngIf="newUser" (click)="adjustUsers('new')" type="submit" class="btn btn-primary btn-lg">Opslaan</button>
+                  <button *ngIf="!newUser" (click)="adjustUsers('edit')"  type="submit" class="btn btn-primary btn-lg">Bijwerken</button>
                 </form>
             </div>
-            
         </ng-template>
 
 
@@ -226,12 +221,12 @@
           <br>
           <h2>Onderzoeken</h2>
           <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary " style="border-radius: 10px" (click)="openLargeModal(researchtemplate, 'newresearch')"><i
+            <button type="button" class="btn btn-primary " style="border-radius: 10px" (click)="openLargeModal(researchtemplate, 'newresearch', 0)"><i
                 class="fa fa-plus" aria-hidden="true"></i> Onderzoek toevoegen</button>
           </div><br><br>
-          <ngx-datatable class="bootstrap" [rows]="ResearchRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
+          <ngx-datatable class="bootstrap" [rows]="researchRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
             [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
-            <ngx-datatable-column name="Leerling" prop="userid" [sortable]="true">
+            <ngx-datatable-column name="Naam onderzoek" prop="userid" [sortable]="true">
 
               <ng-template let-column="column" let-sort="sortFn">
                 <span style="cursor:pointer">
@@ -240,22 +235,53 @@
               </ng-template>
 
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                <div [innerHTML]="row['name']"></div>
+                <div [innerHTML]="row['uname']"></div>
               </ng-template>
             </ngx-datatable-column>
+
+            <ngx-datatable-column name="Actief" prop="userid" [sortable]="true">
+
+                <ng-template let-column="column" let-sort="sortFn">
+                  <span style="cursor:pointer">
+                    {{column.name}}
+                  </span>
+                </ng-template>
+  
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  X/X
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="Acties" [sortable]="true">
+
+                  <ng-template let-column="column" let-sort="sortFn">
+                    <span style="cursor:pointer">
+                      {{column.name}}
+                    </span>
+                  </ng-template>
+    
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    <button type="button" (click)="openLargeModal(researchtemplate, 'editresearch', row['id'])"  class="btn btn-warning"
+                    data-toggle="modal" data-target=".modal-edit">
+                    <i class="fa fa-edit"></i>
+                  </button>
+                  </ng-template>
+                </ngx-datatable-column>
 
           </ngx-datatable>
 
         </tab>
         <tab (select)="getSome('publications')" heading="Publicaties"><br>
           <h2>Publicaties</h2><br>
+          <p>Publicaties kun je koppelen aan onderzoeken.</p>
+          <p>Als de publicatie nergens aan gekoppeld zit, komt deze bij de losstaande publicaties te staan.</p>
           <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary" style="border-radius: 10px" (click)="openLargeModal(publicationtemplate, 'newpublication')"><i
-                class="fa fa-plus" aria-hidden="true"></i> Onderzoek toevoegen</button>
+            <button type="button" class="btn btn-primary" style="border-radius: 10px" (click)="openLargeModal(publicationtemplate, 'newpublication', 0)"><i
+                class="fa fa-plus" aria-hidden="true"></i> Publicatie toevoegen</button>
           </div><br><br>
-          <ngx-datatable class="bootstrap" [rows]="pubRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
+          <ngx-datatable class="bootstrap" [rows]="publicationRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
             [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
-            <ngx-datatable-column name="Leerling" prop="userid" [sortable]="true">
+            <ngx-datatable-column name="Publicatienaam" prop="userid" [sortable]="true">
 
               <ng-template let-column="column" let-sort="sortFn">
                 <span style="cursor:pointer">
@@ -267,18 +293,48 @@
                 <div [innerHTML]="row['name']"></div>
               </ng-template>
             </ngx-datatable-column>
+
+            <ngx-datatable-column name="Actief" prop="userid" [sortable]="true">
+
+                <ng-template let-column="column" let-sort="sortFn">
+                  <span style="cursor:pointer">
+                    {{column.name}}
+                  </span>
+                </ng-template>
+  
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  X/X
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="Acties" [sortable]="true">
+
+                  <ng-template let-column="column" let-sort="sortFn">
+                    <span style="cursor:pointer">
+                      {{column.name}}
+                    </span>
+                  </ng-template>
+    
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    <button type="button" (click)="openLargeModal(publicationtemplate, 'editpublication', row['id'])"  class="btn btn-warning"
+                    data-toggle="modal" data-target=".modal-edit">
+                    <i class="fa fa-edit"></i>
+                  </button>
+                  </ng-template>
+                </ngx-datatable-column>
 
           </ngx-datatable>
         </tab>
         <tab (select)="getSome('groups')" heading="Groepen"><br>
           <h2>Groepen</h2><br>
+          <p>Gekoppelde gebruikers kunnen bestanden hiervan downloaden op hun downloadpagina.</p>
           <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary" style="border-radius: 10px" (click)="openLargeModal(grouptemplate, 'newgroup')"><i
+            <button type="button" class="btn btn-primary" style="border-radius: 10px" (click)="openLargeModal(grouptemplate, 'newgroup', 0)"><i
                 class="fa fa-plus" aria-hidden="true"></i> Groep toevoegen</button>
           </div><br><br>
           <ngx-datatable class="bootstrap" [rows]="groupRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
             [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
-            <ngx-datatable-column name="Leerling" prop="userid" [sortable]="true">
+            <ngx-datatable-column name="Groepnaam" prop="name" [sortable]="true">
 
               <ng-template let-column="column" let-sort="sortFn">
                 <span style="cursor:pointer">
@@ -290,6 +346,21 @@
                 <div [innerHTML]="row['name']"></div>
               </ng-template>
             </ngx-datatable-column>
+            <ngx-datatable-column name="Acties" [sortable]="true">
+
+                <ng-template let-column="column" let-sort="sortFn">
+                  <span style="cursor:pointer">
+                    {{column.name}}
+                  </span>
+                </ng-template>
+  
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <button type="button" (click)="openLargeModal(grouptemplate, 'editgroup', row['id'])"  class="btn btn-warning"
+                  data-toggle="modal" data-target=".modal-edit">
+                  <i class="fa fa-edit"></i>
+                </button>
+                </ng-template>
+              </ngx-datatable-column>
 
           </ngx-datatable>
         </tab>
@@ -297,12 +368,12 @@
         <tab (select)="getSome('users')" heading="Gebruikers"><br>
           <h2>Gerbuikers</h2><br>
           <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary" style="border-radius: 10px" (click)="openLargeModal(usertemplate, 'newusers')"><i
+            <button type="button" class="btn btn-primary" style="border-radius: 10px" (click)="openLargeModal(usertemplate, 'newuser', 0)"><i
                 class="fa fa-plus" aria-hidden="true"></i> Gebruiker toevoegen</button>
           </div><br><br>
           <ngx-datatable class="bootstrap" [rows]="userRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
             [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
-            <ngx-datatable-column name="Leerling" prop="userid" [sortable]="true">
+            <ngx-datatable-column name="Naam" prop="uname" [sortable]="true">
 
               <ng-template let-column="column" let-sort="sortFn">
                 <span style="cursor:pointer">
@@ -311,7 +382,36 @@
               </ng-template>
 
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                <div [innerHTML]="row['name']"></div>
+                <div [innerHTML]="row['uname'] + ' ' + row['lastname']"></div>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Email" prop="email" [sortable]="true">
+
+              <ng-template let-column="column" let-sort="sortFn">
+                <span style="cursor:pointer">
+                  {{column.name}}
+                </span>
+              </ng-template>
+
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <div [innerHTML]="row['email']"></div>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Acties" [sortable]="true">
+
+              <ng-template let-column="column" let-sort="sortFn">
+                <span style="cursor:pointer">
+                  {{column.name}}
+                </span>
+              </ng-template>
+
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <button type="button" (click)="openLargeModal(usertemplate, 'edituser', row['id'])"  class="btn btn-warning"
+                data-toggle="modal" data-target=".modal-edit">
+                <i class="fa fa-edit"></i>
+              </button>
               </ng-template>
             </ngx-datatable-column>
 

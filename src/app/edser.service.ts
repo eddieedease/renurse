@@ -27,6 +27,7 @@ import {
 import {
   environment
 } from '../environments/environment';
+import { debug } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -137,10 +138,11 @@ export class EdserService {
   // GROUPS
   API_createuser(_name, _lastname, _email, _pwd): Observable < any > {
     // tslint:disable-next-line:max-line-length
-    const url = environment.apilink + 'createuser/?rnd=' + new Date().getTime();
+    const url = environment.apilink + 'createuser?rnd=' + new Date().getTime();
     // let blobReplaceUserId = jsonblobstring.replace('__userid__', '' + this.curID);
+    this.debugLog(_name);
     const upt = {
-      'name': _name,
+      'uname': _name,
       'lastname': _lastname,
       'email' : _email,
       'pwd' : _pwd
@@ -166,30 +168,38 @@ export class EdserService {
   }
 
   // Edit user
-  API_edituser(_id, _email, _name, _lastname): Observable < any > {
-    const url = environment.apilink +  'edituser/' + _id  + new Date().getTime();
-    // tslint:disable-next-line:prefer-const
-    const headers = new Headers({
-      'Content-Type': 'application/json'
-    });
-
+  API_edituser(_id, _name, _lastname, _email): Observable < any > {
+    // tslint:disable-next-line:max-line-length
+    const url = environment.apilink + 'edituser/' + _id + '?rnd=' + new Date().getTime();
+    // let blobReplaceUserId = jsonblobstring.replace('__userid__', '' + this.curID);
     const upt = {
-      'name': _name,
+      'uname': _name,
       'lastname': _lastname,
-      'email' : _email
+      'email' : _email,
     };
     const body = JSON.stringify(upt);
-
-    const options = new RequestOptions({
-      headers: headers
+    // const howmanykb = this.byteCount(body);
+    // Line beneath show how many KB
+    // console.log('JSONBLOB = ' + howmanykb + ' Bytes');
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Cache-control': 'no-cache',
+      'Expires': '0',
+      'Pragma': 'no-cache'
+      /*  ,'Authorization': 'bearer ' + this.curTOKEN */
     });
-
+    const options = new RequestOptions({
+      headers: headers,
+      method: 'post'
+    });
     return this.http_.post(url, body, options)
       .pipe(throttleTime(5000))
       .pipe(map(res => res.json()));
   }
 
+
   // CHANGE PWD
+  // TODO: Isn't implemented yet
   API_changepwd(_id, _oldpwd, _newpwd): Observable < any > {
     const url = environment.apilink +  'changepwd/' + _id  + new Date().getTime();
     // tslint:disable-next-line:prefer-const
@@ -356,11 +366,11 @@ export class EdserService {
 // Create research
 API_createresearch(_name, _wysig): Observable < any > {
   // tslint:disable-next-line:max-line-length
-  const url = environment.apilink + 'createresearch/?rnd=' + new Date().getTime();
+  const url = environment.apilink + 'createresearch?rnd=' + new Date().getTime();
   // let blobReplaceUserId = jsonblobstring.replace('__userid__', '' + this.curID);
   const upt = {
-    'name': _name,
-    'wysig': _wysig
+    'researchname': _name,
+    'researchwysig': _wysig
   };
   const body = JSON.stringify(upt);
   // const howmanykb = this.byteCount(body);

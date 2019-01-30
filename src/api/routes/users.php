@@ -15,12 +15,11 @@ $app->post('/createuser', function (Request $request, Response $response) {
     $parsedBody = $request->getParsedBody();
     // TODO: ADD SOME SALTING RIGHT THERE
     // Some logic to check the pwd's
-    $name = $parsedBody[name];
+    $name = $parsedBody[uname];
     $lastname = $parsedBody[lastname];
     $email = $parsedBody[email];
     $pwd = $parsedBody[pwd];
     // hash it
-    $pwd = md5($pwd);
     // create secret
     $secret = randomSecret();
     
@@ -28,7 +27,7 @@ $app->post('/createuser', function (Request $request, Response $response) {
     include 'db.php';
     // Insert the link into our DATABASE
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
-    $sqladdgroup = "INSERT INTO users (name, lastname, email, pwd, secret) VALUES ('$name', '$lastname','$email', '$pwd', '$secret')";
+    $sqladdgroup = "INSERT INTO users (uname, lastname, email, pwd, secret) VALUES ('$name', '$lastname','$email', '$pwd', '$secret')";
     $stmtaddgroup = $dbh->prepare($sqladdgroup);
     $stmtaddgroup->execute();
     $resultaddgroup= $stmtaddgroup->fetchAll(PDO::FETCH_ASSOC);
@@ -65,19 +64,28 @@ $app->get('/getusers', function (Request $request, Response $response) {
 
 //3 ) Edit user
 // TODO: Work out
-$app->post('/edituser', function (Request $request, Response $response) {
+$app->post('/edituser/{userid}', function (Request $request, Response $response) {
+    $userid = $request->getAttribute('userid');
+    $userid = (int)$userid;
+
+
     $parsedBody = $request->getParsedBody();
-    // TODO: ADD SOME SALTING RIGHT THERE
-    // Some logic to check the pwd's
-    $name = $parsedBody[name];
+
+    $name = $parsedBody[uname];
     $lastname = $parsedBody[lastname];
     $email = $parsedBody[email];
-    $pwd = $parsedBody[pwd];
-    // hash it
-    $pwd = md5($pwd);
 
+    include 'db.php';
+    $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
     
-    $data = array('Jsonresponse' => 'item1');
+    // TODO: ADD SOME SALTING RIGHT THERE
+    // Some logic to check the pwd's
+
+    $sqledituser = "UPDATE users SET uname = '$name' , lastname = '$lastname', email = '$email' WHERE id = '$userid'";
+    $stmtedituser = $dbh->prepare($sqledituser);
+    $stmtedituser->execute();
+    // hash it
+    $data = array('Jsonresponse' => $resultedituser);
     $response = json_encode($data);
     return $response;
 });
@@ -129,7 +137,7 @@ $app->post('/login/{usrname}', function (Request $request, Response $response) {
     $aisecret = $resultlogin[0]['secret'];
     //  Match passwords against each other, if succesfull give back secret key for storing in Cookie
     //  TODO: UNSALT
-    if (md5($pwd) == $aipassword) {
+    if ($pwd == $aipassword) {
         // debugging Line
         $cb = array('login' => 'SUCCESS', 'secret' => $aisecret, 'name' => $ainame, 'lastname' => $ailastname, 'email' => $aiemail, 'usrid' => $aiid);
     } else {
@@ -146,12 +154,11 @@ $app->post('/login/{usrname}', function (Request $request, Response $response) {
 
 // 6) CHANGE PWD of user (user do this self)
 // TODO: TEST OUT
-$app->get('/changepwd/{requestid}', function (Request $request, Response $response) {
+$app->post('/changepwd/{requestid}', function (Request $request, Response $response) {
     $requestid = $request->getAttribute('requestid');
     $parsedBody = $request->getParsedBody();
     $oldpwd = $parsedBody[oldpwd];
     // hash it to check against stored one
-    $oldpwd = md5($oldpwd);
     $newpwd = $parsedBody[newpwd];
     
     include 'db.php';
@@ -165,7 +172,6 @@ $app->get('/changepwd/{requestid}', function (Request $request, Response $respon
     if ($oldpwd == $aipassword) {
         // OKE CHANGE STUFF
         // Store new pwd as hash
-        $newpwd = md5($newpwd);
         $sqlchangepwd = "UPDATE users SET pwd = '$newpwd' WHERE id = '$requestid'";
         $stmtchangepwd = $dbh->prepare($sqlchangepwd);
         $stmtchangepwd->execute();

@@ -51,9 +51,29 @@ $app->get('/getresearches', function (Request $request, Response $response) {
 
 //3 ) Edit research
 // TODO: Work out
-$app->post('/editresearch', function (Request $request, Response $response) {
-    $data = array('Jsonresponse' => 'item1');
-    $response = json_encode($data);
+$app->post('/editresearch/{researchid}', function (Request $request, Response $response) {
+    $researchid = $request->getAttribute('researchid');
+    $researchid = (int)$researchid;
+    $parsedBody = $request->getParsedBody();
+    // TODO: ADD SOME SALTING RIGHT THERE
+    // Some logic to check the pwd's
+    $researchname = $parsedBody[researchname];
+    $researchwysig = $parsedBody[researchwysig];
+    // UPDATE, I THINKKKK, It's better to make 2 API CALLS, first store the data. If this succeeds, another 'file upload' for thumbnail
+    include 'db.php';
+    // Insert the link into our DATABASE
+    $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
+    
+
+    $sqleditresearch = "UPDATE research SET uname = '$researchname' , wysig = '$researchwysig' WHERE id = '$researchid'";
+    $stmteditresearch = $dbh->prepare($sqleditresearch);
+    $stmteditresearch->execute();
+    //     NOTE colleting everything for converting
+    $result = array();
+    array_push($result, $resulteditresearch);
+    $debug = array('status' => 'success', 'editresearch' => $researchname);
+    //     convert it all to jSON TODO change result
+    $response = json_encode($debug);
     return $response;
 });
 

@@ -58,6 +58,9 @@ import {
 import {
   WysigPipe
 } from '../wysig-pipe.pipe';
+import {
+  CurrencyIndex
+} from '@angular/common/src/i18n/locale_data';
 
 
 @Component({
@@ -115,21 +118,29 @@ export class AdminComponent implements OnInit, AfterViewInit {
   // Modal Values
   currentResearchTitle;
   currentResearchcover;
+  currentResearchActive;
   currentResearchWysig;
+  currentResearchId;
 
 
 
   currentPublicationTitle;
   currentPublicationCover;
+  currentPublicationActive;
   currentPublicationWysig;
+  currentPublicationId;
 
   currentGroupTitle;
   currentGroupSumUsers;
   currentGroupWysig;
+  currentGroupActive;
+  currentGroupId;
 
   currentUserName;
+  currentUserId;
   currentUserLastName;
-  curentUserEmail;
+  currentUserEmail;
+  currentPWDHashed;
 
   // references for new or edit
   // false = edit
@@ -245,33 +256,88 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
 
   // opening a modal
-  openLargeModal(template: TemplateRef < any > , _whichwhat) {
+  openLargeModal(template: TemplateRef < any > , _whichwhat, _id) {
     this.currentwysig = '';
     switch (_whichwhat) {
       case 'newresearch':
         this.newResearch = true;
+        this.currentResearchTitle = '';
+        this.currentResearchWysig = '';
         break;
       case 'newpublication':
         this.newPublication = true;
+        this.currentPublicationTitle = '';
+        this.currentPublicationWysig = '';
         break;
       case 'newgroup':
         this.newGroup = true;
+        this.currentGroupTitle = '';
+        this.currentGroupWysig = '';
         break;
       case 'newuser':
         this.newUser = true;
+        this.currentUserEmail = '';
+        this.currentUserId = '';
+        this.currentUserLastName = '';
+        this.currentUserName = '';
         break;
         // TODO: For the fetching for editting, we will need an additional parameter id
       case 'editresearch':
         this.newResearch = false;
+
+        this.researchRows.forEach(element => {
+          if (element.id === _id) {
+            this.edSer.debugLog('We have a hit');
+            this.currentResearchId = element.id;
+            this.currentResearchTitle = element.uname;
+            this.currentResearchWysig = element.wysig;
+            this.currentResearchcover = element.coverurl;
+            this.currentResearchActive = element.active;
+          }
+        });
+        
         break;
       case 'editpublication':
         this.newPublication = false;
+
+        this.publicationRows.forEach(element => {
+          if (element.id === _id) {
+            this.edSer.debugLog('We have a hit');
+            this.currentPublicationActive = element.active;
+            this.currentPublicationCover = element.coverurl;
+            this.currentPublicationId = element.id;
+            this.currentPublicationTitle = element.name;
+            this.currentPublicationWysig = element.wysig;
+          }
+        });
+
         break;
       case 'editgroup':
         this.newGroup = false;
+
+        this.groupRows.forEach(element => {
+          if (element.id === _id) {
+            this.edSer.debugLog('We have a hit');
+            this.currentGroupActive = element.active;
+            this.currentGroupId = element.id;
+            this.currentGroupTitle = element.name;
+            this.currentGroupWysig = element.wysig;
+          }
+        });
         break;
       case 'edituser':
         this.newUser = false;
+        this.currentUserId = _id;
+
+        this.userRows.forEach(element => {
+          if (element.id === _id) {
+            this.edSer.debugLog('We have a hit');
+            this.currentUserEmail = element.email;
+            this.currentUserId = element.id;
+            this.currentUserLastName = element.lastname;
+            this.currentUserName = element.uname;
+          }
+        });
         break;
     }
 
@@ -329,15 +395,28 @@ export class AdminComponent implements OnInit, AfterViewInit {
   gotResearches(_event) {
     this.edSer.debugLog(_event);
     this.loading = false;
+    this.researchRows = _event;
   }
 
   adjustResearches(_case) {
     switch (_case) {
       case 'new':
+        if (this.currentResearchTitle !== '' && this.currentwysig !== '') {
+          this.edSer.debugLog(this.currentResearchTitle);
+          this.edSer.debugLog(this.currentwysig);
+          this.edSer.API_createresearch(this.currentResearchTitle, this.currentwysig).subscribe(value => this.researchAdjusted(value));
 
+        } else {
+
+        }
         break;
       case 'edit':
+      if (this.currentResearchTitle !== '' && this.currentGroupWysig !== '') {
+        this.edSer.API_editresearch(this.currentResearchId, this.currentResearchTitle, this.currentwysig).subscribe(value => this.researchAdjusted(value));
 
+      } else {
+
+      }
         break;
     }
   }
@@ -345,6 +424,11 @@ export class AdminComponent implements OnInit, AfterViewInit {
   researchAdjusted(_event) {
     this.edSer.debugLog(_event);
     this.loading = false;
+    this.modalRef.hide();
+    this.toastr.success('Gewijzigd', '', {
+      timeOut: 20000
+    });
+    this.getResearches();
   }
 
   // PUBLICATIONS
@@ -356,6 +440,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   gotPublications(_event) {
     this.edSer.debugLog(_event);
     this.loading = false;
+    this.publicationRows = _event;
   }
 
   adjustPublications(_case) {
@@ -383,6 +468,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   gotGroups(_event) {
     this.edSer.debugLog(_event);
     this.loading = false;
+    this.groupRows = _event;
   }
 
   adjustGroups(_case) {
@@ -408,24 +494,50 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   gotUsers(_event) {
+    this.userRows = _event;
     this.edSer.debugLog(_event);
     this.loading = false;
   }
 
   adjustUsers(_case) {
-    switch (_case) {
-      case 'new':
+    if (this.currentUserName !== '' && this.currentUserLastName !== '' && this.currentUserEmail) {
+      this.loading = true;
+      switch (_case) {
+        case 'new':
+          const randomstring = Math.random().toString(36).slice(-8);
+          console.log(randomstring);
 
-        break;
-      case 'edit':
+          this.edSer.API_createuser(this.currentUserName, this.currentUserLastName, this.currentUserEmail, randomstring).subscribe(value => this.usersAdjusted(value));
 
-        break;
+          break;
+        case 'edit':
+        // this.currentUserEmail;
+        // this.currentUserId;
+        // this.currentUserLastName;
+        // this.currentUserName;
+        this.edSer.API_edituser(this.currentUserId, this.currentUserName, this.currentUserLastName, this.currentUserEmail).subscribe(value => this.usersAdjusted(value));
+
+          break;
+      }
+    } else {
+      // toast not complete
+      this.toastr.error('Niet alles ingevuld', '', {
+        timeOut: 20000
+      });
     }
   }
 
   usersAdjusted(_event) {
+    this.toastr.success('Gewijzigd', '', {
+      timeOut: 20000
+    });
+    this.modalRef.hide();
+    this.currentUserName = '';
+    this.currentUserLastName = '';
+    this.currentUserEmail = '';
     this.edSer.debugLog(_event);
-    this.loading = false;
+    this.edSer.API_getusers().subscribe(value => this.gotUsers(value));
+
   }
 
 }
