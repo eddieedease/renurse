@@ -306,7 +306,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
             this.currentPublicationActive = element.active;
             this.currentPublicationCover = element.coverurl;
             this.currentPublicationId = element.id;
-            this.currentPublicationTitle = element.name;
+            this.currentPublicationTitle = element.uname;
             this.currentPublicationWysig = element.wysig;
           }
         });
@@ -446,10 +446,18 @@ export class AdminComponent implements OnInit, AfterViewInit {
   adjustPublications(_case) {
     switch (_case) {
       case 'new':
+      if (this.currentPublicationTitle !== '' && this.currentwysig !== '') {
+        console.log('triggert niet');
+        this.edSer.API_createpublication(this.currentPublicationTitle, this.currentwysig).subscribe(value => this.publicationsAdjusted(value));
 
+      }
         break;
       case 'edit':
+      console.log('triggert niet');
+      if (this.currentPublicationTitle !== '') {
+        this.edSer.API_editpublication(this.currentPublicationId, this.currentPublicationTitle, this.currentwysig).subscribe(value => this.publicationsAdjusted(value));
 
+      }
         break;
     }
   }
@@ -457,6 +465,11 @@ export class AdminComponent implements OnInit, AfterViewInit {
   publicationsAdjusted(_event) {
     this.edSer.debugLog(_event);
     this.loading = false;
+    this.modalRef.hide();
+    this.toastr.success('Gewijzigd', '', {
+      timeOut: 20000
+    });
+    this.getPublications();
   }
 
   // GROUPS

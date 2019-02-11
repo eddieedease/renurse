@@ -466,7 +466,7 @@ API_deleteresearch(research_id): Observable < any > {
   // Create publication
   API_createpublication(_name, _wysig): Observable < any > {
     // tslint:disable-next-line:max-line-length
-    const url = environment.apilink + 'createpublication/?rnd=' + new Date().getTime();
+    const url = environment.apilink + 'createpublication?rnd=' + new Date().getTime();
     // let blobReplaceUserId = jsonblobstring.replace('__userid__', '' + this.curID);
     const upt = {
       'name': _name,

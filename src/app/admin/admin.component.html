@@ -106,18 +106,15 @@
                 <label class="form-control-label">Titel</label>
                 <input [(ngModel)]="currentPublicationTitle" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
               </fieldset>
-              <fieldset class="form-group has-danger">
-                  <label class="form-control-label">Introtekst</label>
-                  <input [(ngModel)]="currentPublicationWysig" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
-              </fieldset>
+ 
               <hr class="m-b-2" />
               <div class="htmladjust2">
-                <app-wysig [elementId]="'publicationwysig'" [(prefill)]="currentwysig" (onEditorKeyup)="keyupHandlerFunction($event)"
-                  (carretPosition)="giveRangeBack($event)">
-                </app-wysig>
+                <app-wysig [elementId]="'publicationwysig'" [(prefill)]="currentPublicationWysig" (onEditorKeyup)="keyupHandlerFunction($event)"
+                (carretPosition)="giveRangeBack($event)">
+              </app-wysig>
               </div>
-              <button *ngIf="newPublication" type="submit" class="btn btn-primary btn-lg">Opslaan</button>
-              <button *ngIf="!newPublication" type="submit" class="btn btn-primary btn-lg">Bijwerken</button>
+              <button *ngIf="newPublication" (click)="adjustPublications('new')" type="submit" class="btn btn-primary btn-lg">Opslaan</button>
+              <button *ngIf="!newPublication" (click)="adjustPublications('edit')" type="submit" class="btn btn-primary btn-lg">Bijwerken</button>
             </form>
           <!-- /registration form-->
         </div>
@@ -290,7 +287,7 @@
               </ng-template>
 
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                <div [innerHTML]="row['name']"></div>
+                <div [innerHTML]="row['uname']"></div>
               </ng-template>
             </ngx-datatable-column>
 

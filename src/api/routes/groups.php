@@ -16,6 +16,9 @@ $app->post('/creategroup', function (Request $request, Response $response) {
     // Some logic to check the pwd's
     $groupname = $parsedBody[groupname];
     $groupwysig = $parsedBody[groupwysig];
+
+    $groupname = addcslashes($groupname, "'");
+    $groupwysig = addcslashes($groupwysig, "'");
     
     // UPDATE, I THINKKKK, It's better to make 2 API CALLS, first store the data. If this succeeds, another 'file upload' for thumbnail
     include 'db.php';

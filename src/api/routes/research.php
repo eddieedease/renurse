@@ -13,11 +13,14 @@ $app->post('/createresearch', function (Request $request, Response $response) {
     // Some logic to check the pwd's
     $researchname = $parsedBody[researchname];
     $researchwysig = $parsedBody[researchwysig];
+
+    $researchname = addcslashes($researchname, "'");
+    $researchwysig = addcslashes($researchwysig, "'");
     // UPDATE, I THINKKKK, It's better to make 2 API CALLS, first store the data. If this succeeds, another 'file upload' for thumbnail
     include 'db.php';
     // Insert the link into our DATABASE
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
-    $sqladdresearch = "INSERT INTO research (name, wysig) VALUES ('$researchname', '$researchwysig')";
+    $sqladdresearch = "INSERT INTO research (uname, wysig) VALUES ('$researchname', '$researchwysig')";
     $stmtaddresearch = $dbh->prepare($sqladdresearch);
     $stmtaddresearch->execute();
     $resultaddresearch= $stmtaddresearch->fetchAll(PDO::FETCH_ASSOC);
@@ -25,7 +28,7 @@ $app->post('/createresearch', function (Request $request, Response $response) {
     //     NOTE colleting everything for converting
     $result = array();
     array_push($result, $resultaddresearch);
-    $debug = array('status' => 'success', 'addresearch' => $researchname, 'insertId' => $researchID);
+    $debug = array('status' => 'success', 'addresearch' => $sqladdresearch, 'insertId' => $researchID);
     //     convert it all to jSON TODO change result
     $response = json_encode($debug);
     return $response;
@@ -57,8 +60,11 @@ $app->post('/editresearch/{researchid}', function (Request $request, Response $r
     $parsedBody = $request->getParsedBody();
     // TODO: ADD SOME SALTING RIGHT THERE
     // Some logic to check the pwd's
-    $researchname = $parsedBody[researchname];
-    $researchwysig = $parsedBody[researchwysig];
+    $researchname = $parsedBody[name];
+    $researchwysig = $parsedBody[wysig];
+
+    $researchname = addcslashes($researchname, "'");
+    $researchwysig = addcslashes($researchwysig, "'");
     // UPDATE, I THINKKKK, It's better to make 2 API CALLS, first store the data. If this succeeds, another 'file upload' for thumbnail
     include 'db.php';
     // Insert the link into our DATABASE

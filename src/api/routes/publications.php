@@ -7,18 +7,21 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 
 // 1) Create publication
 // TODO: WORK OUT
-$app->post('/createpub', function (Request $request, Response $response) {
+$app->post('/createpublication', function (Request $request, Response $response) {
     $parsedBody = $request->getParsedBody();
     // TODO: ADD SOME SALTING RIGHT THERE
     // Some logic to check the pwd's
-    $pubname = $parsedBody[pubname];
-    $pubwysig = $parsedBody[pubwysig];
+    $pubname = $parsedBody[name];
+    $pubwysig = $parsedBody[wysig];
+
+    $pubname = addcslashes($pubname, "'");
+    $pubwysig = addcslashes($pubwysig, "'");
     
     // UPDATE, I THINKKKK, It's better to make 2 API CALLS, first store the data. If this succeeds, another 'file upload' for thumbnail
     include 'db.php';
     // Insert the link into our DATABASE
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
-    $sqladdpub = "INSERT INTO publications (name, wysig) VALUES ('$pubname', '$pubwysig')";
+    $sqladdpub = "INSERT INTO publications (uname, wysig) VALUES ('$pubname', '$pubwysig')";
     $stmtaddpub = $dbh->prepare($sqladdpub);
     $stmtaddpub->execute();
     $resultaddpub= $stmtaddpub->fetchAll(PDO::FETCH_ASSOC);
@@ -26,7 +29,7 @@ $app->post('/createpub', function (Request $request, Response $response) {
     //     NOTE colleting everything for converting
     $result = array();
     array_push($result, $resultaddpub);
-    $debug = array('status' => 'success', 'addpublication' => $pubname, 'insertId' => $pubID);
+    $debug = array('status' => 'success', 'addpublication' => $resultaddpub, 'insertId' => $pubID);
     //     convert it all to jSON TODO change result
     $response = json_encode($debug);
     return $response;
@@ -54,9 +57,32 @@ $app->get('/getpublications', function (Request $request, Response $response) {
 
 //3 ) Edit publication
 // TODO: Work out
-$app->post('/editpublication', function (Request $request, Response $response) {
-    $data = array('Jsonresponse' => 'item1');
-    $response = json_encode($data);
+$app->post('/editpublication/{publicationid}', function (Request $request, Response $response) {
+    $publicationid = $request->getAttribute('publicationid');
+    $publicationid = (int)$publicationid;
+    $parsedBody = $request->getParsedBody();
+    // TODO: ADD SOME SALTING RIGHT THERE
+    // Some logic to check the pwd's
+    $publicationname = $parsedBody[name];
+    $publicationwysig = $parsedBody[wysig];
+
+    $publicationname = addcslashes($publicationname, "'");
+    $publicationwysig = addcslashes($publicationwysig, "'");
+    // UPDATE, I THINKKKK, It's better to make 2 API CALLS, first store the data. If this succeeds, another 'file upload' for thumbnail
+    include 'db.php';
+    // Insert the link into our DATABASE
+    $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
+    
+
+    $sqleditpublication = "UPDATE publications SET uname = '$publicationname' , wysig = '$publicationwysig' WHERE id = '$publicationid'";
+    $stmteditpublication = $dbh->prepare($sqleditpublication);
+    $stmteditpublication->execute();
+    //     NOTE colleting everything for converting
+    $result = array();
+    array_push($result, $resulteditpublication);
+    $debug = array('status' => 'success', 'editpublication' => $sqleditpublication);
+    //     convert it all to jSON TODO change result
+    $response = json_encode($debug);
     return $response;
 });
 
