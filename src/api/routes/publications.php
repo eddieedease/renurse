@@ -21,7 +21,7 @@ $app->post('/createpublication', function (Request $request, Response $response)
     include 'db.php';
     // Insert the link into our DATABASE
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
-    $sqladdpub = "INSERT INTO publications (uname, wysig) VALUES ('$pubname', '$pubwysig')";
+    $sqladdpub = "INSERT INTO publications (name, wysig) VALUES ('$pubname', '$pubwysig')";
     $stmtaddpub = $dbh->prepare($sqladdpub);
     $stmtaddpub->execute();
     $resultaddpub= $stmtaddpub->fetchAll(PDO::FETCH_ASSOC);
@@ -74,7 +74,7 @@ $app->post('/editpublication/{publicationid}', function (Request $request, Respo
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
     
 
-    $sqleditpublication = "UPDATE publications SET uname = '$publicationname' , wysig = '$publicationwysig' WHERE id = '$publicationid'";
+    $sqleditpublication = "UPDATE publications SET name = '$publicationname' , wysig = '$publicationwysig' WHERE id = '$publicationid'";
     $stmteditpublication = $dbh->prepare($sqleditpublication);
     $stmteditpublication->execute();
     //     NOTE colleting everything for converting

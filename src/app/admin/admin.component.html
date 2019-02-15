@@ -134,18 +134,14 @@
                   <label class="form-control-label">Titel</label>
                   <input [(ngModel)]="currentGroupTitle" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
                 </fieldset>
-                <fieldset class="form-group has-danger">
-                    <label class="form-control-label">Introtekst</label>
-                    <input [(ngModel)]="currentGroupWysig" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
-                </fieldset>
                 <hr class="m-b-2" />
                 <div class="htmladjust2">
-                  <app-wysig [elementId]="'groupwysig'" [(prefill)]="currentwysig" (onEditorKeyup)="keyupHandlerFunction($event)"
+                    <app-wysig [elementId]="'groupwysig'" [(prefill)]="currentGroupWysig" (onEditorKeyup)="keyupHandlerFunction($event)"
                     (carretPosition)="giveRangeBack($event)">
                   </app-wysig>
-                </div>
-                <button *ngIf="newGroup" type="submit" class="btn btn-primary btn-lg">Opslaan</button>
-              <button *ngIf="!newGroup" type="submit" class="btn btn-primary btn-lg">Bijwerken</button>
+                  </div>
+                <button *ngIf="newGroup" (click)="adjustGroups('new')" type="submit" class="btn btn-primary btn-lg">Opslaan</button>
+              <button *ngIf="!newGroup" (click)="adjustGroups('edit')" type="submit" class="btn btn-primary btn-lg">Bijwerken</button>
               </form>
           </div>
            
@@ -287,7 +283,7 @@
               </ng-template>
 
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                <div [innerHTML]="row['uname']"></div>
+                <div [innerHTML]="row['name']"></div>
               </ng-template>
             </ngx-datatable-column>
 

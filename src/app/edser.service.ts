@@ -246,11 +246,11 @@ export class EdserService {
   // GROUPS
   API_createGroup(_groupname, _groupwysig): Observable < any > {
     // tslint:disable-next-line:max-line-length
-    const url = environment.apilink + 'creategroup/?rnd=' + new Date().getTime();
+    const url = environment.apilink + 'creategroup?rnd=' + new Date().getTime();
     // let blobReplaceUserId = jsonblobstring.replace('__userid__', '' + this.curID);
     const upt = {
-      'groupname': _groupname,
-      'groupwysig': _groupwysig
+      'name': _groupname,
+      'wysig': _groupwysig
     };
     const body = JSON.stringify(upt);
     // const howmanykb = this.byteCount(body);
@@ -293,13 +293,13 @@ export class EdserService {
   }
   
 
-  API_editGroup(_groupname, _groupwysig): Observable < any > {
+  API_editGroup(_groupdid, _groupname, _groupwysig): Observable < any > {
     // tslint:disable-next-line:max-line-length
-    const url = environment.apilink + 'editgroup/?rnd=' + new Date().getTime();
+    const url = environment.apilink + 'editgroup/' + _groupdid + '?rnd=' + new Date().getTime();
     // let blobReplaceUserId = jsonblobstring.replace('__userid__', '' + this.curID);
     const upt = {
-      'groupname': _groupname,
-      'groupwysig': _groupwysig
+      'name': _groupname,
+      'wysig': _groupwysig
     };
     const body = JSON.stringify(upt);
     // const howmanykb = this.byteCount(body);

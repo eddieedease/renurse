@@ -14,8 +14,8 @@ $app->post('/creategroup', function (Request $request, Response $response) {
     $parsedBody = $request->getParsedBody();
     // TODO: ADD SOME SALTING RIGHT THERE
     // Some logic to check the pwd's
-    $groupname = $parsedBody[groupname];
-    $groupwysig = $parsedBody[groupwysig];
+    $groupname = $parsedBody[name];
+    $groupwysig = $parsedBody[wysig];
 
     $groupname = addcslashes($groupname, "'");
     $groupwysig = addcslashes($groupwysig, "'");
@@ -60,9 +60,32 @@ $app->get('/getgroups', function (Request $request, Response $response) {
 
 //3 ) Edit group
 // TODO: Work out
-$app->get('/editgroup', function (Request $request, Response $response) {
-    $data = array('Jsonresponse' => 'item1');
-    $response = json_encode($data);
+$app->post('/editgroup/{groupid}', function (Request $request, Response $response) {
+    $groupid = $request->getAttribute('groupid');
+    $groupid = (int)$groupid;
+    $parsedBody = $request->getParsedBody();
+    // TODO: ADD SOME SALTING RIGHT THERE
+    // Some logic to check the pwd's
+    $groupname = $parsedBody[name];
+    $groupwysig = $parsedBody[wysig];
+
+    $groupname = addcslashes($groupname, "'");
+    $groupwysig = addcslashes($groupwysig, "'");
+    // UPDATE, I THINKKKK, It's better to make 2 API CALLS, first store the data. If this succeeds, another 'file upload' for thumbnail
+    include 'db.php';
+    // Insert the link into our DATABASE
+    $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
+    
+
+    $sqleditgroup = "UPDATE groups SET name = '$groupname' , wysig = '$groupwysig' WHERE id = '$groupid'";
+    $stmteditgroup = $dbh->prepare($sqleditgroup);
+    $stmteditgroup->execute();
+    //     NOTE colleting everything for converting
+    $result = array();
+    array_push($result, $resulteditgroup);
+    $debug = array('status' => 'success', 'editgroup' => $sqleditgroup);
+    //     convert it all to jSON TODO change result
+    $response = json_encode($debug);
     return $response;
 });
 

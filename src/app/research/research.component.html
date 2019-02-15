@@ -1,83 +1,107 @@
 <ng-template #researchtemplate>
-    <div class="modal-header">
-      <h4 class="modal-title pull-left">{{currentResearchTitle}}</h4>
-      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-        <span aria-hidden="true">&times;</span>
-      </button>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{currentResearchTitle}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- registration form-->
+    <div class="col-sm text-center">
+      <svg *ngIf="showLoginSpinner" class="spinner text-center" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+        <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+      </svg>
     </div>
-    <div class="modal-body">
-        <!-- registration form-->
-        <div class="col-sm text-center">
-          <svg *ngIf="showLoginSpinner" class="spinner text-center" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-          </svg>
-        </div>
-       
-        <div class="row">
-          <div class="col-sm">
-                <div [innerHTML]="currentResearchWysig | safe: 'html'"></div>
-          </div>
-          
-          <div class="col-sm">
-  
-          </div>
-        </div>
-        <!-- /registration form-->
+
+    <div class="row">
+      <div class="col-sm">
+        <div [innerHTML]="currentResearchWysig | safe: 'html'"></div>
       </div>
-      
-  </ng-template>
+
+      <div class="col-sm">
+
+      </div>
+    </div>
+    <!-- /registration form-->
+  </div>
+
+</ng-template>
 
 
 
-<!-- Start Blog Area --> 
+<!-- Start Blog Area -->
 <section class="htc__blog__area home-blog bg__white ptb--100">
   <div class="container">
-      <div class="row">
-          <div class="col-md-12">
-              <div class="section__title text-center">
-                  <h2 class="title__line text--theme">Onderzoeken & Publicaties</h2>
-              </div>
-          </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section__title text-center">
+          <h2 class="title__line text--theme">Onderzoeken & Publicaties</h2>
+        </div>
       </div>
-      <div class=" mt--30">
-          <!-- Start single Blog -->
+    </div>
+    <div>
+
+    </div>
+    <div class=" mt--30">
+      <tabset>
+        <tab heading="Onderzoeken" id="tab1">
           <div class="row">
-          
-          
-            <div *ngFor="let research of researchArray; let i = index" class="col-lg-6 col-xl-6 col-md-6 col-6">
-              <div (click)='openModal(researchtemplate, research.id)' class="single_latest_post flex ">
-                  <div class="ht__blog__thumb">
-                      <a>
-                          <img src="assets/blog/latest_post/img-1.png" alt="blog images">
-                      </a>
-                  </div>
 
-                  <div class="htc__blog__content">
-                      <div class="blog__post_title">
-                          <h2><a>{{research.uname}}</a></h2>
-                      </div>
-                      <div class="blog_post__meta">
-                          <!-- <div class="post_author_img">
-                              <a href="#"><img src="assets/blog/latest_post/author_img_1.png" alt=""></a>
-                          </div> -->
-                          <div class="post_content">
-                              <div class="author_tile">
-                                  <div class="publish_info">
-                                      <ul>
-                                          <li>2 Gekoppelde publicaties</li>
-                                      </ul>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
+
+            <div *ngFor="let research of researchArray; let i = index" class="col-lg-6 col-xl-6 col-md-6 col-6" style="padding:5px; cursor:pointer">
+              <div (click)='openModal(researchtemplate, research.id)' class="single_latest_post flex ">
+                <div class="ht__blog__thumb">
+                  <a>
+                    <img src="assets/blog/latest_post/img-1.png" alt="blog images">
+                  </a>
+                </div>
+
+                <div class="htc__blog__content">
+                  <div class="blog__post_title">
+                    <h2><a>{{research.uname}}</a></h2>
                   </div>
+                  <div class="blog_post__meta">
+                    <!-- <div class="post_author_img">
+                                    <a href="#"><img src="assets/blog/latest_post/author_img_1.png" alt=""></a>
+                                </div> -->
+                    <div class="post_content">
+                      <div class="author_tile">
+                        <div class="publish_info">
+                          <ul>
+                            <li>2 Gekoppelde publicaties</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
 
 
-          
-            </div>
-      </div>
+
+          </div>
+        </tab>
+        <tab heading="Publicaties"><br>
+          <ul class="list-group">
+              <li class="list-group-item" >
+                 <span class="pull-left ">
+                   <img src="https://edease.nl/assets/logo1b.png"  class="img-reponsive img-rounded" />
+                 </span>
+                 Text
+              </li>
+              <li class="list-group-item" >
+                  <span class="pull-left ">
+                    <img src="https://edease.nl/assets/logo1b.png"  class="img-reponsive img-rounded" />
+                  </span>
+                  Text
+               </li>
+          </ul>
+        </tab>
+      </tabset>
+      <!-- Start single Blog -->
+
+    </div>
   </div>
 </section>

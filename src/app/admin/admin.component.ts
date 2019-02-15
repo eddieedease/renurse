@@ -299,14 +299,13 @@ export class AdminComponent implements OnInit, AfterViewInit {
         break;
       case 'editpublication':
         this.newPublication = false;
-
         this.publicationRows.forEach(element => {
           if (element.id === _id) {
             this.edSer.debugLog('We have a hit');
             this.currentPublicationActive = element.active;
             this.currentPublicationCover = element.coverurl;
             this.currentPublicationId = element.id;
-            this.currentPublicationTitle = element.uname;
+            this.currentPublicationTitle = element.name;
             this.currentPublicationWysig = element.wysig;
           }
         });
@@ -447,13 +446,16 @@ export class AdminComponent implements OnInit, AfterViewInit {
     switch (_case) {
       case 'new':
       if (this.currentPublicationTitle !== '' && this.currentwysig !== '') {
-        console.log('triggert niet');
+       
         this.edSer.API_createpublication(this.currentPublicationTitle, this.currentwysig).subscribe(value => this.publicationsAdjusted(value));
 
+      } else {
+        this.toastr.warning('Niet alles ingevuld', '', {
+          timeOut: 20000
+        });
       }
         break;
       case 'edit':
-      console.log('triggert niet');
       if (this.currentPublicationTitle !== '') {
         this.edSer.API_editpublication(this.currentPublicationId, this.currentPublicationTitle, this.currentwysig).subscribe(value => this.publicationsAdjusted(value));
 
@@ -487,17 +489,32 @@ export class AdminComponent implements OnInit, AfterViewInit {
   adjustGroups(_case) {
     switch (_case) {
       case 'new':
+      if (this.currentGroupTitle !== '' && this.currentwysig !== '') {
+       
+        this.edSer.API_createGroup(this.currentGroupTitle, this.currentwysig).subscribe(value => this.groupsAdjusted(value));
 
+      } else {
+        this.toastr.warning('Niet alles ingevuld', '', {
+          timeOut: 20000
+        });
+      }
         break;
       case 'edit':
+      if (this.currentGroupTitle !== '') {
+        this.edSer.API_editGroup(this.currentGroupId, this.currentGroupTitle, this.currentwysig).subscribe(value => this.groupsAdjusted(value));
 
+      }
         break;
     }
   }
 
   groupsAdjusted(_event) {
-    this.edSer.debugLog(_event);
     this.loading = false;
+    this.modalRef.hide();
+    this.toastr.success('Gewijzigd', '', {
+      timeOut: 20000
+    });
+    this.getGroups();
   }
 
   // USERS
