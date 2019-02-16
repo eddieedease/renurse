@@ -105,20 +105,5 @@ $app->get('/deleteresearch/{researchid}', function (Request $request, Response $
     return $response;
 });
 
-// 5) set publication cover
-// TODO: Work out
-$app->post('/setresearchcover/{researchid}', function (Request $request, Response $response) {
-    $researchid = $request->getAttribute('researchid');
-    $researchid = (int)$researchid;
-    $parsedBody = $request->getParsedBody();
-    // TODO: ADD SOME SALTING RIGHT THERE
-    // Some logic to check the pwd's
-    $coverurl = $parsedBody[coverurl];
 
-
-    // TODO SET POST COVERURL WHERE researchid 
-    $data = array('Jsonresponse' => 'item1');
-    $response = json_encode($data);
-    return $response;
-});
 ?>

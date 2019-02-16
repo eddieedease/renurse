@@ -1,6 +1,7 @@
 <?php
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Psr\Http\Message\UploadedFileInterface as UploadedFile;
 
 // API
 // FILES FILES FILES FILES FILES
@@ -102,6 +103,163 @@ $app->get('/deletelogo', function (Request $request, Response $response) {
     return $response;
 });
 
+
+
+// 5) set publication cover
+// TODO: Work out
+$app->post('/uploadthumb/{case}/{id}', function (Request $request, Response $response) {
+    // below variables are for making thumbs and such
+    // TODO: aren't used yet
+    $lessonid = $request->getAttribute('id');
+    $case = $request->getAttribute('case');
+
+    // Case can be 'research' or 'publication' or 'orglogo'
+    switch ($case) {
+        case "research":
+            
+            break;
+        case "publication":
+            
+            break;
+        case "orglogo":
+            
+            break;
+    }
+
+
+
+    $directory = $this->get('upload_directory');
+    $uploadedFiles = $request->getUploadedFiles();
+    // // handle single input with single file upload
+    $uploadedFile = $uploadedFiles[file];
+    $nameofuploaded = $uploadedFile->getClientFilename();
+    $file = $_FILES[file][tmp_name];
+    list($width, $height) = getimagesize($_FILES[file][tmp_name]);
+    $ext = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
+    $basename = bin2hex(random_bytes(8)); // see http://php.net/manual/en/function.random-bytes.php
+    $filename = sprintf('%s.%0.8s', $basename, $ext);
+    
+    // check if the lessonsdirectory upload folder is there, otherwise make it
+    // NOTE: CONFIRM WORKS!!!
+    // if (!file_exists($directory . DIRECTORY_SEPARATOR . $lessonid)) {
+    //     mkdir($directory . DIRECTORY_SEPARATOR . $lessonid, 0777, true);
+    // }
+    switch ($ext) {
+        case "png":
+            $imageResourceId = imagecreatefrompng($file);
+            $targetLayer = imageResize($imageResourceId, $width, $height);
+            imagepng($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
+            break;
+        case "PNG":
+            $imageResourceId = imagecreatefrompng($file);
+            $targetLayer = imageResize($imageResourceId, $width, $height);
+            imagepng($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
+            break;
+        case "gif":
+            $imageResourceId = imagecreatefromgif($file);
+            $targetLayer = imageResize($imageResourceId, $width, $height);
+            imagegif($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
+            break;
+        case "GIF":
+            $imageResourceId = imagecreatefromgif($file);
+            $targetLayer = imageResize($imageResourceId, $width, $height);
+            imagegif($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
+            break;
+        case "jpg":
+            $imageResourceId = imagecreatefromjpeg($file);
+            $targetLayer = imageResize($imageResourceId, $width, $height);
+            imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
+            break;
+        case "JPG":
+            $imageResourceId = imagecreatefromjpeg($file);
+            $targetLayer = imageResize($imageResourceId, $width, $height);
+            imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
+            break;
+        case "jpeg":
+            $imageResourceId = imagecreatefromjpeg($file);
+            $targetLayer = imageResize($imageResourceId, $width, $height);
+            imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
+            break;
+        case "JPEG":
+            $imageResourceId = imagecreatefromjpeg($file);
+            $targetLayer = imageResize($imageResourceId, $width, $height);
+            imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
+            break;
+        default:
+            echo "Invalid Image type.";
+            exit;
+            break;
+    }
+    //if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
+    //     $filename = moveUploadedFile($directory, $uploadedFile);
+    // $response->write('uploaded ' . $filename . '<br/>');
+    include 'db.php';
+    // Insert the link into our DATABASE
+    $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
+    $sqladdfile = "UPDATE lessons SET cover = '$filename' WHERE id = '$lessonid'";
+
+
+    $stmtaddfile = $dbh->prepare($sqladdfile);
+
+    $stmtaddfile->execute();
+    $resultaddfile = $stmtaddfile->fetchAll(PDO::FETCH_ASSOC);
+    // return some thangz
+    $cb = array(
+        'thumbfileupload' => 'success',
+        'sql' => $sqladdfile,
+        'tolesson' => $lessonid,
+        'debug' => $file,
+        'oriwidth' => $width,
+    );
+    /*  $debuggerrighthere = array('somethangsz' => 'asda');
+    $response = json_encode($debuggerrighthere); */
+    $response = json_encode($cb);
+    return $response;
+});
+
+/**
+ * Resizes file
+ * to avoid overwriting an existing uploaded file.
+ *
+ * @param UploadedFile $uploaded file uploaded file to move
+ */
+function imageResize($file, $width, $height)
+{
+    $targetWidth = 500;
+    $targetHeight = 400;
+    if ($width > $height && $targetHeight < $height) {
+        $targetHeight = $height / ($width / $targetWidth);
+    } else if ($width < $height && $targetWidth < $width) {
+        $targetWidth = $width / ($height / $targetHeight);
+    } else {
+        $newwidth = $width;
+        $newheight = $height;
+    }
+    $targetLayer = imagecreatetruecolor($targetWidth, $targetHeight);
+    imagecopyresampled($targetLayer, $file, 0, 0, 0, 0, $targetWidth, $targetHeight, $width, $height);
+    return $targetLayer;
+};
+/**
+ * Moves the uploaded file to the upload directory and assigns it a unique name
+ * to avoid overwriting an existing uploaded file.
+ *
+ * @param string $directory directory to which the file is moved
+ * @param UploadedFile $uploaded file uploaded file to move
+ * @return string filename of moved file
+ */
+function moveUploadedFile($directory, UploadedFile $uploadedFile, $lessonid)
+{
+    $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
+    $basename = bin2hex(random_bytes(8)); // see http://php.net/manual/en/function.random-bytes.php
+    $filename = sprintf('%s.%0.8s', $basename, $extension);
+    // check if the lessonsdirectory upload folder is there, otherwise make it
+    // NOTE: CONFIRM WORKS!!!
+    if (!file_exists($directory . DIRECTORY_SEPARATOR . $lessonid)) {
+        mkdir($directory . DIRECTORY_SEPARATOR . $lessonid, 0777, true);
+    }
+    $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . $lessonid . DIRECTORY_SEPARATOR . $filename);
+    return $filename;
+};
 
 
 ?>

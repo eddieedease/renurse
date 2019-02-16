@@ -151,6 +151,8 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   // another for the current WYSIG
   currentwysig;
+  currentID;
+
 
   // uploader
   optionsUploader: UploaderOptions;
@@ -159,6 +161,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   uploadInput: EventEmitter < UploadInput > ;
   humanizeBytes: Function;
 
+  
 
 
   constructor(private wysigpipe: WysigPipe, private edSer: EdserService, private router: Router, public sanitizer: DomSanitizer, private toastr: ToastrService, private modalService: BsModalService) {
@@ -188,12 +191,49 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
 
+// UPLOADING UPLOADING UPLOADING
+// UPLOADING UPLOADING UPLOADING
+// UPLOADING UPLOADING UPLOADING
+// UPLOADING UPLOADING UPLOADING
+
+
+// section for course thumb image uploading
+onProfileFileChange(_event) {
+  const files = _event.target.files || _event.srcElement.files;
+  const file = files[0];
+
+  this.edSer.debugLog(file.size);
+
+  if (file.size >= 2000000) {
+    this.edSer.debugLog('TO BIG OF A FILE, note user?');
+  }
+  this.startProfileUpload(_event);
+}
+
+  // section for course thumb image uploading
+  startProfileUpload(_event): void {
+    this.edSer.debugLog('start profile pic uploading uploading');
+    this.loading = true;
+    // TODO: make the call to the uploading
+    // Event, case , id
+  }
+
+   // Server response on course img upload
+profileFileIsUploaded(_val) {
+  this.loading = false;
+  this.edSer.debugLog('Profilefile is uploaded');
+  this.toastr.success('Cursusafbeelding aangepast', '');
+  this.edSer.debugLog(_val);
+  // TODO: Load again
+}
+
+
+
+
+
 
   adminLoginAttempt() {
     // TODO: Implement ADMIN LOGIN
-
-
-
     if (this.admId !== '' && this.admPwd !== '') {
       this.showLoginSpinner = true;
       // TODO: 4 now simulate
