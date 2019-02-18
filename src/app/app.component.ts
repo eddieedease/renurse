@@ -103,26 +103,22 @@ export class AppComponent {
     this.edSer.debugLog(_event);
     
     if (_event.status === 'failed') {
-
+      this.showLoginSpinner = false;
+      this.toastr.info('Inloggegevens niet geldig', 'Helaas');
     } else {
+      this.edSer.__loggedIn = true;
       // succesfull login
       if (_event.type === '2') {
         this.edSer.debugLog('Admin is logged in');
       }
-    }
-
-
-
-    // TODO: Check if is ok
+      // TODO: Check if is ok
     this.isLoggedIn = true;
     this.showLoginSpinner = false;
     this.modalRef.hide();
 
     this.router.navigate(['loggedin']);
 
-    this.toastr.success('Welkom', 'succes!', {
-      timeOut: 20000
-    });
+    }    
   }
 
   logOut() {

@@ -44,6 +44,8 @@ export class EdserService {
   __serUserID;
   __serUserType;
 
+  __loggedIn = false;
+
   constructor(private http_: Http, private router: Router) {
 
   }

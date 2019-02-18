@@ -148,6 +148,7 @@ $app->post('/login/{usrname}', function (Request $request, Response $response) {
         if ($aitype == '1'){
             $sqlgetgroups = "SELECT groupsid FROM users_to_groups WHERE userid = '$aiid'";
         } else {
+            // is admin
             $sqlgetgroups = "SELECT id FROM groups";
         }
 
@@ -159,12 +160,16 @@ $app->post('/login/{usrname}', function (Request $request, Response $response) {
         // first construct id string to fetch questions
         // TODO: TODO: TODO: HIER ZIJN
         foreach ($resultgetgroups as $group) {
-            array_push($answersIdsToCheck, $answer[qid]);
-            array_push($userAnswers, $answer[aid]);
+            if ($aitype == '1'){
+                array_push($groupids, (int)$group[groupsid]);
+            } else {
+                // is admin
+                array_push($groupids, (int)$group[id]);
+            }
         }
 
 
-        $cb = array('status' => 'success', 'secret' => $aisecret, 'name' => $ainame, 'lastname' => $ailastname, 'email' => $aiemail, 'usrid' => $aiid, 'type' => $aitype, 'groupids' => $groupid);
+        $cb = array('status' => 'success', 'secret' => $aisecret, 'name' => $ainame, 'lastname' => $ailastname, 'email' => $aiemail, 'usrid' => $aiid, 'type' => $aitype, 'groupids' => $groupids);
     } else {
         // $cb = array('loginError' => $usrname, 'new' => [$pwd, $sqllogin ,$resultlogin]);
         $cb = array('status' => 'failed');
