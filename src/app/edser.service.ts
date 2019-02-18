@@ -39,6 +39,11 @@ export class EdserService {
   // subject admin var
   private dMin = new Subject < any > ();
 
+
+  __serUserGroups;
+  __serUserID;
+  __serUserType;
+
   constructor(private http_: Http, private router: Router) {
 
   }
@@ -53,6 +58,36 @@ export class EdserService {
     }
   }
 
+  setCurrent(_case, _val) {
+    switch (_case) {
+      case 'usergroups':
+        this.__serUserGroups = _val;
+        break;
+      case 'userid':
+        this.__serUserID = _val;
+        break;
+      case 'usertype':
+        this.__serUserType = _val;
+        break;
+    }
+  }
+
+  // Service store app wide
+  getCurrent(_case) {
+    let vall;
+    switch (_case) {
+      case 'usergroups':
+        vall = this.__serUserGroups;
+        break;
+      case 'userid':
+        vall = this.__serUserID;
+        break;
+      case 'usertype':
+        vall = this.__serUserType;
+        break;
+    }
+    return vall;
+  }
 
 
   // Communication between ADMIN and layoutview components
@@ -170,7 +205,7 @@ export class EdserService {
   }
 
   // Edit user
-  API_edituser(_id, _name, _lastname, _email): Observable < any > {
+  API_edituser(_id, _name, _lastname, _email, _pwd): Observable < any > {
     // tslint:disable-next-line:max-line-length
     const url = environment.apilink + 'edituser/' + _id + '?rnd=' + new Date().getTime();
     // let blobReplaceUserId = jsonblobstring.replace('__userid__', '' + this.curID);
@@ -178,6 +213,7 @@ export class EdserService {
       'uname': _name,
       'lastname': _lastname,
       'email': _email,
+      'pwd': _pwd
     };
     const body = JSON.stringify(upt);
     // const howmanykb = this.byteCount(body);

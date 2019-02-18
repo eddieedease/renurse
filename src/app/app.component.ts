@@ -48,6 +48,7 @@ export class AppComponent {
 
   // user creds
   usrId = '';
+  usrMail = '';
   usrPwd = '';
 
   modalRef: BsModalRef;
@@ -88,20 +89,30 @@ export class AppComponent {
 
   loginAttempt() {
     // check some thing and  enable spinning loader
-    if (this.usrId !== '' && this.usrPwd !== '') {
+    if (this.usrMail !== '' && this.usrPwd !== '') {
       // adding a fake timer
       this.showLoginSpinner = true;
-      setTimeout(() => {
-        this.gotLoginResponse('OK');
-      }, 1000);
-
+      this.edSer.API_login(this.usrMail, this.usrPwd).subscribe(value => this.gotLoginResponse(value));
       // TODO: enable API CALL
-      // this.edSer.API_login(this.usrId, this.usrPwd).subscribe(value => this.gotLoginResponse(value));
     }
   }
 
   // TODO: catch on suceesss
   gotLoginResponse(_event) {
+
+    this.edSer.debugLog(_event);
+    
+    if (_event.status === 'failed') {
+
+    } else {
+      // succesfull login
+      if (_event.type === '2') {
+        this.edSer.debugLog('Admin is logged in');
+      }
+    }
+
+
+
     // TODO: Check if is ok
     this.isLoggedIn = true;
     this.showLoginSpinner = false;

@@ -27,7 +27,7 @@
         </div> -->
         <fieldset class="form-group has-danger">
           <label for="mail" class="form-control-label">Email adres:</label>
-          <input [(ngModel)]="usrId" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+          <input [(ngModel)]="usrMail" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
         </fieldset>
         <fieldset class="form-group has-danger">
           <label for="password" class="form-control-label">Wachtwoord:</label>
@@ -142,8 +142,8 @@
               <a class="nav-link" *ngIf="isLoggedIn" routerLink="/loggedin">Downloadpagina</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" *ngIf="!isLoggedIn" (click)='openModal(loginmodal)' style="color:blue;cursor:pointer" href="#">Inloggen</a>
-              <a class="nav-link" *ngIf="isLoggedIn" (click)='logOut()' style="color:orange;cursor:pointer" href="#">Uitloggen</a>
+              <a class="nav-link" *ngIf="!isLoggedIn" (click)='openModal(loginmodal)' style="color:blue;cursor:pointer">Inloggen</a>
+              <a class="nav-link" *ngIf="isLoggedIn" (click)='logOut()' style="color:orange;cursor:pointer">Uitloggen</a>
 
             </li>
           </ul>

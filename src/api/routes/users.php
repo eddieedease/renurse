@@ -74,6 +74,7 @@ $app->post('/edituser/{userid}', function (Request $request, Response $response)
     $name = $parsedBody[uname];
     $lastname = $parsedBody[lastname];
     $email = $parsedBody[email];
+    $pwd = $parsedBody[pwd];
 
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
@@ -81,7 +82,7 @@ $app->post('/edituser/{userid}', function (Request $request, Response $response)
     // TODO: ADD SOME SALTING RIGHT THERE
     // Some logic to check the pwd's
 
-    $sqledituser = "UPDATE users SET uname = '$name' , lastname = '$lastname', email = '$email' WHERE id = '$userid'";
+    $sqledituser = "UPDATE users SET uname = '$name' , lastname = '$lastname', email = '$email', pwd = '$pwd' WHERE id = '$userid'";
     $stmtedituser = $dbh->prepare($sqledituser);
     $stmtedituser->execute();
     // hash it
@@ -125,24 +126,48 @@ $app->post('/login/{usrname}', function (Request $request, Response $response) {
     
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
-    $sqllogin = "SELECT id, name, lastname, pwd, email, secret FROM users WHERE email = '$usrname'";
+    $sqllogin = "SELECT id, uname, lastname, pwd, email, secret, type FROM users WHERE email = '$usrname'";
     $stmtlogin = $dbh->prepare($sqllogin);
     $stmtlogin->execute();
     $resultlogin = $stmtlogin->fetchAll(PDO::FETCH_ASSOC);
     $aipassword = $resultlogin[0]['pwd'];
     $aiemail = $resultlogin[0]['email'];
-    $ainame = $resultlogin[0]['name'];
+    $ainame = $resultlogin[0]['uname'];
     $ailastname = $resultlogin[0]['lastname'];
     $aiid = $resultlogin[0]['id'];
     $aisecret = $resultlogin[0]['secret'];
+    $aitype = $resultlogin[0]['type'];
     //  Match passwords against each other, if succesfull give back secret key for storing in Cookie
-    //  TODO: UNSALT
     if ($pwd == $aipassword) {
         // debugging Line
-        $cb = array('login' => 'SUCCESS', 'secret' => $aisecret, 'name' => $ainame, 'lastname' => $ailastname, 'email' => $aiemail, 'usrid' => $aiid);
+        // TODO: We must acces the user to groups, and give that array back to 
+        $groupids = [];
+        $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
+        // TODO: check if admin, if it is make query to get all groupID's
+        // IF it is user, return active groups for user
+        if ($aitype == '1'){
+            $sqlgetgroups = "SELECT groupsid FROM users_to_groups WHERE userid = '$aiid'";
+        } else {
+            $sqlgetgroups = "SELECT id FROM groups";
+        }
+
+        $stmtgetgroups = $dbh->prepare($sqlgetgroups);
+        $stmtgetgroups->execute();
+        $resultgetgroups = $stmtgetgroups->fetchAll(PDO::FETCH_ASSOC);
+
+        // Populate the groupids
+        // first construct id string to fetch questions
+        // TODO: TODO: TODO: HIER ZIJN
+        foreach ($resultgetgroups as $group) {
+            array_push($answersIdsToCheck, $answer[qid]);
+            array_push($userAnswers, $answer[aid]);
+        }
+
+
+        $cb = array('status' => 'success', 'secret' => $aisecret, 'name' => $ainame, 'lastname' => $ailastname, 'email' => $aiemail, 'usrid' => $aiid, 'type' => $aitype, 'groupids' => $groupid);
     } else {
         // $cb = array('loginError' => $usrname, 'new' => [$pwd, $sqllogin ,$resultlogin]);
-        $cb = array('login' => 'ERROR');
+        $cb = array('status' => 'failed');
     }
     // debugging Line
     // $debug = array('login' => $sqllogin, 'secret' => $parsedBody[pwd]);

@@ -64,6 +64,8 @@
   </div>
 </ng-template>
 
+
+
 <ng-template #researchtemplate>
     <div class="modal-header">
       <h4 class="modal-title pull-left">Onderzoek</h4>
@@ -165,13 +167,30 @@
                       <input [(ngModel)]="currentUserLastName" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
                   </fieldset>
                   <fieldset class="form-group has-danger">
-                      <label class="form-control-label">Email</label>
+                      <label class="form-control-label">Email / Gebruikersnaam</label>
                       <input [(ngModel)]="currentUserEmail" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+                  </fieldset>
+                  <fieldset class="form-group has-danger">
+                    <label class="form-control-label">Wachtwoord</label>
+                    <input [(ngModel)]="currentUserPwd" [ngModelOptions]="{standalone: true}" type="password" class="form-control form-control-danger">
                   </fieldset>
                   <hr class="m-b-2" />
                   <button *ngIf="newUser" (click)="adjustUsers('new')" type="submit" class="btn btn-primary btn-lg">Opslaan</button>
                   <button *ngIf="!newUser" (click)="adjustUsers('edit')"  type="submit" class="btn btn-primary btn-lg">Bijwerken</button>
                 </form>
+            </div>
+        </ng-template>
+
+
+        <ng-template #usertogroup>
+          <div class="modal-header">
+            <h4 class="modal-title pull-left">Gebruikers aan groepen</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+             
             </div>
         </ng-template>
 
@@ -359,7 +378,7 @@
         </tab>
 
         <tab (select)="getSome('users')" heading="Gebruikers"><br>
-          <h2>Gerbuikers</h2><br>
+          <h2>Gebruikers</h2><br>
           <div class="btn-group float-right" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-primary" style="border-radius: 10px" (click)="openLargeModal(usertemplate, 'newuser', 0)"><i
                 class="fa fa-plus" aria-hidden="true"></i> Gebruiker toevoegen</button>
@@ -401,10 +420,14 @@
               </ng-template>
 
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <div class="btn-group" role="group" aria-label="Basic example">
                 <button type="button" (click)="openLargeModal(usertemplate, 'edituser', row['id'])"  class="btn btn-warning"
                 data-toggle="modal" data-target=".modal-edit">
                 <i class="fa fa-edit"></i>
-              </button>
+              </button><button type="button" (click)="openLargeModal(usertogroup, 'usertogroup', row['id'])"  class="btn btn-info"
+              data-toggle="modal" data-target=".modal-edit">
+              <i class="fa fa-group"></i>
+            </button></div>
               </ng-template>
             </ngx-datatable-column>
 

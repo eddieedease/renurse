@@ -140,7 +140,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   currentUserId;
   currentUserLastName;
   currentUserEmail;
-  currentPWDHashed;
+  currentUserPwd;
 
   // references for new or edit
   // false = edit
@@ -235,10 +235,12 @@ profileFileIsUploaded(_val) {
   adminLoginAttempt() {
     // TODO: Implement ADMIN LOGIN
     if (this.admId !== '' && this.admPwd !== '') {
+      // Admin login responsibilities
       this.showLoginSpinner = true;
       // TODO: 4 now simulate
       setTimeout(() => {
         this.adminisLoggedIn = true;
+        // TODO: With the research
         this.edSer.API_getresearch().subscribe(value => this.gotResearches(value));
         this.modalRef.hide();
       }, 1000);
@@ -368,6 +370,20 @@ profileFileIsUploaded(_val) {
         this.newUser = false;
         this.currentUserId = _id;
 
+        this.userRows.forEach(element => {
+          if (element.id === _id) {
+            this.edSer.debugLog('We have a hit');
+            this.currentUserEmail = element.email;
+            this.currentUserId = element.id;
+            this.currentUserLastName = element.lastname;
+            this.currentUserName = element.uname;
+          }
+        });
+        break;
+        case 'usertogroup':
+
+        this.currentUserId = _id;
+        // setting up currents
         this.userRows.forEach(element => {
           if (element.id === _id) {
             this.edSer.debugLog('We have a hit');
@@ -570,14 +586,14 @@ profileFileIsUploaded(_val) {
   }
 
   adjustUsers(_case) {
-    if (this.currentUserName !== '' && this.currentUserLastName !== '' && this.currentUserEmail) {
+    if (this.currentUserName !== '' && this.currentUserLastName !== '' && this.currentUserEmail && this.currentUserPwd !== '') {
       this.loading = true;
       switch (_case) {
         case 'new':
           const randomstring = Math.random().toString(36).slice(-8);
           console.log(randomstring);
 
-          this.edSer.API_createuser(this.currentUserName, this.currentUserLastName, this.currentUserEmail, randomstring).subscribe(value => this.usersAdjusted(value));
+          this.edSer.API_createuser(this.currentUserName, this.currentUserLastName, this.currentUserEmail, this.currentUserPwd).subscribe(value => this.usersAdjusted(value));
 
           break;
         case 'edit':
@@ -585,7 +601,7 @@ profileFileIsUploaded(_val) {
         // this.currentUserId;
         // this.currentUserLastName;
         // this.currentUserName;
-        this.edSer.API_edituser(this.currentUserId, this.currentUserName, this.currentUserLastName, this.currentUserEmail).subscribe(value => this.usersAdjusted(value));
+        this.edSer.API_edituser(this.currentUserId, this.currentUserName, this.currentUserLastName, this.currentUserEmail, this.currentUserPwd).subscribe(value => this.usersAdjusted(value));
 
           break;
       }
