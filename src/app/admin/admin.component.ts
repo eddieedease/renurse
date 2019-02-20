@@ -180,10 +180,10 @@ export class AdminComponent implements OnInit, AfterViewInit {
     window.scrollTo(0, 0);
 
     // if admin do unlock
-    if (environment.production === false) {
+    /* if (environment.production === false) {
       this.adminisLoggedIn = true;
       this.edSer.API_getresearch().subscribe(value => this.gotResearches(value));
-    } else {}
+    } else {} */
   }
 
   ngAfterViewInit() {
@@ -238,13 +238,41 @@ profileFileIsUploaded(_val) {
       // Admin login responsibilities
       this.showLoginSpinner = true;
       // TODO: 4 now simulate
-      setTimeout(() => {
+      
+      this.edSer.API_login(this.admId, this.admPwd).subscribe(value => this.gotLoginResponse(value));
+
+      /* setTimeout(() => {
         this.adminisLoggedIn = true;
         // TODO: With the research
         this.edSer.API_getresearch().subscribe(value => this.gotResearches(value));
         this.modalRef.hide();
-      }, 1000);
+      }, 1000); */
     }
+  }
+
+
+  // TODO: catch on suceesss
+  gotLoginResponse(_event) {
+
+    this.edSer.debugLog(_event);
+    
+    if (_event.status === 'failed') {
+      this.showLoginSpinner = false;
+      this.toastr.info('Niet geldig', 'Helaas');
+    } else {
+      this.edSer.__loggedIn = true;
+      // succesfull login
+      if (_event.type === '2') {
+        this.modalRef.hide();
+        this.edSer.debugLog('Admin is logged in');
+        this.toastr.success('Welkom', 'Admin');
+        this.adminisLoggedIn = true;
+        this.edSer.API_getresearch().subscribe(value => this.gotResearches(value));
+      }
+      // TODO: Check if is ok
+    this.showLoginSpinner = false;
+    
+    }    
   }
 
   LogOut() {
@@ -380,9 +408,9 @@ profileFileIsUploaded(_val) {
           }
         });
         break;
-        case 'usertogroup':
+        case 'groupusers':
 
-        this.currentUserId = _id;
+        /* this.currentUserId = _id;
         // setting up currents
         this.userRows.forEach(element => {
           if (element.id === _id) {
@@ -392,7 +420,7 @@ profileFileIsUploaded(_val) {
             this.currentUserLastName = element.lastname;
             this.currentUserName = element.uname;
           }
-        });
+        }); */
         break;
     }
 

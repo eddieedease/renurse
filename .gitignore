@@ -5,6 +5,12 @@
 /tmp
 /out-tsc
 
+# exclude everything from upload
+src/uploads/*
+
+# exept the folder itself
+!src/uploads/.gitignore 
+
 # dependencies
 /node_modules
 

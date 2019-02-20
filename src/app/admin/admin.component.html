@@ -149,6 +149,24 @@
            
       </ng-template>
 
+      <ng-template #filestogroup>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Bestanden aan deze groep</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <!-- registration form-->
+            <br>
+            <br>
+            <!-- /registration form-->
+          </div>
+          
+      </ng-template>
+
+
+
       <ng-template #usertemplate>
           <div class="modal-header">
             <h4 class="modal-title pull-left">Gebruiker</h4>
@@ -182,9 +200,9 @@
         </ng-template>
 
 
-        <ng-template #usertogroup>
+        <ng-template #groupusers>
           <div class="modal-header">
-            <h4 class="modal-title pull-left">Gebruikers aan groepen</h4>
+            <h4 class="modal-title pull-left">Groepsdeelnemers</h4>
             <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -367,10 +385,18 @@
                 </ng-template>
   
                 <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+
                   <button type="button" (click)="openLargeModal(grouptemplate, 'editgroup', row['id'])"  class="btn btn-warning"
                   data-toggle="modal" data-target=".modal-edit">
                   <i class="fa fa-edit"></i>
-                </button>
+                </button><button type="button" (click)="openLargeModal(groupusers, 'groupusers', row['id'])"  class="btn btn-info"
+                data-toggle="modal" data-target=".modal-edit">
+                <i class="fa fa-group"></i>
+              </button><button type="button" (click)="openLargeModal(filestogroup, 'filestogroup', row['id'])"  class="btn btn-success"
+              data-toggle="modal" data-target=".modal-edit">
+              <i class="fa fa-file"></i>
+            </button></div>
                 </ng-template>
               </ngx-datatable-column>
 
@@ -424,10 +450,7 @@
                 <button type="button" (click)="openLargeModal(usertemplate, 'edituser', row['id'])"  class="btn btn-warning"
                 data-toggle="modal" data-target=".modal-edit">
                 <i class="fa fa-edit"></i>
-              </button><button type="button" (click)="openLargeModal(usertogroup, 'usertogroup', row['id'])"  class="btn btn-info"
-              data-toggle="modal" data-target=".modal-edit">
-              <i class="fa fa-group"></i>
-            </button></div>
+              </button></div>
               </ng-template>
             </ngx-datatable-column>
 

@@ -15,7 +15,25 @@ use \Psr\Http\Message\UploadedFileInterface as UploadedFile;
 
 // 1) UPLOAD A FILE TO A GROUP
 // TODO: Work out
-$app->post('/filetogroup', function (Request $request, Response $response) {
+// NEED: GROUPID parameter, filename header
+$app->post('/filetogroup/{groupid}', function (Request $request, Response $response) {
+    $groupid = $request->getAttribute('groupid');
+    $groupid = (int)$groupid;
+
+    $filename = $request->getHeader('filename');
+
+    $directory = $this->get('upload_directory');
+    $uploadedFiles = $request->getUploadedFiles();
+    // // handle single input with single file upload
+    $uploadedFile = $uploadedFiles[file];
+    $nameofuploaded = $uploadedFile->getClientFilename();
+    $file = $_FILES[file][tmp_name];
+    // list($width, $height) = getimagesize($_FILES[file][tmp_name]);
+    $ext = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
+    $basename = bin2hex(random_bytes(8)); // see http://php.net/manual/en/function.random-bytes.php
+    $filename = sprintf('%s.%0.8s', $basename, $ext);
+
+
     $data = array('Jsonresponse' => 'item1');
     $response = json_encode($data);
     return $response;
@@ -46,14 +64,6 @@ $app->get('/removefilefromgroup/{fileid}', function (Request $request, Response 
     return $response;
 });
 
-// 3) EDIT A FILE
-// TODO: Work out
-$app->post('/editfile', function (Request $request, Response $response) {
-    $data = array('Jsonresponse' => 'item1');
-    $response = json_encode($data);
-    return $response;
-});
-
 // 4 Get FILES FROM SPECIFIC GROUP
 // TODO: Test it out
 $app->get('/getfilesfromgroup/{groupid}', function (Request $request, Response $response) {
@@ -76,24 +86,7 @@ $app->get('/getfilesfromgroup/{groupid}', function (Request $request, Response $
 });
 
 
-// 5) UPLOAD LOGO
-// TODO: Work out
-// CAN BE A TYPE OF:
-// 1) PUBLICATIONCOVER, RESEARCHCOVER, GROUPCOVER, PARTNERLOGO
-$app->post('/uploadfile', function (Request $request, Response $response) {
-    $data = array('Jsonresponse' => 'item1');
-    $response = json_encode($data);
-    return $response;
-});
 
-
-// 6) GET LOGO's
-// TODO: Work out
-$app->get('/getlogos', function (Request $request, Response $response) {
-    $data = array('Jsonresponse' => 'item1');
-    $response = json_encode($data);
-    return $response;
-});
 
 // 7) DELETE LOGO
 // TODO: Work out
