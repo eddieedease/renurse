@@ -17,8 +17,8 @@
         
       <div class="col-sm">
           <div class="text-center">
-          <img *ngIf="currentCoverUrl != ''" [src]="'uploads/' + currentCoverUrl" class="img-fluid rounded mx-auto d-block">
-          <img *ngIf="currentCoverUrl == ''" src="assets/research.jpg" class="img-fluid rounded mx-auto d-block">
+          <img *ngIf="currentCoverUrl != ''" [src]="'uploads/' + currentCoverUrl" style="padding-left: 20px" class="img-fluid rounded mx-auto d-block">
+          <img *ngIf="currentCoverUrl == ''" src="assets/research.jpg" style="padding-left: 20px" class="img-fluid rounded mx-auto d-block">
         </div><br><br>
         <div [innerHTML]="currentResearchWysig | safe: 'html'"></div>
         <br><br><br>
@@ -91,7 +91,7 @@
           </div>
         </tab>
         <tab heading="Publicaties"><br>
-          <ul class="list-group">
+          <ul class="list-group" style="padding:30px">
 
 
               <li  *ngFor="let publication of publicationArray; let i = index" class="list-group-item" >
@@ -102,7 +102,7 @@
                  </span>
                  <div>&nbsp;&nbsp;
                  <p><b>Titel:</b></p>
-                 <h4>{{publication.name}}</h4></div>
+                 <h4>{{publication.name}}</h4></div><br>
                  <div [innerHTML]="publication.wysig | safe: 'html'"></div>
               </li>
 

@@ -89,6 +89,10 @@ $app->get('/getfilesfromgroup/{groupid}', function (Request $request, Response $
     return $response;
 });
 
+
+
+
+
 // GET LOGO's
 $app->get('/getlogos', function (Request $request, Response $response) {
 

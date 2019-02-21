@@ -13,12 +13,15 @@ import {
 })
 export class LockedComponent implements OnInit {
 
+  groupIdArray = [];
+
   constructor(private edSer: EdserService, private router: Router) {
 
       if (this.edSer.__loggedIn === false) {
-        this.router.navigate(['loggedin']);
+        this.router.navigate(['']);
       } else {
         this.edSer.updatedMin(false);
+      
       }
   }
 
@@ -27,7 +30,8 @@ export class LockedComponent implements OnInit {
     // scroll to top
     window.scrollTo(0, 0);
 
-    
+    this.groupIdArray =  this.edSer.getCurrent('usergroups');
+    this.edSer.debugLog(this.groupIdArray);
   }
 
 }

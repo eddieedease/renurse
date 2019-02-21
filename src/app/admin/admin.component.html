@@ -182,10 +182,11 @@
     <p>Bestanden verwijderen:</p><br><br>
     <!-- /registration form-->
     <div class="row">
-      <div class="col-3">
-        <p>Bestandsnaam</p>
-        <p>type: <b>type</b></p>
+      <div *ngFor="let file of groupFiles; let i = index" class="col-3">
+        <h5>{{file.name}}</h5>
+        <p>type: <b>{{file.type}}</b></p>
         <img src="assets/file.png" style="max-width:100px"><br>
+        <button type="button" class="btn btn-info btn-sm btn-block">Download</button>
         <button type="button" class="btn btn-danger btn-sm btn-block">Verwijder</button>
       </div>
     </div>

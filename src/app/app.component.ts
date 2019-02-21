@@ -101,7 +101,7 @@ export class AppComponent {
   gotLoginResponse(_event) {
 
     this.edSer.debugLog(_event);
-    
+
     if (_event.status === 'failed') {
       this.showLoginSpinner = false;
       this.toastr.info('Inloggegevens niet geldig', 'Helaas');
@@ -112,13 +112,15 @@ export class AppComponent {
         this.edSer.debugLog('Admin is logged in');
       }
       // TODO: Check if is ok
-    this.isLoggedIn = true;
-    this.showLoginSpinner = false;
-    this.modalRef.hide();
+      this.isLoggedIn = true;
+      this.showLoginSpinner = false;
+      this.modalRef.hide();
 
-    this.router.navigate(['loggedin']);
+      // set up service groep id array
+      this.edSer.setCurrent('usergroups', _event.groupids);
+      this.router.navigate(['loggedin']);
 
-    }    
+    }
   }
 
   logOut() {

@@ -81,6 +81,57 @@ $app->get('/getgroupusers/{groupid}', function (Request $request, Response $resp
     return $response;
 });
 
+// GET USERS GROUPS + FILES
+// TODO: WORKING ON THIS
+// TODO: WORKING ON THIS
+
+$app->get('/getusersgroupsandfiles/{userid}', function (Request $request, Response $response) {
+    $userid = $request->getAttribute('userid');
+    $userid = (int)$userid;
+
+    include 'db.php';
+    $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
+    //     NOTE 5 pieces --> [0] actions [1] arcades [2] archive [3] highscores [4] teams
+    //     a query get all the correct records from the gemeenten table
+    
+    // first get user to groups
+    $sqlgetgroupsids = "SELECT groupsid FROM users_to_groups WHERE userid = $userid";
+    $stmtgetgroupsids = $dbh->prepare($sqlgetgroupsids);
+    $stmtgetgroupsids->execute();
+    $resultgetgroupsids = $stmtgetgroupsids->fetchAll(PDO::FETCH_ASSOC);
+
+    $groupsAr = [];
+    foreach ($resultgetgroupsids as $group) {
+        array_push($groupsAr,$group[groupsid]);
+    }
+    $str = join(', ', $groupsAr);
+
+    $sqlrelevantfiles = "SELECT id, name, type, urlloc FROM files WHERE togroup IN ($str)";
+    $stmtrelevantfiles = $dbh->prepare($sqlrelevantfiles);
+    $stmtrelevantfiles->execute();
+    $resultrelevantfiles = $stmtrelevantfiles->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+
+    // Make an Array of Groupobjects
+
+
+    // Get Groupfiles
+
+
+    // add in array
+
+
+
+
+    // debug
+    $data = array('Jsonresponse' => 'item1');
+
+    $response = json_encode($resultfiles);
+    return $response;
+});
+
 //3 ) Edit group
 // TODO: Work out
 $app->post('/editgroup/{groupid}', function (Request $request, Response $response) {

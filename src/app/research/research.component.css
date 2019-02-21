@@ -1,7 +1,8 @@
 .pubthumb{
-    width: 200px;
-    height: 170px;
+    width: 150px;
+    height: 100px;
     background-size: cover;
+    border-radius: 15px;
 }
 
 .resthumb{
