@@ -14,12 +14,18 @@
     </div>
 
     <div class="row">
+        
       <div class="col-sm">
+          <div class="text-center">
+          <img *ngIf="currentCoverUrl != ''" [src]="'uploads/' + currentCoverUrl" class="img-fluid rounded mx-auto d-block">
+          <img *ngIf="currentCoverUrl == ''" src="assets/research.jpg" class="img-fluid rounded mx-auto d-block">
+        </div><br><br>
         <div [innerHTML]="currentResearchWysig | safe: 'html'"></div>
+        <br><br><br>
       </div>
 
       <div class="col-sm">
-
+          
       </div>
     </div>
     <!-- /registration form-->
@@ -52,7 +58,8 @@
               <div (click)='openModal(researchtemplate, research.id)' class="single_latest_post flex ">
                 <div class="ht__blog__thumb">
                   <a>
-                    <img src="assets/blog/latest_post/img-1.png" alt="blog images">
+                    <img *ngIf="research.coverurl != ''" [src]="'uploads/' + research.coverurl" class="resthumb" alt="blog images">
+                    <img *ngIf="research.coverurl == ''" src="assets/research.jpg" class="resthumb" alt="blog images">
                   </a>
                 </div>
 
@@ -68,7 +75,7 @@
                       <div class="author_tile">
                         <div class="publish_info">
                           <ul>
-                            <li>2 Gekoppelde publicaties</li>
+                            <!-- <li>2 Gekoppelde publicaties</li> -->
                           </ul>
                         </div>
                       </div>
@@ -85,18 +92,22 @@
         </tab>
         <tab heading="Publicaties"><br>
           <ul class="list-group">
-              <li class="list-group-item" >
-                 <span class="pull-left ">
-                   <img src="https://edease.nl/assets/logo1b.png"  class="img-reponsive img-rounded" />
+
+
+              <li  *ngFor="let publication of publicationArray; let i = index" class="list-group-item" >
+                 <span style="padding:10px" class="pull-left ">
+                    <img *ngIf="publication.coverurl != ''" [src]="'uploads/' + publication.coverurl"  class="img-reponsive img-rounded pubthumb" />
+                    <img *ngIf="publication.coverurl == ''" src="assets/publication.jpg"  class="img-reponsive img-rounded pubthumb" />
+
                  </span>
-                 Text
+                 <div>&nbsp;&nbsp;
+                 <p><b>Titel:</b></p>
+                 <h4>{{publication.name}}</h4></div>
+                 <div [innerHTML]="publication.wysig | safe: 'html'"></div>
               </li>
-              <li class="list-group-item" >
-                  <span class="pull-left ">
-                    <img src="https://edease.nl/assets/logo1b.png"  class="img-reponsive img-rounded" />
-                  </span>
-                  Text
-               </li>
+
+
+              
           </ul>
         </tab>
       </tabset>

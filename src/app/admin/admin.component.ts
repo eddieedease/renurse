@@ -95,6 +95,8 @@ export class AdminComponent implements OnInit, AfterViewInit {
   tempResearchRows = [];
   // FilesRow?
 
+  logoArray = [];
+
   // custom messages
   // Custom messages for datatable
   tableMessages = {
@@ -198,7 +200,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
 
 // section for course thumb image uploading
-onProfileFileChange(_event) {
+thumbUploadStart(_event, _case) {
   const files = _event.target.files || _event.srcElement.files;
   const file = files[0];
 
@@ -207,19 +209,38 @@ onProfileFileChange(_event) {
   if (file.size >= 2000000) {
     this.edSer.debugLog('TO BIG OF A FILE, note user?');
   }
-  this.startProfileUpload(_event);
+  this.startThumbUpload(_event ,_case);
 }
 
+
   // section for course thumb image uploading
-  startProfileUpload(_event): void {
+  startThumbUpload(_event, _case): void {
     this.edSer.debugLog('start profile pic uploading uploading');
     this.loading = true;
     // TODO: make the call to the uploading
+
+    // takeID
+    switch (_case) {
+      case 'research':
+      this.edSer.API_uploadthumb(_event ,_case, this.currentResearchId).subscribe(value => this.thumbUploaded(value));
+
+        break;
+        case 'publication':
+        this.edSer.API_uploadthumb(_event , _case, this.currentPublicationId).subscribe(value => this.thumbUploaded(value));
+
+        break;
+        case 'orglogo':
+        this.edSer.API_uploadthumb(_event , _case, 0).subscribe(value => this.thumbUploaded(value));
+
+        break;
+    }
+
+
     // Event, case , id
   }
 
    // Server response on course img upload
-profileFileIsUploaded(_val) {
+   thumbUploaded(_val) {
   this.loading = false;
   this.edSer.debugLog('Profilefile is uploaded');
   this.toastr.success('Cursusafbeelding aangepast', '');
@@ -465,6 +486,9 @@ profileFileIsUploaded(_val) {
       case 'users':
         this.getUsers();
         break;
+        case 'logos':
+        this.getLogos();
+        break;
     }
   }
 
@@ -514,6 +538,14 @@ profileFileIsUploaded(_val) {
     this.getResearches();
   }
 
+  getLogos(){
+    this.edSer.API_getlogos().subscribe(value => this.gotLogos(value));
+  }
+
+  gotLogos(_resp){
+    this.edSer.debugLog(_resp);
+    this.logoArray = _resp;
+  }
   // PUBLICATIONS
   getPublications() {
     this.loading = true;

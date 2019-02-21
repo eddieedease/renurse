@@ -45,8 +45,12 @@ export class ResearchComponent implements OnInit {
   // array holding researchitems
   researchArray = [];
 
+  publicationArray = [];
+
   currentResearchTitle = '';
   currentResearchWysig = '';
+
+  currentCoverUrl = '';
 
   constructor(private edSer: EdserService,
     private thisrouter: Router,
@@ -61,23 +65,30 @@ export class ResearchComponent implements OnInit {
     // scroll to top
     window.scrollTo(0, 0);
     // get publications
-    this.edSer.API_getresearch().subscribe(value => this.gotPublications(value));
-
+    this.edSer.API_getresearch().subscribe(value => this.gotResearch(value));
+    this.edSer.API_getpublications().subscribe(value => this.gotPublications(value));
   }
 
-  gotPublications(_event) {
+  gotResearch(_event) {
     this.edSer.debugLog(_event);
     this.researchArray = _event;
   }
 
+  gotPublications(_event) {
+    this.edSer.debugLog(_event);
+    this.publicationArray = _event;
+  }
+
+  
+
   // opening a modal
   openModal(template: TemplateRef < any > , _id ) {
-
     this.researchArray.forEach(element => {
       if (element.id === _id) {
         this.edSer.debugLog('we have a hit');
         this.currentResearchTitle = element.uname;
         this.currentResearchWysig = element.wysig;
+        this.currentCoverUrl = element.coverurl;
       }
     });
     

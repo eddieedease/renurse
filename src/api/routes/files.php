@@ -88,6 +88,26 @@ $app->get('/getfilesfromgroup/{groupid}', function (Request $request, Response $
 
 
 
+// GET LOGO's
+$app->get('/getlogos', function (Request $request, Response $response) {
+
+    include 'db.php';
+    $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
+    //     NOTE 5 pieces --> [0] actions [1] arcades [2] archive [3] highscores [4] teams
+    //     a query get all the correct records from the gemeenten table
+    $sqlgetlogos = "SELECT * FROM logos";
+    $stmtgetlogos = $dbh->prepare($sqlgetlogos);
+    $stmtgetlogos->execute();
+    $resultgetlogos = $stmtgetlogos->fetchAll(PDO::FETCH_ASSOC);
+
+    // debug
+    $data = array('Jsonresponse' => 'item1');
+    
+    $response = json_encode($resultgetlogos);
+    return $response;
+});
+
+
 // 7) DELETE LOGO
 // TODO: Work out
 $app->get('/deletelogo', function (Request $request, Response $response) {
@@ -96,31 +116,17 @@ $app->get('/deletelogo', function (Request $request, Response $response) {
     return $response;
 });
 
-
-
 // 5) set publication cover
 // TODO: Work out
 $app->post('/uploadthumb/{case}/{id}', function (Request $request, Response $response) {
     // below variables are for making thumbs and such
     // TODO: aren't used yet
-    $lessonid = $request->getAttribute('id');
+    $idd = $request->getAttribute('id');
     $case = $request->getAttribute('case');
 
-    // Case can be 'research' or 'publication' or 'orglogo'
-    switch ($case) {
-        case "research":
-            
-            break;
-        case "publication":
-            
-            break;
-        case "orglogo":
-            
-            break;
-    }
+    
 
-
-
+   
     $directory = $this->get('upload_directory');
     $uploadedFiles = $request->getUploadedFiles();
     // // handle single input with single file upload
@@ -187,22 +193,34 @@ $app->post('/uploadthumb/{case}/{id}', function (Request $request, Response $res
     //     $filename = moveUploadedFile($directory, $uploadedFile);
     // $response->write('uploaded ' . $filename . '<br/>');
     include 'db.php';
-    // Insert the link into our DATABASE
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
-    $sqladdfile = "UPDATE lessons SET cover = '$filename' WHERE id = '$lessonid'";
+
+    // Case can be 'research' or 'publication' or 'orglogo'
+    // UPDATE in the mysql table
+    switch ($case) {
+        case "research":
+        $sqladdfile = "UPDATE research SET coverurl = '$filename' WHERE id = '$idd'";
+            break;
+        case "publication":
+        $sqladdfile = "UPDATE publications SET coverurl = '$filename' WHERE id = '$idd'";
+            break;
+        case "orglogo":
+        $sqladdfile = "INSERT INTO logos (filename) VALUES ('$filename')";
+            break;
+    }
 
 
+    // Insert the link into our DATABASE
     $stmtaddfile = $dbh->prepare($sqladdfile);
-
     $stmtaddfile->execute();
     $resultaddfile = $stmtaddfile->fetchAll(PDO::FETCH_ASSOC);
     // return some thangz
+    
+    
     $cb = array(
         'thumbfileupload' => 'success',
-        'sql' => $sqladdfile,
-        'tolesson' => $lessonid,
-        'debug' => $file,
-        'oriwidth' => $width,
+        'case' => $case,
+        'id' => $id
     );
     /*  $debuggerrighthere = array('somethangsz' => 'asda');
     $response = json_encode($debuggerrighthere); */

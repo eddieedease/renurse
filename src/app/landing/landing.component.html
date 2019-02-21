@@ -120,10 +120,15 @@
         <div class="row">
             <div class="col-lg-7 col-12">
                 <div class="sepcial_banner_content">
-                    <h4>Lorum ipsum</h4>
-                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
-                    <a >Learn More</a>
+                    <h4>RENursE</h4>
+                    <p>Het RENursE consortium bestaat uit:</p>
+                    
                 </div>
+                <ul class="logos-container">
+                        <li *ngFor="let logo of logoArray; let i = index"  class="logo-item">
+                            <img [src]="'uploads/' + logo.filename" class="resthumb" alt="blog images">
+                        </li>
+                    </ul>
             </div>
         </div>
     </div>

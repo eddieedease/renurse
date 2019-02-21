@@ -503,6 +503,23 @@ export class EdserService {
       .pipe(map(res => res.json()));
   }
 
+   // GET ALL publication
+   API_getlogos(): Observable < any > {
+    const url = environment.apilink + 'getlogos?rnd=' + new Date().getTime();
+    // tslint:disable-next-line:prefer-const
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    const options = new RequestOptions({
+      headers: headers
+    });
+
+    return this.http_.get(url, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+
   // Create publication
   API_createpublication(_name, _wysig): Observable < any > {
     // tslint:disable-next-line:max-line-length
@@ -621,17 +638,12 @@ export class EdserService {
 
   // The thumbupload will take an fileevent, case (course, lesson, user), and assigned id
   API_uploadthumb($event, _case, _id): Observable < any > {
-
     // _case can be 'research' , 'publication' or 'orglogo΅
-
     const files = $event.target.files || $event.srcElement.files;
     const file = files[0];
     const url = environment.apilink + 'uploadthumb/' + _case + '/' + _id + '?rnd=' + new Date().getTime();
-
-
     const formData = new FormData();
     formData.append('file', file);
-
     const headers = new Headers({
       // 'Authorization': 'bearer ' + this.curTOKEN
 
