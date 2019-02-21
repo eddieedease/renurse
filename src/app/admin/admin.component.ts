@@ -88,6 +88,9 @@ export class AdminComponent implements OnInit, AfterViewInit {
   groupRows = [];
   tempGroupRows = [];
 
+  groupUserRows = [];
+  tempgroupUserRows =  [];
+
   publicationRows = [];
   tempPublicationsRows = [];
 
@@ -119,7 +122,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   // Modal Values
   currentResearchTitle;
-  currentResearchcover;
+  currentResearchCover;
   currentResearchActive;
   currentResearchWysig;
   currentResearchId;
@@ -382,7 +385,7 @@ thumbUploadStart(_event, _case) {
             this.currentResearchId = element.id;
             this.currentResearchTitle = element.uname;
             this.currentResearchWysig = element.wysig;
-            this.currentResearchcover = element.coverurl;
+            this.currentResearchCover = element.coverurl;
             this.currentResearchActive = element.active;
           }
         });
@@ -430,7 +433,14 @@ thumbUploadStart(_event, _case) {
         });
         break;
         case 'groupusers':
-
+        this.groupRows.forEach(element => {
+          if (element.id === _id) {
+            this.edSer.debugLog('We have a hit');
+            this.currentGroupId = element.id;
+          }
+        });
+        // this.getUsers();
+        this.edSer.API_getgroupusers(_id).subscribe(value => this.gotGroupUsers(value));
         /* this.currentUserId = _id;
         // setting up currents
         this.userRows.forEach(element => {
@@ -451,6 +461,22 @@ thumbUploadStart(_event, _case) {
         class: 'gray modal-lg'
       })
     );
+  }
+
+  gotGroupUsers(_resp){
+    this.edSer.debugLog(_resp);
+    const resp = _resp;
+    // add a property to the user if id exists
+    for (let i = 0; i < this.userRows.length; i++) {
+        this.userRows[i].togroup = 0;
+        resp.forEach(element => {
+          if (this.userRows[i].id === element.userid) {
+            this.edSer.debugLog('WE HAVE A HIT');
+            this.userRows[i].togroup = 1;
+          }
+        });
+    }
+    this.edSer.debugLog(this.userRows);
   }
 
 
@@ -632,6 +658,44 @@ thumbUploadStart(_event, _case) {
     });
     this.getGroups();
   }
+
+
+  userToFromGroup(_addremove, _userid) {
+    switch (_addremove) {
+      case 'add':
+      this.edSer.API_userToGroup(_userid, this.currentGroupId).subscribe(value => this.userToGroupResponse(value));
+
+        break;
+      case 'remove':
+      this.edSer.API_userfromgroup(_userid, this.currentGroupId).subscribe(value => this.userToGroupResponse(value));
+        break;
+    }
+  }
+
+  userToGroupResponse(_resp){
+    // reloadUsers
+    this.edSer.API_getusers().subscribe(value => this.userIsNowChanged(value));
+
+  }
+
+
+  userIsNowChanged(_resp){
+
+    this.userRows = _resp;
+
+    this.groupRows.forEach(element => {
+      if (element.id === this.currentGroupId) {
+        this.edSer.debugLog('We have a hit');
+        this.currentGroupId = element.id;
+      }
+    });
+    // this.getUsers();
+    this.edSer.API_getgroupusers(this.currentGroupId).subscribe(value => this.gotGroupUsers(value));
+  }
+ 
+
+
+
 
   // USERS
   getUsers() {

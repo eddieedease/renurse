@@ -58,6 +58,29 @@ $app->get('/getgroups', function (Request $request, Response $response) {
     return $response;
 });
 
+// GET SPECIFIC GROUP USERS
+$app->get('/getgroupusers/{groupid}', function (Request $request, Response $response) {
+
+    $groupid = $request->getAttribute('groupid');
+    $groupid = (int)$groupid;
+
+
+    include 'db.php';
+    $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
+    //     NOTE 5 pieces --> [0] actions [1] arcades [2] archive [3] highscores [4] teams
+    //     a query get all the correct records from the gemeenten table
+    $sqlgroupsusers = "SELECT userid FROM users_to_groups WHERE groupsid = $groupid";
+    $stmtgroupsusers = $dbh->prepare($sqlgroupsusers);
+    $stmtgroupsusers->execute();
+    $resultgroupsusers = $stmtgroupsusers->fetchAll(PDO::FETCH_ASSOC);
+
+    // debug
+    $data = array('Jsonresponse' => 'item1');
+    
+    $response = json_encode($resultgroupsusers);
+    return $response;
+});
+
 //3 ) Edit group
 // TODO: Work out
 $app->post('/editgroup/{groupid}', function (Request $request, Response $response) {
@@ -112,11 +135,41 @@ $app->get('/deletegroup/{groupid}', function (Request $request, Response $respon
     return $response;
 });
 
-// 5) Add/delete user from group
-// TODO: Work out
-// NOTE: User can be added or removed
-$app->get('/userandgroup', function (Request $request, Response $response) {
-    $data = array('Jsonresponse' => 'item1');
+
+// NOTE: User can be added or removed userfromgroup
+$app->get('/usertogroup/{userid}/{groupid}', function (Request $request, Response $response) {
+    $userid = $request->getAttribute('userid');
+    $userid = (int)$userid;
+    $groupid = $request->getAttribute('groupid');
+    $groupid = (int)$groupid;
+
+    include 'db.php';
+    $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
+    $sqlusertogroup = "INSERT INTO users_to_groups (userid, groupsid) VALUES ('$userid','$groupid')";
+    $stmtusertogroup = $dbh->prepare($sqlusertogroup);
+    $stmtusertogroup->execute();
+    $resultusertogroup = $stmtusertogroup->fetchAll(PDO::FETCH_ASSOC);
+    
+    $data = array('Status' => 'success');
+    $response = json_encode($data);
+    return $response;
+});
+
+// NOTE: User can be added or removed userfromgroup
+$app->get('/userfromgroup/{userid}/{groupid}', function (Request $request, Response $response) {
+    $userid = $request->getAttribute('userid');
+    $userid = (int)$userid;
+    $groupid = $request->getAttribute('groupid');
+    $groupid = (int)$groupid;
+
+    include 'db.php';
+    $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
+    $sqluserfromgroup = "DELETE FROM users_to_groups WHERE userid = $userid AND groupsid = $groupid";
+    $stmtuserfromgroup = $dbh->prepare($sqluserfromgroup);
+    $stmtuserfromgroup->execute();
+    $resultuserfromgroup = $stmtuserfromgroup->fetchAll(PDO::FETCH_ASSOC);
+
+    $data = array('Status' => 'success');
     $response = json_encode($data);
     return $response;
 });

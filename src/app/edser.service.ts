@@ -379,6 +379,58 @@ export class EdserService {
       .pipe(map(res => res.json()));
   }
 
+  // ASSIGN USER TO GROUP
+   API_userToGroup(_userid, _groupid): Observable < any > {
+    const url = environment.apilink + 'usertogroup/' + _userid + '/' + _groupid + '?rnd=' + new Date().getTime();
+    // tslint:disable-next-line:prefer-const
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    const options = new RequestOptions({
+      headers: headers
+    });
+
+    return this.http_.get(url, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+
+   // ASSIGN USER TO GROUP
+   API_userfromgroup(_userid, _groupid): Observable < any > {
+     console.log(_groupid);
+    const url = environment.apilink + 'userfromgroup/' + _userid + '/' + _groupid + '?rnd=' + new Date().getTime();
+    // tslint:disable-next-line:prefer-const
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    const options = new RequestOptions({
+      headers: headers
+    });
+
+    return this.http_.get(url, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+
+  // ASSIGN USER TO GROUP
+  API_getgroupusers(_groupid): Observable < any > {
+    const url = environment.apilink + 'getgroupusers/' + _groupid + '?rnd=' + new Date().getTime();
+    // tslint:disable-next-line:prefer-const
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    const options = new RequestOptions({
+      headers: headers
+    });
+
+    return this.http_.get(url, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+
 
 
   // RESEARCH RESEARCH RESEARCH

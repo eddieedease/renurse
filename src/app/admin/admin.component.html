@@ -82,7 +82,13 @@
       </fieldset>
       <hr class="m-b-2" />
 
-      <div *ngIf="!newResearch"><input type="file" (change)="thumbUploadStart($event, 'research')"> <br></div>
+      <div *ngIf="!newResearch">
+
+          <img *ngIf="currentResearchCover != ''" [src]="'uploads/' + currentResearchCover"  class="img-reponsive img-rounded" />
+          <img *ngIf="currentResearchCover == ''" src="assets/research.jpg"  class="img-reponsive img-rounded" />
+          <br> <p>Afbeelding uploaden</p>
+        <input type="file" (change)="thumbUploadStart($event, 'research')"> <br><br><br>
+      </div>
 
 
 
@@ -115,7 +121,12 @@
       </fieldset>
 
       <hr class="m-b-2" />
-      <div *ngIf="!newPublication"><input type="file" (change)="thumbUploadStart($event, 'publication')"> <br></div>
+      <div *ngIf="!newPublication">
+          <img *ngIf="currentPublicationCover != ''" [src]="'uploads/' + currentPublicationCover"  class="img-reponsive img-rounded" />
+          <img *ngIf="currentPublicationCover == ''" src="assets/publication.jpg"  class="img-reponsive img-rounded" />
+        <p>Afbeelding uploaden</p>
+        <input type="file" (change)="thumbUploadStart($event, 'publication')"> <br>
+      </div>
       <div class="htmladjust2">
         <app-wysig [elementId]="'publicationwysig'" [(prefill)]="currentPublicationWysig" (onEditorKeyup)="keyupHandlerFunction($event)"
           (carretPosition)="giveRangeBack($event)">
@@ -214,7 +225,53 @@
     </button>
   </div>
   <div class="modal-body">
+    <ngx-datatable class="bootstrap" [rows]="userRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
+    [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+    <ngx-datatable-column name="Naam" prop="uname" [sortable]="true">
 
+      <ng-template let-column="column" let-sort="sortFn">
+        <span style="cursor:pointer">
+          {{column.name}}
+        </span>
+      </ng-template>
+
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <div [innerHTML]="row['uname'] + ' ' + row['lastname']"></div>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Email" prop="email" [sortable]="true">
+
+      <ng-template let-column="column" let-sort="sortFn">
+        <span style="cursor:pointer">
+          {{column.name}}
+        </span>
+      </ng-template>
+
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <div [innerHTML]="row['email']"></div>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Acties" [sortable]="true">
+
+      <ng-template let-column="column" let-sort="sortFn">
+        <span style="cursor:pointer">
+          {{column.name}}
+        </span>
+      </ng-template>
+
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" *ngIf="row['togroup'] == 0" (click)="userToFromGroup('add', row['id'])" class="btn btn-success">
+            <i class="fa fa-plus"></i>
+          </button><button type="button" *ngIf="row['togroup'] == 1" (click)="userToFromGroup('remove', row['id'])" class="btn btn-danger">
+          <i class="fa fa-minus"></i>
+        </button></div>
+      </ng-template>
+    </ngx-datatable-column>
+
+  </ngx-datatable>
   </div>
 </ng-template>
 
