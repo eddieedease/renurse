@@ -168,16 +168,27 @@
 
 <ng-template #filestogroup>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Bestanden aan deze groep</h4>
+    <h4 class="modal-title pull-left">Bestanden van deze groep</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
+  <div class="modal-body"><br>
     <!-- registration form-->
+    <p>Bestand toevoegen:</p>
+    <input type="file" (change)="fileUploadStart($event)">
     <br>
     <br>
+    <p>Bestanden verwijderen:</p><br><br>
     <!-- /registration form-->
+    <div class="row">
+      <div class="col-3">
+        <p>Bestandsnaam</p>
+        <p>type: <b>type</b></p>
+        <img src="assets/file.png" style="max-width:100px"><br>
+        <button type="button" class="btn btn-danger btn-sm btn-block">Verwijder</button>
+      </div>
+    </div>
   </div>
 
 </ng-template>

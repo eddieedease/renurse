@@ -89,7 +89,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   tempGroupRows = [];
 
   groupUserRows = [];
-  tempgroupUserRows =  [];
+  tempgroupUserRows = [];
 
   publicationRows = [];
   tempPublicationsRows = [];
@@ -166,7 +166,10 @@ export class AdminComponent implements OnInit, AfterViewInit {
   uploadInput: EventEmitter < UploadInput > ;
   humanizeBytes: Function;
 
-  
+
+  groupFiles = [];
+
+
 
 
   constructor(private wysigpipe: WysigPipe, private edSer: EdserService, private router: Router, public sanitizer: DomSanitizer, private toastr: ToastrService, private modalService: BsModalService) {
@@ -185,10 +188,10 @@ export class AdminComponent implements OnInit, AfterViewInit {
     window.scrollTo(0, 0);
 
     // if admin do unlock
-    /* if (environment.production === false) {
+    if (environment.production === false) {
       this.adminisLoggedIn = true;
       this.edSer.API_getresearch().subscribe(value => this.gotResearches(value));
-    } else {} */
+    } else {}
   }
 
   ngAfterViewInit() {
@@ -196,24 +199,51 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
 
-// UPLOADING UPLOADING UPLOADING
-// UPLOADING UPLOADING UPLOADING
-// UPLOADING UPLOADING UPLOADING
-// UPLOADING UPLOADING UPLOADING
+  // UPLOADING UPLOADING UPLOADING
+  // UPLOADING UPLOADING UPLOADING
+  // UPLOADING UPLOADING UPLOADING
+  // UPLOADING UPLOADING UPLOADING
 
+  // section for course thumb image uploading
+  fileUploadStart(_event) {
+    const files = _event.target.files || _event.srcElement.files;
+    const file = files[0];
 
-// section for course thumb image uploading
-thumbUploadStart(_event, _case) {
-  const files = _event.target.files || _event.srcElement.files;
-  const file = files[0];
+    this.edSer.debugLog(file.size);
 
-  this.edSer.debugLog(file.size);
-
-  if (file.size >= 2000000) {
-    this.edSer.debugLog('TO BIG OF A FILE, note user?');
+    if (file.size >= 2000000) {
+      this.edSer.debugLog('TO BIG OF A FILE, note user?');
+    }
+    this.startFileUpload(_event);
   }
-  this.startThumbUpload(_event ,_case);
-}
+
+  // section for course thumb image uploading
+  startFileUpload(_event): void {
+    this.edSer.debugLog('start file uploading to group');
+    this.loading = true;
+
+    this.edSer.API_filetogroup(_event, this.currentGroupId).subscribe(value => this.fileToGroupResponse(value));
+  }
+
+
+  fileToGroupResponse(_resp) {
+    this.edSer.debugLog(_resp);
+  }
+
+
+
+  // section for course thumb image uploading
+  thumbUploadStart(_event, _case) {
+    const files = _event.target.files || _event.srcElement.files;
+    const file = files[0];
+
+    this.edSer.debugLog(file.size);
+
+    if (file.size >= 2000000) {
+      this.edSer.debugLog('TO BIG OF A FILE, note user?');
+    }
+    this.startThumbUpload(_event, _case);
+  }
 
 
   // section for course thumb image uploading
@@ -225,15 +255,15 @@ thumbUploadStart(_event, _case) {
     // takeID
     switch (_case) {
       case 'research':
-      this.edSer.API_uploadthumb(_event ,_case, this.currentResearchId).subscribe(value => this.thumbUploaded(value));
+        this.edSer.API_uploadthumb(_event, _case, this.currentResearchId).subscribe(value => this.thumbUploaded(value));
 
         break;
-        case 'publication':
-        this.edSer.API_uploadthumb(_event , _case, this.currentPublicationId).subscribe(value => this.thumbUploaded(value));
+      case 'publication':
+        this.edSer.API_uploadthumb(_event, _case, this.currentPublicationId).subscribe(value => this.thumbUploaded(value));
 
         break;
-        case 'orglogo':
-        this.edSer.API_uploadthumb(_event , _case, 0).subscribe(value => this.thumbUploaded(value));
+      case 'orglogo':
+        this.edSer.API_uploadthumb(_event, _case, 0).subscribe(value => this.thumbUploaded(value));
 
         break;
     }
@@ -242,14 +272,14 @@ thumbUploadStart(_event, _case) {
     // Event, case , id
   }
 
-   // Server response on course img upload
-   thumbUploaded(_val) {
-  this.loading = false;
-  this.edSer.debugLog('Profilefile is uploaded');
-  this.toastr.success('Cursusafbeelding aangepast', '');
-  this.edSer.debugLog(_val);
-  // TODO: Load again
-}
+  // Server response on course img upload
+  thumbUploaded(_val) {
+    this.loading = false;
+    this.edSer.debugLog('Profilefile is uploaded');
+    this.toastr.success('Cursusafbeelding aangepast', '');
+    this.edSer.debugLog(_val);
+    // TODO: Load again
+  }
 
 
 
@@ -262,7 +292,7 @@ thumbUploadStart(_event, _case) {
       // Admin login responsibilities
       this.showLoginSpinner = true;
       // TODO: 4 now simulate
-      
+
       this.edSer.API_login(this.admId, this.admPwd).subscribe(value => this.gotLoginResponse(value));
 
       /* setTimeout(() => {
@@ -279,7 +309,7 @@ thumbUploadStart(_event, _case) {
   gotLoginResponse(_event) {
 
     this.edSer.debugLog(_event);
-    
+
     if (_event.status === 'failed') {
       this.showLoginSpinner = false;
       this.toastr.info('Niet geldig', 'Helaas');
@@ -294,9 +324,9 @@ thumbUploadStart(_event, _case) {
         this.edSer.API_getresearch().subscribe(value => this.gotResearches(value));
       }
       // TODO: Check if is ok
-    this.showLoginSpinner = false;
-    
-    }    
+      this.showLoginSpinner = false;
+
+    }
   }
 
   LogOut() {
@@ -389,7 +419,7 @@ thumbUploadStart(_event, _case) {
             this.currentResearchActive = element.active;
           }
         });
-        
+
         break;
       case 'editpublication':
         this.newPublication = false;
@@ -432,7 +462,7 @@ thumbUploadStart(_event, _case) {
           }
         });
         break;
-        case 'groupusers':
+      case 'groupusers':
         this.groupRows.forEach(element => {
           if (element.id === _id) {
             this.edSer.debugLog('We have a hit');
@@ -453,6 +483,20 @@ thumbUploadStart(_event, _case) {
           }
         }); */
         break;
+
+        case 'filestogroup':
+        this.groupRows.forEach(element => {
+          if (element.id === _id) {
+            this.edSer.debugLog('We have a hit');
+            this.currentGroupId = element.id;
+          }
+        });
+
+        // Fetch the groupFiles
+        this.edSer.API_getgroupfiles(this.currentGroupId).subscribe(value => this.gotGroupFiles(value));
+
+
+        break;
     }
 
     this.modalRef = this.modalService.show(
@@ -463,18 +507,24 @@ thumbUploadStart(_event, _case) {
     );
   }
 
-  gotGroupUsers(_resp){
+
+  gotGroupFiles(_resp) {
+    this.edSer.debugLog(_resp);
+    this.groupFiles = _resp;
+  }
+
+  gotGroupUsers(_resp) {
     this.edSer.debugLog(_resp);
     const resp = _resp;
     // add a property to the user if id exists
     for (let i = 0; i < this.userRows.length; i++) {
-        this.userRows[i].togroup = 0;
-        resp.forEach(element => {
-          if (this.userRows[i].id === element.userid) {
-            this.edSer.debugLog('WE HAVE A HIT');
-            this.userRows[i].togroup = 1;
-          }
-        });
+      this.userRows[i].togroup = 0;
+      resp.forEach(element => {
+        if (this.userRows[i].id === element.userid) {
+          this.edSer.debugLog('WE HAVE A HIT');
+          this.userRows[i].togroup = 1;
+        }
+      });
     }
     this.edSer.debugLog(this.userRows);
   }
@@ -508,11 +558,12 @@ thumbUploadStart(_event, _case) {
         break;
       case 'groups':
         this.getGroups();
+        this.getUsers();
         break;
       case 'users':
         this.getUsers();
         break;
-        case 'logos':
+      case 'logos':
         this.getLogos();
         break;
     }
@@ -544,12 +595,12 @@ thumbUploadStart(_event, _case) {
         }
         break;
       case 'edit':
-      if (this.currentResearchTitle !== '' && this.currentGroupWysig !== '') {
-        this.edSer.API_editresearch(this.currentResearchId, this.currentResearchTitle, this.currentwysig).subscribe(value => this.researchAdjusted(value));
+        if (this.currentResearchTitle !== '' && this.currentGroupWysig !== '') {
+          this.edSer.API_editresearch(this.currentResearchId, this.currentResearchTitle, this.currentwysig).subscribe(value => this.researchAdjusted(value));
 
-      } else {
+        } else {
 
-      }
+        }
         break;
     }
   }
@@ -564,11 +615,11 @@ thumbUploadStart(_event, _case) {
     this.getResearches();
   }
 
-  getLogos(){
+  getLogos() {
     this.edSer.API_getlogos().subscribe(value => this.gotLogos(value));
   }
 
-  gotLogos(_resp){
+  gotLogos(_resp) {
     this.edSer.debugLog(_resp);
     this.logoArray = _resp;
   }
@@ -587,21 +638,21 @@ thumbUploadStart(_event, _case) {
   adjustPublications(_case) {
     switch (_case) {
       case 'new':
-      if (this.currentPublicationTitle !== '' && this.currentwysig !== '') {
-       
-        this.edSer.API_createpublication(this.currentPublicationTitle, this.currentwysig).subscribe(value => this.publicationsAdjusted(value));
+        if (this.currentPublicationTitle !== '' && this.currentwysig !== '') {
 
-      } else {
-        this.toastr.warning('Niet alles ingevuld', '', {
-          timeOut: 20000
-        });
-      }
+          this.edSer.API_createpublication(this.currentPublicationTitle, this.currentwysig).subscribe(value => this.publicationsAdjusted(value));
+
+        } else {
+          this.toastr.warning('Niet alles ingevuld', '', {
+            timeOut: 20000
+          });
+        }
         break;
       case 'edit':
-      if (this.currentPublicationTitle !== '') {
-        this.edSer.API_editpublication(this.currentPublicationId, this.currentPublicationTitle, this.currentwysig).subscribe(value => this.publicationsAdjusted(value));
+        if (this.currentPublicationTitle !== '') {
+          this.edSer.API_editpublication(this.currentPublicationId, this.currentPublicationTitle, this.currentwysig).subscribe(value => this.publicationsAdjusted(value));
 
-      }
+        }
         break;
     }
   }
@@ -631,21 +682,21 @@ thumbUploadStart(_event, _case) {
   adjustGroups(_case) {
     switch (_case) {
       case 'new':
-      if (this.currentGroupTitle !== '' && this.currentwysig !== '') {
-       
-        this.edSer.API_createGroup(this.currentGroupTitle, this.currentwysig).subscribe(value => this.groupsAdjusted(value));
+        if (this.currentGroupTitle !== '' && this.currentwysig !== '') {
 
-      } else {
-        this.toastr.warning('Niet alles ingevuld', '', {
-          timeOut: 20000
-        });
-      }
+          this.edSer.API_createGroup(this.currentGroupTitle, this.currentwysig).subscribe(value => this.groupsAdjusted(value));
+
+        } else {
+          this.toastr.warning('Niet alles ingevuld', '', {
+            timeOut: 20000
+          });
+        }
         break;
       case 'edit':
-      if (this.currentGroupTitle !== '') {
-        this.edSer.API_editGroup(this.currentGroupId, this.currentGroupTitle, this.currentwysig).subscribe(value => this.groupsAdjusted(value));
+        if (this.currentGroupTitle !== '') {
+          this.edSer.API_editGroup(this.currentGroupId, this.currentGroupTitle, this.currentwysig).subscribe(value => this.groupsAdjusted(value));
 
-      }
+        }
         break;
     }
   }
@@ -663,23 +714,23 @@ thumbUploadStart(_event, _case) {
   userToFromGroup(_addremove, _userid) {
     switch (_addremove) {
       case 'add':
-      this.edSer.API_userToGroup(_userid, this.currentGroupId).subscribe(value => this.userToGroupResponse(value));
+        this.edSer.API_userToGroup(_userid, this.currentGroupId).subscribe(value => this.userToGroupResponse(value));
 
         break;
       case 'remove':
-      this.edSer.API_userfromgroup(_userid, this.currentGroupId).subscribe(value => this.userToGroupResponse(value));
+        this.edSer.API_userfromgroup(_userid, this.currentGroupId).subscribe(value => this.userToGroupResponse(value));
         break;
     }
   }
 
-  userToGroupResponse(_resp){
+  userToGroupResponse(_resp) {
     // reloadUsers
     this.edSer.API_getusers().subscribe(value => this.userIsNowChanged(value));
 
   }
 
 
-  userIsNowChanged(_resp){
+  userIsNowChanged(_resp) {
 
     this.userRows = _resp;
 
@@ -692,7 +743,7 @@ thumbUploadStart(_event, _case) {
     // this.getUsers();
     this.edSer.API_getgroupusers(this.currentGroupId).subscribe(value => this.gotGroupUsers(value));
   }
- 
+
 
 
 
@@ -721,11 +772,11 @@ thumbUploadStart(_event, _case) {
 
           break;
         case 'edit':
-        // this.currentUserEmail;
-        // this.currentUserId;
-        // this.currentUserLastName;
-        // this.currentUserName;
-        this.edSer.API_edituser(this.currentUserId, this.currentUserName, this.currentUserLastName, this.currentUserEmail, this.currentUserPwd).subscribe(value => this.usersAdjusted(value));
+          // this.currentUserEmail;
+          // this.currentUserId;
+          // this.currentUserLastName;
+          // this.currentUserName;
+          this.edSer.API_edituser(this.currentUserId, this.currentUserName, this.currentUserLastName, this.currentUserEmail, this.currentUserPwd).subscribe(value => this.usersAdjusted(value));
 
           break;
       }

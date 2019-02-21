@@ -12,45 +12,49 @@ use \Psr\Http\Message\UploadedFileInterface as UploadedFile;
 // Upload Logo
 // Delete logo
 
-
 // 1) UPLOAD A FILE TO A GROUP
 // TODO: Work out
 // NEED: GROUPID parameter, filename header
 $app->post('/filetogroup/{groupid}', function (Request $request, Response $response) {
     $groupid = $request->getAttribute('groupid');
-    $groupid = (int)$groupid;
-
-    $filename = $request->getHeader('filename');
-
+    $groupid = (int) $groupid;
+    // $filename = $request->getHeader('filename');
     $directory = $this->get('upload_directory');
     $uploadedFiles = $request->getUploadedFiles();
     // // handle single input with single file upload
     $uploadedFile = $uploadedFiles[file];
     $nameofuploaded = $uploadedFile->getClientFilename();
-    $file = $_FILES[file][tmp_name];
+    
+    // $file = $_FILES[file][tmp_name];
     // list($width, $height) = getimagesize($_FILES[file][tmp_name]);
     $ext = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
-    $basename = bin2hex(random_bytes(8)); // see http://php.net/manual/en/function.random-bytes.php
-    $filename = sprintf('%s.%0.8s', $basename, $ext);
-
-
-    $data = array('Jsonresponse' => 'item1');
+    
+    if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
+        $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . $nameofuploaded);
+        // shoot in the database
+        include 'db.php';
+        $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
+        $sqlnewfile = "INSERT INTO files (name, type, togroup, urlloc ) VALUES ('$nameofuploaded','$ext','$groupid','$nameofuploaded')";
+        $stmtnewfile = $dbh->prepare($sqlnewfile);
+        $stmtnewfile->execute();
+        $resultnewfile = $stmtnewfile->fetchAll(PDO::FETCH_ASSOC);
+    }
+    //$basename = bin2hex(random_bytes(8)); // see http://php.net/manual/en/function.random-bytes.php
+    //$filename = sprintf('%s.%0.8s', $basename, $ext);
+    $data = array('status' => 'success', 'filename' => $filename);
     $response = json_encode($data);
     return $response;
 });
 
-
 // 2) DELETE A FILE FROM A GROUP
 // TODO: TEST
 $app->get('/removefilefromgroup/{fileid}', function (Request $request, Response $response) {
-    
+
     $fileid = $request->getAttribute('fileid');
-    $fileid = (int)$fileid;
+    $fileid = (int) $fileid;
 
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
-    //     NOTE 5 pieces --> [0] actions [1] arcades [2] archive [3] highscores [4] teams
-    //     a query get all the correct records from the gemeenten table
     $sqldeletefile = "DELETE FROM files WHERE id = $fileid";
     $stmtdeletefile = $dbh->prepare($sqldeletefile);
     $stmtdeletefile->execute();
@@ -73,20 +77,17 @@ $app->get('/getfilesfromgroup/{groupid}', function (Request $request, Response $
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
     //     NOTE 5 pieces --> [0] actions [1] arcades [2] archive [3] highscores [4] teams
     //     a query get all the correct records from the gemeenten table
-    $sqlfileses = "SELECT * FROM files WHERE togroup = '$groupid'";
+    $sqlfiles = "SELECT * FROM files WHERE togroup = $groupid";
     $stmtfiles = $dbh->prepare($sqlfiles);
     $stmtfiles->execute();
     $resultfiles = $stmtfiles->fetchAll(PDO::FETCH_ASSOC);
 
     // debug
     $data = array('Jsonresponse' => 'item1');
-    
+
     $response = json_encode($resultfiles);
     return $response;
 });
-
-
-
 
 // GET LOGO's
 $app->get('/getlogos', function (Request $request, Response $response) {
@@ -102,11 +103,10 @@ $app->get('/getlogos', function (Request $request, Response $response) {
 
     // debug
     $data = array('Jsonresponse' => 'item1');
-    
+
     $response = json_encode($resultgetlogos);
     return $response;
 });
-
 
 // 7) DELETE LOGO
 // TODO: Work out
@@ -124,9 +124,6 @@ $app->post('/uploadthumb/{case}/{id}', function (Request $request, Response $res
     $idd = $request->getAttribute('id');
     $case = $request->getAttribute('case');
 
-    
-
-   
     $directory = $this->get('upload_directory');
     $uploadedFiles = $request->getUploadedFiles();
     // // handle single input with single file upload
@@ -137,7 +134,7 @@ $app->post('/uploadthumb/{case}/{id}', function (Request $request, Response $res
     $ext = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
     $basename = bin2hex(random_bytes(8)); // see http://php.net/manual/en/function.random-bytes.php
     $filename = sprintf('%s.%0.8s', $basename, $ext);
-    
+
     // check if the lessonsdirectory upload folder is there, otherwise make it
     // NOTE: CONFIRM WORKS!!!
     // if (!file_exists($directory . DIRECTORY_SEPARATOR . $lessonid)) {
@@ -199,28 +196,26 @@ $app->post('/uploadthumb/{case}/{id}', function (Request $request, Response $res
     // UPDATE in the mysql table
     switch ($case) {
         case "research":
-        $sqladdfile = "UPDATE research SET coverurl = '$filename' WHERE id = '$idd'";
+            $sqladdfile = "UPDATE research SET coverurl = '$filename' WHERE id = '$idd'";
             break;
         case "publication":
-        $sqladdfile = "UPDATE publications SET coverurl = '$filename' WHERE id = '$idd'";
+            $sqladdfile = "UPDATE publications SET coverurl = '$filename' WHERE id = '$idd'";
             break;
         case "orglogo":
-        $sqladdfile = "INSERT INTO logos (filename) VALUES ('$filename')";
+            $sqladdfile = "INSERT INTO logos (filename) VALUES ('$filename')";
             break;
     }
-
 
     // Insert the link into our DATABASE
     $stmtaddfile = $dbh->prepare($sqladdfile);
     $stmtaddfile->execute();
     $resultaddfile = $stmtaddfile->fetchAll(PDO::FETCH_ASSOC);
     // return some thangz
-    
-    
+
     $cb = array(
         'thumbfileupload' => 'success',
         'case' => $case,
-        'id' => $id
+        'id' => $id,
     );
     /*  $debuggerrighthere = array('somethangsz' => 'asda');
     $response = json_encode($debuggerrighthere); */
@@ -271,6 +266,3 @@ function moveUploadedFile($directory, UploadedFile $uploadedFile, $lessonid)
     $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . $lessonid . DIRECTORY_SEPARATOR . $filename);
     return $filename;
 };
-
-
-?>

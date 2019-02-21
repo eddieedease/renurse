@@ -709,4 +709,43 @@ export class EdserService {
       .pipe(throttleTime(5000))
       .pipe(map(res => res.json()));
   }
+
+  // DELETE publication
+  API_getgroupfiles(_groupid): Observable < any > {
+    const url = environment.apilink + 'getfilesfromgroup/' + _groupid + '?rnd=' + new Date().getTime();
+    // tslint:disable-next-line:prefer-const
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    const options = new RequestOptions({
+      headers: headers
+    });
+
+    return this.http_.get(url, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+
+
+  API_filetogroup($event, _groupsid): Observable < any > {
+    // _case can be 'research' , 'publication' or 'orglogo΅
+    const files = $event.target.files || $event.srcElement.files;
+    const file = files[0];
+    const url = environment.apilink + 'filetogroup/' + _groupsid + '?rnd=' + new Date().getTime();
+    const formData = new FormData();
+    formData.append('file', file);
+    const headers = new Headers({
+      // 'Authorization': 'bearer ' + this.curTOKEN
+
+    });
+    const options = new RequestOptions({
+      headers
+    });
+
+
+    return this.http_.post(url, formData, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
 }
