@@ -432,6 +432,23 @@ export class EdserService {
   }
 
 
+  API_getusersgroupsandfiles(_userid): Observable < any > {
+    const url = environment.apilink + 'getusersgroupsandfiles/' + _userid + '?rnd=' + new Date().getTime();
+    // tslint:disable-next-line:prefer-const
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    const options = new RequestOptions({
+      headers: headers
+    });
+
+    return this.http_.get(url, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+
+
 
   // RESEARCH RESEARCH RESEARCH
   // RESEARCH RESEARCH RESEARCH

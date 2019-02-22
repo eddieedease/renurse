@@ -1,7 +1,7 @@
 
   <div class="container" id="main">
       <nav class="navbar navbar-fixed-top navbar-toggleable-sm navbar-inverse bg-primary mb-3" style="border-radius: 20px">
-          <h2 style="color:white">Downloadpagina</h2>
+          <h3 style="color:white">Ingelogd</h3>
           </nav>
     <div class="row row-offcanvas row-offcanvas-left">
       <div class="col-md-3 col-lg-2 sidebar-offcanvas" id="sidebar" role="navigation">
@@ -13,11 +13,15 @@
             <ul class="list-unstyled">
                 <li class="media">
                   <div class="media-body">
-                    <h5 class="mt-0 mb-1">Groep 1</h5>
-                    Bestanden bij deze groep:
+                    <h5 class="mt-0 mb-1">Bestanden die voor u zijn klaargezet:</h5><br>
+                    
                     <div class="row">
-                      <div class="col-md-3 col-sm-6">
-                        asdas
+                      <br>
+                      <div *ngFor="let file of userFiles; let i = index" class="col-3">
+                        <h5>{{file.name}}</h5>
+                        <p>type: <b>{{file.type}}</b></p>
+                        <img src="assets/file.png" style="max-width:100px"><br>
+                        <button type="button" [attr.href]="'/uploads/' + file.name" download class="btn btn-info btn-sm btn-block">Download</button>
                       </div>
                     </div>
                   </div>

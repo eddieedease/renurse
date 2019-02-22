@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Feb 21, 2019 at 09:25 PM
--- Server version: 5.7.25-0ubuntu0.18.04.2
--- PHP Version: 7.2.15-0ubuntu0.18.04.1
+-- Host: localhost
+-- Generation Time: Feb 22, 2019 at 06:48 AM
+-- Server version: 5.6.38
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -144,7 +144,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `uname`, `lastname`, `email`, `pwd`, `secret`, `type`, `active`, `lastlogin`) VALUES
-(9, 'werew', 'werw', 'admin', 'admin', 'SM9WwlXIsQNgnfmG', 2, 0, '2019-01-30 16:47:22');
+(9, 'Marika', 'Trieling', 'admin', 'admin', 'SM9WwlXIsQNgnfmG', 2, 0, '2019-01-30 16:47:22');
 
 -- --------------------------------------------------------
 
@@ -225,46 +225,55 @@ ALTER TABLE `users_to_groups`
 --
 ALTER TABLE `cfg`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `logos`
 --
 ALTER TABLE `logos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `publications`
 --
 ALTER TABLE `publications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `research`
 --
 ALTER TABLE `research`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `sections`
 --
 ALTER TABLE `sections`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 --
 -- AUTO_INCREMENT for table `users_to_groups`
 --
 ALTER TABLE `users_to_groups`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

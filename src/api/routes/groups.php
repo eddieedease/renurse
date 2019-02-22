@@ -113,7 +113,6 @@ $app->get('/getusersgroupsandfiles/{userid}', function (Request $request, Respon
 
 
 
-
     // Make an Array of Groupobjects
 
 
@@ -126,9 +125,9 @@ $app->get('/getusersgroupsandfiles/{userid}', function (Request $request, Respon
 
 
     // debug
-    $data = array('Jsonresponse' => 'item1');
+    $data = array('status' => 'success');
 
-    $response = json_encode($resultfiles);
+    $response = json_encode($resultrelevantfiles);
     return $response;
 });
 

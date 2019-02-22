@@ -13,7 +13,9 @@ import {
 })
 export class LockedComponent implements OnInit {
 
-  groupIdArray = [];
+  userId = [];
+
+  userFiles = [];
 
   constructor(private edSer: EdserService, private router: Router) {
 
@@ -29,9 +31,17 @@ export class LockedComponent implements OnInit {
   ngOnInit() {
     // scroll to top
     window.scrollTo(0, 0);
+    this.userId =  this.edSer.getCurrent('userid');
+    this.edSer.debugLog(this.userId);
 
-    this.groupIdArray =  this.edSer.getCurrent('usergroups');
-    this.edSer.debugLog(this.groupIdArray);
+    // get assigned files
+    this.edSer.API_getusersgroupsandfiles(this.userId).subscribe(value => this.gotUserFiles(value));
+
+  }
+
+  gotUserFiles(_response) {
+    this.edSer.debugLog(_response);
+    this.userFiles = _response;
   }
 
 }

@@ -118,6 +118,8 @@ export class AppComponent {
 
       // set up service groep id array
       this.edSer.setCurrent('usergroups', _event.groupids);
+      this.edSer.setCurrent('userid', _event.usrid);
+      
       this.router.navigate(['loggedin']);
 
     }
