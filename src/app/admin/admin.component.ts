@@ -79,7 +79,9 @@ export class AdminComponent implements OnInit, AfterViewInit {
   public wysigComponent: WysigComponent;
   //  we want control over the WYsigComponent
   @ViewChild(WysigComponent) public tinyComponent: WysigComponent;
-  sureModalTask;
+  sureModalTask = '';
+  delId = 0;
+
 
   // what kind of datatable rows do we have?
   userRows = [];
@@ -202,6 +204,39 @@ export class AdminComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
 
   }
+
+
+
+    // function for opening modals from this page
+    // 
+    openSureModal(template: TemplateRef<any>, _whichtask, _delId) {
+      this.sureModalTask = _whichtask;
+      this.delId = _delId;
+      this.modalRef = this.modalService.show(template);
+    }
+  
+  
+    // Are you sure Modal Handling
+    // Accepts, yes or no and which task needs to be performed
+    sureModal(_yesno): void {
+      if (_yesno === 'yes') {
+        // Do the actual deleting
+        switch (this.sureModalTask) {
+          case 'deletecourse':
+           
+  
+            break;
+            case 'deletelesson':
+            
+            break;
+        }
+      } else {
+        // Do nothing
+      }
+      // Hide this modal
+      this.modalRef.hide();
+      this.sureModalTask = '';
+    }
 
 
   // UPLOADING UPLOADING UPLOADING

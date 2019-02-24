@@ -589,6 +589,24 @@ export class EdserService {
       .pipe(map(res => res.json()));
   }
 
+
+    // DELETE user
+    API_deletelogo(logo_id): Observable < any > {
+      const url = environment.apilink + 'deletelogo/' + logo_id + '?rnd=' + new Date().getTime();
+      // tslint:disable-next-line:prefer-const
+      const headers = new Headers({
+        'Content-Type': 'application/json'
+      });
+  
+      const options = new RequestOptions({
+        headers: headers
+      });
+  
+      return this.http_.get(url, options)
+        .pipe(throttleTime(5000))
+        .pipe(map(res => res.json()));
+    }
+
   // Create publication
   API_createpublication(_name, _wysig): Observable < any > {
     // tslint:disable-next-line:max-line-length
@@ -762,6 +780,25 @@ export class EdserService {
 
 
     return this.http_.post(url, formData, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+
+
+  
+   // DELETE publication
+  API_removefilefromgroup(file_id): Observable < any > {
+    const url = environment.apilink + 'removefilefromgroup/' + file_id + '?rnd=' + new Date().getTime();
+    // tslint:disable-next-line:prefer-const
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    const options = new RequestOptions({
+      headers: headers
+    });
+
+    return this.http_.get(url, options)
       .pipe(throttleTime(5000))
       .pipe(map(res => res.json()));
   }

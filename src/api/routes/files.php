@@ -114,9 +114,22 @@ $app->get('/getlogos', function (Request $request, Response $response) {
 
 // 7) DELETE LOGO
 // TODO: Work out
-$app->get('/deletelogo', function (Request $request, Response $response) {
+$app->get('/deletelogo/{logoid}', function (Request $request, Response $response) {
+    $logoid = $request->getAttribute('logoid');
+    $logoid = (int)$logoid;
+    include 'db.php';
+    $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
+    //     NOTE 5 pieces --> [0] actions [1] arcades [2] archive [3] highscores [4] teams
+    //     a query get all the correct records from the gemeenten table
+    $sqlfiles = "SELECT * FROM logos WHERE id = $logoid";
+    $stmtfiles = $dbh->prepare($sqlfiles);
+    $stmtfiles->execute();
+    $resultfiles = $stmtfiles->fetchAll(PDO::FETCH_ASSOC);
+
+    // debug
     $data = array('Jsonresponse' => 'item1');
-    $response = json_encode($data);
+
+    $response = json_encode($resultfiles);
     return $response;
 });
 

@@ -1,6 +1,15 @@
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }">
 </ngx-loading>
 
+<ng-template #areusure>
+    <!-- (click)="openSureModal(areusure,'deletecourse',row.id) -->
+    <div class="modal-body text-center">
+      <p>Weet je het zeker?</p>
+      <button type="button" class="btn btn-default" (click)="sureModal('yes')">Ja</button>&nbsp;&nbsp;
+      <button type="button" class="btn btn-primary" (click)="sureModal('no')">Nee</button>
+    </div>
+  </ng-template>
+
 <ng-template #adminmodal>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Inloggen Admin</h4>
