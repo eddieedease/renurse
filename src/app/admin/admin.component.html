@@ -4,6 +4,7 @@
 <ng-template #areusure>
     <!-- (click)="openSureModal(areusure,'deletecourse',row.id) -->
     <div class="modal-body text-center">
+      <p>Je staat op het punt om dit item te verwijderen</p>
       <p>Weet je het zeker?</p>
       <button type="button" class="btn btn-default" (click)="sureModal('yes')">Ja</button>&nbsp;&nbsp;
       <button type="button" class="btn btn-primary" (click)="sureModal('no')">Nee</button>
@@ -212,17 +213,19 @@
 
 <ng-template #textblocks>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Tekst aanpassen</h4>
+    <h4 class="modal-title pull-left">{{currentTextBlockName}} tekst aanpassen</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body"><br>
     <!-- registration form-->
-    <div class="htmladjust2">
+    <div *ngIf='textblockloaded' class="htmladjust2">
       <app-wysig [elementId]="'textblockwysig'" [(prefill)]="currentTextBlockWysig" (onEditorKeyup)="keyupHandlerFunction($event)"
         (carretPosition)="giveRangeBack($event)">
-      </app-wysig>
+      </app-wysig><br>
+      <button type="button" (click)="saveTextBlock()" class="btn btn-danger btn-sm btn-block">Aanpassen</button>
+
     </div>
   </div>
 
@@ -378,7 +381,7 @@
               </ng-template>
             </ngx-datatable-column>
 
-            <ngx-datatable-column name="Actief" prop="userid" [sortable]="true">
+            <!-- <ngx-datatable-column name="Actief" prop="userid" [sortable]="true">
 
               <ng-template let-column="column" let-sort="sortFn">
                 <span style="cursor:pointer">
@@ -389,7 +392,7 @@
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                 X/X
               </ng-template>
-            </ngx-datatable-column>
+            </ngx-datatable-column> -->
 
             <ngx-datatable-column name="Acties" [sortable]="true">
 
@@ -400,10 +403,15 @@
               </ng-template>
 
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <div class="btn-group">
                 <button type="button" (click)="openLargeModal(researchtemplate, 'editresearch', row['id'])" class="btn btn-warning"
                   data-toggle="modal" data-target=".modal-edit">
                   <i class="fa fa-edit"></i>
                 </button>
+                <button type="button" (click)="openSureModal(areusure, 'research', row['id'])" class="btn btn-danger"
+                  data-toggle="modal" data-target=".modal-edit">
+                  <i class="fa fa-trash"></i>
+                </button></div>
               </ng-template>
             </ngx-datatable-column>
 
@@ -433,7 +441,7 @@
               </ng-template>
             </ngx-datatable-column>
 
-            <ngx-datatable-column name="Actief" prop="userid" [sortable]="true">
+            <!-- <ngx-datatable-column name="Actief" prop="userid" [sortable]="true">
 
               <ng-template let-column="column" let-sort="sortFn">
                 <span style="cursor:pointer">
@@ -444,7 +452,7 @@
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                 X/X
               </ng-template>
-            </ngx-datatable-column>
+            </ngx-datatable-column> -->
 
             <ngx-datatable-column name="Acties" [sortable]="true">
 
@@ -455,10 +463,15 @@
               </ng-template>
 
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <div class="btn-group">
                 <button type="button" (click)="openLargeModal(publicationtemplate, 'editpublication', row['id'])" class="btn btn-warning"
                   data-toggle="modal" data-target=".modal-edit">
                   <i class="fa fa-edit"></i>
                 </button>
+                <button type="button" (click)="openSureModal(areusure, 'publication', row['id'])" class="btn btn-danger"
+                data-toggle="modal" data-target=".modal-edit">
+                <i class="fa fa-trash"></i>
+              </button></div>
               </ng-template>
             </ngx-datatable-column>
 
@@ -559,7 +572,11 @@
                   <button type="button" (click)="openLargeModal(usertemplate, 'edituser', row['id'])" class="btn btn-warning"
                     data-toggle="modal" data-target=".modal-edit">
                     <i class="fa fa-edit"></i>
-                  </button></div>
+                  </button> <button type="button" (click)="openSureModal(areusure, 'user', row['id'])" class="btn btn-danger"
+                  data-toggle="modal" data-target=".modal-edit">
+                  <i class="fa fa-trash"></i>
+                </button></div>
+                  
               </ng-template>
             </ngx-datatable-column>
 

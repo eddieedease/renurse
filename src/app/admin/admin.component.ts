@@ -132,6 +132,11 @@ export class AdminComponent implements OnInit, AfterViewInit {
   currentResearchResearches;
 
   currentTextBlockWysig;
+  currentTextBlock = 1;
+  currentTextBlockName = '';
+  textblockloaded = false;
+
+
 
   currentPublicationTitle;
   currentPublicationCover;
@@ -173,8 +178,6 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   groupFiles = [];
 
-  // currenttextblock 1,2,3,4
-  currentTextBlock = 1;
 
 
 
@@ -207,36 +210,49 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
 
 
-    // function for opening modals from this page
-    // 
-    openSureModal(template: TemplateRef<any>, _whichtask, _delId) {
-      this.sureModalTask = _whichtask;
-      this.delId = _delId;
-      this.modalRef = this.modalService.show(template);
-    }
-  
-  
-    // Are you sure Modal Handling
-    // Accepts, yes or no and which task needs to be performed
-    sureModal(_yesno): void {
-      if (_yesno === 'yes') {
-        // Do the actual deleting
-        switch (this.sureModalTask) {
-          case 'deletecourse':
-           
-  
-            break;
-            case 'deletelesson':
-            
-            break;
-        }
-      } else {
-        // Do nothing
+  // function for opening modals from this page
+  // 
+  openSureModal(template: TemplateRef < any > , _whichtask, _delId) {
+    this.sureModalTask = _whichtask;
+    this.delId = _delId;
+    this.modalRef = this.modalService.show(template);
+  }
+
+
+  // Are you sure Modal Handling
+  // Accepts, yes or no and which task needs to be performed
+  sureModal(_yesno): void {
+    if (_yesno === 'yes') {
+      // Do the actual deleting
+      switch (this.sureModalTask) {
+        case 'research':
+
+          break;
+        case 'publication':
+
+          break;
+        case 'group':
+
+
+          break;
+        case 'user':
+
+          break;
+        case 'file':
+
+
+          break;
+        case 'logo':
+
+          break;
       }
-      // Hide this modal
-      this.modalRef.hide();
-      this.sureModalTask = '';
+    } else {
+      // Do nothing
     }
+    // Hide this modal
+    this.modalRef.hide();
+    this.sureModalTask = '';
+  }
 
 
   // UPLOADING UPLOADING UPLOADING
@@ -421,7 +437,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   // opening a modal
   openLargeModal(template: TemplateRef < any > , _whichwhat, _id) {
-    this.currentwysig = '';
+    
     switch (_whichwhat) {
       case 'newresearch':
         this.newResearch = true;
@@ -457,6 +473,8 @@ export class AdminComponent implements OnInit, AfterViewInit {
             this.currentResearchWysig = element.wysig;
             this.currentResearchCover = element.coverurl;
             this.currentResearchActive = element.active;
+            this.currentResearchResearches = element.initiative;
+            this.currentResearchStatus = element.status;
           }
         });
 
@@ -524,7 +542,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
         }); */
         break;
 
-        case 'filestogroup':
+      case 'filestogroup':
         this.groupRows.forEach(element => {
           if (element.id === _id) {
             this.edSer.debugLog('We have a hit');
@@ -536,9 +554,11 @@ export class AdminComponent implements OnInit, AfterViewInit {
         this.edSer.API_getgroupfiles(this.currentGroupId).subscribe(value => this.gotGroupFiles(value));
         break;
 
-        case 'textblocks':
-       this.currentTextBlock = _id;
-        // = Id 1 ,2 ,3 ,4 
+      case 'textblocks':
+        this.textblockloaded = false;
+        this.currentTextBlock = _id;
+        // get textblocks
+        this.edSer.API_gettextblocks().subscribe(value => this.gotTextBlocks(value, _id));
 
         break;
     }
@@ -549,6 +569,55 @@ export class AdminComponent implements OnInit, AfterViewInit {
         class: 'gray modal-lg'
       })
     );
+  }
+
+  gotTextBlocks(_resp, _id) {
+    let TextBlocks = _resp;
+    this.edSer.debugLog(_resp);
+    for (let index = 0; index < _resp.length; index++) {
+      if (+_resp[index].id === _id) {
+        
+        this.currentTextBlockWysig = _resp[index].wysig;
+        this.currentTextBlock = +_resp[index].id;
+
+        this.edSer.debugLog('WE HAVE A HIT!!   +  ' + _resp[index].wysig);
+        switch (_id) {
+          case 1:
+            this.currentTextBlockName = 'Blok 1';
+            break;
+          case 2:
+          this.currentTextBlockName = 'Blok 2';
+            break;
+          case 3:
+          this.currentTextBlockName = 'Blok 3';
+            break;
+          case 4:
+          this.currentTextBlockName = 'Blok 4';
+            break;
+        }
+      }
+      this.textblockloaded = true;
+
+    }
+  }
+
+  // Save text block
+  saveTextBlock(){
+    this.edSer.API_edittextblock(this.currentTextBlock, this.currentwysig).subscribe(value => this.textBlockAdjusted(value));
+  }
+
+  textBlockAdjusted(_response){
+    this.edSer.debugLog(_response);
+    this.toastr.success('Gewijzigd', '', {
+      timeOut: 20000
+    });
+    this.modalRef.hide();
+    this.currentwysig = '';
+    // this.edSer.API_gettextblocks().subscribe(value => this.gotTextBlocks(value, this.currentTextBlock));
+  }
+
+  gotTextBlockssDoNothing(_resp){
+    this.edSer.debugLog(_resp)
   }
 
 
@@ -610,7 +679,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
       case 'logos':
         this.getLogos();
         break;
-        case 'textblocks':
+      case 'textblocks':
         // TODO: get textblocks via api
         break;
     }
@@ -635,7 +704,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
         if (this.currentResearchTitle !== '' && this.currentwysig !== '') {
           this.edSer.debugLog(this.currentResearchTitle);
           this.edSer.debugLog(this.currentwysig);
-          this.edSer.API_createresearch(this.currentResearchTitle, this.currentwysig).subscribe(value => this.researchAdjusted(value));
+          this.edSer.API_createresearch(this.currentResearchTitle, this.currentwysig, this.currentResearchStatus, this.currentResearchResearches).subscribe(value => this.researchAdjusted(value));
 
         } else {
 
@@ -643,7 +712,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
         break;
       case 'edit':
         if (this.currentResearchTitle !== '' && this.currentGroupWysig !== '') {
-          this.edSer.API_editresearch(this.currentResearchId, this.currentResearchTitle, this.currentwysig).subscribe(value => this.researchAdjusted(value));
+          this.edSer.API_editresearch(this.currentResearchId, this.currentResearchTitle, this.currentwysig,  this.currentResearchStatus, this.currentResearchResearches).subscribe(value => this.researchAdjusted(value));
 
         } else {
 

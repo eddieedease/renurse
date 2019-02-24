@@ -13,14 +13,18 @@ $app->post('/createresearch', function (Request $request, Response $response) {
     // Some logic to check the pwd's
     $researchname = $parsedBody[researchname];
     $researchwysig = $parsedBody[researchwysig];
+    $researchstatus = $parsedBody[researchstatus];
+    $researchinitiative = $parsedBody[researchinitiative];
 
     $researchname = addcslashes($researchname, "'");
     $researchwysig = addcslashes($researchwysig, "'");
+    $researchstatus = addcslashes($researchstatus, "'");
+    $researchinitiative = addcslashes($researchinitiative, "'");
     // UPDATE, I THINKKKK, It's better to make 2 API CALLS, first store the data. If this succeeds, another 'file upload' for thumbnail
     include 'db.php';
     // Insert the link into our DATABASE
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
-    $sqladdresearch = "INSERT INTO research (uname, wysig) VALUES ('$researchname', '$researchwysig')";
+    $sqladdresearch = "INSERT INTO research (uname, wysig, status, initiative) VALUES ('$researchname', '$researchwysig', '$researchstatus', '$researchinitiative')";
     $stmtaddresearch = $dbh->prepare($sqladdresearch);
     $stmtaddresearch->execute();
     $resultaddresearch= $stmtaddresearch->fetchAll(PDO::FETCH_ASSOC);
@@ -62,16 +66,20 @@ $app->post('/editresearch/{researchid}', function (Request $request, Response $r
     // Some logic to check the pwd's
     $researchname = $parsedBody[name];
     $researchwysig = $parsedBody[wysig];
+    $researchstatus = $parsedBody[researchstatus];
+    $researchinitiative = $parsedBody[researchinitiative];
 
     $researchname = addcslashes($researchname, "'");
     $researchwysig = addcslashes($researchwysig, "'");
+    $researchstatus = addcslashes($researchstatus, "'");
+    $researchinitiative = addcslashes($researchinitiative, "'");
     // UPDATE, I THINKKKK, It's better to make 2 API CALLS, first store the data. If this succeeds, another 'file upload' for thumbnail
     include 'db.php';
     // Insert the link into our DATABASE
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
     
 
-    $sqleditresearch = "UPDATE research SET uname = '$researchname' , wysig = '$researchwysig' WHERE id = '$researchid'";
+    $sqleditresearch = "UPDATE research SET uname = '$researchname' , wysig = '$researchwysig' , status = '$researchstatus', initiative = '$researchinitiative' WHERE id = '$researchid'";
     $stmteditresearch = $dbh->prepare($sqleditresearch);
     $stmteditresearch->execute();
     //     NOTE colleting everything for converting

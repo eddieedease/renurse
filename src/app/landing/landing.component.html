@@ -1,13 +1,13 @@
 <ng-template #textblocks>
     <div class="modal-header">
-      <h4 class="modal-title pull-left">Titel</h4>
+      <h4 class="modal-title pull-left">{{currentBlockTitle}}</h4>
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body"><br>
       <!-- registration form-->
-     
+      <div [innerHTML]="currentHtml | safe: 'html'"></div>
     </div>
   
   </ng-template>
