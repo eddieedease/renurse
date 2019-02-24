@@ -83,11 +83,18 @@
       <hr class="m-b-2" />
 
       <div *ngIf="!newResearch">
-
           <img *ngIf="currentResearchCover != ''" [src]="'uploads/' + currentResearchCover"  class="img-reponsive img-rounded" />
           <img *ngIf="currentResearchCover == ''" src="assets/research.jpg"  class="img-reponsive img-rounded" />
           <br> <p>Afbeelding uploaden</p>
         <input type="file" (change)="thumbUploadStart($event, 'research')"> <br><br><br>
+        <fieldset class="form-group has-danger">
+            <label class="form-control-label">Status</label>
+            <input [(ngModel)]="currentResearchStatus" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+          </fieldset>
+          <fieldset class="form-group has-danger">
+              <label class="form-control-label">Onderzoekers</label>
+              <input [(ngModel)]="currentResearchResearches" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+            </fieldset>
       </div>
 
 
@@ -189,6 +196,24 @@
         <a type="button" [href]="'uploads/' +file.name" download class="btn btn-info btn-sm btn-block" style="color:black">Download</a>
         <button type="button" class="btn btn-danger btn-sm btn-block">Verwijder</button>
       </div>
+    </div>
+  </div>
+
+</ng-template>
+
+<ng-template #textblocks>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Tekst aanpassen</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body"><br>
+    <!-- registration form-->
+    <div class="htmladjust2">
+      <app-wysig [elementId]="'textblockwysig'" [(prefill)]="currentTextBlockWysig" (onEditorKeyup)="keyupHandlerFunction($event)"
+        (carretPosition)="giveRangeBack($event)">
+      </app-wysig>
     </div>
   </div>
 
@@ -530,6 +555,55 @@
             </ngx-datatable-column>
 
           </ngx-datatable>
+        </tab>
+
+        <tab heading="Blokteksten" (select)="getSome('textblocks')"><br>
+          <h4>Blokteksten aanpassen</h4>
+          <p>Hier Hier kun je de Blokteksten aanpassen.</p>
+         
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <div class="card" style="width: 18rem;">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <a  (click)="openLargeModal(textblocks, 'textblocks', 1)" class="btn btn-primary">Wijzig tekst</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card" style="width: 18rem;">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <a (click)="openLargeModal(textblocks, 'textblocks', 2)" class="btn btn-primary">Wijzig tekst</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="card" style="width: 18rem;">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <a (click)="openLargeModal(textblocks, 'textblocks', 3)" class="btn btn-primary">Wijzig tekst</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card" style="width: 18rem;">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <a (click)="openLargeModal(textblocks, 'textblocks', 4)" class="btn btn-primary">Wijzig tekst</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </tab>
 
         <tab heading="Instellingen" (select)="getSome('logos')"><br>

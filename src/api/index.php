@@ -47,8 +47,7 @@ require 'routes/research.php';
 require 'routes/files.php';
 require 'routes/mail.php';
 require 'routes/cfg.php';
-// require 'routes/sections.php';
-
+require 'routes/sections.php';
 /* require 'routes/collects.php';
 require 'routes/rewards.php';
 require 'routes/files.php'; */

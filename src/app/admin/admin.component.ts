@@ -126,8 +126,10 @@ export class AdminComponent implements OnInit, AfterViewInit {
   currentResearchActive;
   currentResearchWysig;
   currentResearchId;
+  currentResearchStatus;
+  currentResearchResearches;
 
-
+  currentTextBlockWysig;
 
   currentPublicationTitle;
   currentPublicationCover;
@@ -168,6 +170,9 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
 
   groupFiles = [];
+
+  // currenttextblock 1,2,3,4
+  currentTextBlock = 1;
 
 
 
@@ -494,7 +499,11 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
         // Fetch the groupFiles
         this.edSer.API_getgroupfiles(this.currentGroupId).subscribe(value => this.gotGroupFiles(value));
+        break;
 
+        case 'textblocks':
+       this.currentTextBlock = _id;
+        // = Id 1 ,2 ,3 ,4 
 
         break;
     }
@@ -565,6 +574,9 @@ export class AdminComponent implements OnInit, AfterViewInit {
         break;
       case 'logos':
         this.getLogos();
+        break;
+        case 'textblocks':
+        // TODO: get textblocks via api
         break;
     }
   }

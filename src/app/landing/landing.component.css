@@ -25,3 +25,8 @@
     line-height: 150px;
     text-align: center;
   }
+
+  .textblockk a:hover{
+    background-color: white
+
+  }
