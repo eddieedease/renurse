@@ -14,18 +14,15 @@
     </div>
 
     <div class="row">
-        
-      <div class="col-sm">
+      <div class="col-12">
           <div class="text-center">
           <img *ngIf="currentCoverUrl != ''" [src]="'uploads/' + currentCoverUrl" style="padding-left: 20px" class="img-fluid rounded mx-auto d-block">
           <img *ngIf="currentCoverUrl == ''" src="assets/research.jpg" style="padding-left: 20px" class="img-fluid rounded mx-auto d-block">
         </div><br><br>
         <div [innerHTML]="currentResearchWysig | safe: 'html'"></div>
         <br><br><br>
-      </div>
+      
 
-      <div class="col-sm">
-          
       </div>
     </div>
     <!-- /registration form-->
@@ -78,7 +75,7 @@
                             <li><b>Status:</b>&nbsp;{{research.status}}</li>
                           </ul>
                           <ul>
-                              <li><b>Onderzoekers:</b>&nbsp;<{{research.initiative}}/li>
+                              <li><b>Onderzoekers:</b>&nbsp;{{research.initiative}}</li>
                             </ul>
                         </div>
                       </div>
@@ -112,6 +109,18 @@
 
               
           </ul>
+
+          <ul class="list-group">
+            <li *ngFor="let publication of publicationArray; let i = index" class="list-group-item" >
+               <span class="pull-left ">
+                <img *ngIf="publication.coverurl != ''" [src]="'uploads/' + publication.coverurl"  class="img-reponsive img-rounded pubthumb" />
+                <img *ngIf="publication.coverurl == ''" src="assets/publication.jpg"  class="img-reponsive img-rounded pubthumb" />
+               </span>
+               <p><b>Titel:</b></p>
+               <h4>{{publication.name}}</h4><br>
+               <div [innerHTML]="publication.wysig | safe: 'html'"></div>
+            </li>
+        </ul>
         </tab>
       </tabset>
       <!-- Start single Blog -->

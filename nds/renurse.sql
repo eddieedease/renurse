@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.6.6deb5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Feb 22, 2019 at 06:48 AM
--- Server version: 5.6.38
--- PHP Version: 7.2.1
+-- Host: localhost:3306
+-- Generation Time: Feb 25, 2019 at 08:20 AM
+-- Server version: 5.7.25-0ubuntu0.18.04.2
+-- PHP Version: 7.2.15-0ubuntu0.18.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -103,6 +103,8 @@ CREATE TABLE `research` (
   `active` int(11) NOT NULL DEFAULT '1',
   `coverurl` varchar(50) NOT NULL DEFAULT '',
   `wysig` text NOT NULL,
+  `status` text NOT NULL,
+  `initiative` text NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -120,6 +122,29 @@ CREATE TABLE `sections` (
   `lastedit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `textblocks`
+--
+
+CREATE TABLE `textblocks` (
+  `id` int(11) NOT NULL,
+  `wysig` text NOT NULL,
+  `extra` text NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `textblocks`
+--
+
+INSERT INTO `textblocks` (`id`, `wysig`, `extra`, `date`) VALUES
+(1, '<p>testsdfdsfsd</p>', '', '2019-02-24 18:17:42'),
+(2, '<p>Wauwww</p>', '', '2019-02-24 18:19:17'),
+(3, '<p>testsdfsdfwerwer</p>', '', '2019-02-24 18:37:03'),
+(4, '<p>waarom</p>', '', '2019-02-24 18:57:08');
 
 -- --------------------------------------------------------
 
@@ -144,7 +169,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `uname`, `lastname`, `email`, `pwd`, `secret`, `type`, `active`, `lastlogin`) VALUES
-(9, 'Marika', 'Trieling', 'admin', 'admin', 'SM9WwlXIsQNgnfmG', 2, 0, '2019-01-30 16:47:22');
+(9, 'werew', 'werw', 'admin', 'admin', 'SM9WwlXIsQNgnfmG', 2, 0, '2019-01-30 16:47:22'),
+(10, 'iemand', 'okok', 'cwsf', 'aweq', 'k7HWyH8lqHNB7lh6', 1, 1, '2019-02-24 14:17:52');
 
 -- --------------------------------------------------------
 
@@ -205,6 +231,12 @@ ALTER TABLE `sections`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `textblocks`
+--
+ALTER TABLE `textblocks`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -225,55 +257,46 @@ ALTER TABLE `users_to_groups`
 --
 ALTER TABLE `cfg`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `logos`
 --
 ALTER TABLE `logos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `publications`
 --
 ALTER TABLE `publications`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `research`
 --
 ALTER TABLE `research`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `sections`
 --
 ALTER TABLE `sections`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `users_to_groups`
 --
 ALTER TABLE `users_to_groups`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
