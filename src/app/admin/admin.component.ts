@@ -102,6 +102,8 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   logoArray = [];
 
+  emailAdmin;
+
   // custom messages
   // Custom messages for datatable
   tableMessages = {
@@ -201,11 +203,16 @@ export class AdminComponent implements OnInit, AfterViewInit {
     if (environment.production === false) {
       this.adminisLoggedIn = true;
       this.edSer.API_getresearch().subscribe(value => this.gotResearches(value));
+      this.edSer.API_getadminemail().subscribe(value => this.gotAdminEmail(value));
     } else {}
   }
 
   ngAfterViewInit() {
 
+  }
+
+  gotAdminEmail(_resp){
+    this.emailAdmin = _resp.adminemail[0].adminemail;
   }
 
 
@@ -215,6 +222,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   openSureModal(template: TemplateRef < any > , _whichtask, _delId) {
     this.sureModalTask = _whichtask;
     this.delId = _delId;
+    console.log(this.delId);
     this.modalRef = this.modalService.show(template);
   }
 
@@ -226,23 +234,22 @@ export class AdminComponent implements OnInit, AfterViewInit {
       // Do the actual deleting
       switch (this.sureModalTask) {
         case 'research':
-
+        this.edSer.API_deleteresearch(this.delId).subscribe(value => this.isDeleted(value, 'research'));
           break;
         case 'publication':
-
+        this.edSer.API_deletepublication(this.delId).subscribe(value => this.isDeleted(value, 'publication'));
           break;
         case 'group':
-
-
+        this.edSer.API_deletegroup(this.delId).subscribe(value => this.isDeleted(value, 'group'));
           break;
         case 'user':
-
+        this.edSer.API_deleteuser(this.delId).subscribe(value => this.isDeleted(value, 'user'));
           break;
         case 'file':
-
+        this.edSer.API_removefilefromgroup(this.delId).subscribe(value => this.isDeleted(value, 'file'));
           break;
-        case 'logo':
-
+        case 'orglogo':
+        this.edSer.API_deletelogo(this.delId).subscribe(value => this.isDeleted(value, 'logo'));
           break;
       }
     } else {
@@ -251,6 +258,33 @@ export class AdminComponent implements OnInit, AfterViewInit {
     // Hide this modal
     this.modalRef.hide();
     this.sureModalTask = '';
+  }
+
+
+  // Deleting server response
+  isDeleted(_event, _case){
+    this.toastr.success('Verwijderd', '');
+
+    switch (_case) {
+      case 'research':
+      this.getResearches();
+          break;
+      case 'publication':
+      this.getPublications();
+        break;
+      case 'group':
+      this.getGroups();
+        break;
+      case 'user':
+      this.getUsers();
+        break;
+      case 'file':
+      this.edSer.API_getgroupfiles(this.currentGroupId).subscribe(value => this.gotGroupFiles(value));
+        break;
+      case 'logo':
+      this.getLogos();
+        break;
+    }
   }
 
 
@@ -283,6 +317,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   fileToGroupResponse(_resp) {
     this.edSer.debugLog(_resp);
+    this.edSer.API_getgroupfiles(this.currentGroupId).subscribe(value => this.gotGroupFiles(value));
   }
 
 
@@ -310,28 +345,38 @@ export class AdminComponent implements OnInit, AfterViewInit {
     // takeID
     switch (_case) {
       case 'research':
-        this.edSer.API_uploadthumb(_event, _case, this.currentResearchId).subscribe(value => this.thumbUploaded(value));
+        this.edSer.API_uploadthumb(_event, _case, this.currentResearchId).subscribe(value => this.thumbUploaded(value, 'research'));
 
         break;
       case 'publication':
-        this.edSer.API_uploadthumb(_event, _case, this.currentPublicationId).subscribe(value => this.thumbUploaded(value));
+        this.edSer.API_uploadthumb(_event, _case, this.currentPublicationId).subscribe(value => this.thumbUploaded(value,'publication'));
 
         break;
       case 'orglogo':
-        this.edSer.API_uploadthumb(_event, _case, 0).subscribe(value => this.thumbUploaded(value));
+        this.edSer.API_uploadthumb(_event, _case, 0).subscribe(value => this.thumbUploaded(value, 'orglogo'));
 
         break;
     }
-
 
     // Event, case , id
   }
 
   // Server response on course img upload
-  thumbUploaded(_val) {
+  thumbUploaded(_val, _case) {
+    switch (_case) {
+      case 'research':
+        this.getResearches();
+        break;
+        case 'publication':
+        this.getPublications();
+        break;
+        case 'orglogo':
+        this.getLogos();
+        break;
+    }
+
     this.loading = false;
-    this.edSer.debugLog('Profilefile is uploaded');
-    this.toastr.success('Cursusafbeelding aangepast', '');
+    this.toastr.success('Afbeelding geupload', '');
     this.edSer.debugLog(_val);
     // TODO: Load again
   }
@@ -377,6 +422,8 @@ export class AdminComponent implements OnInit, AfterViewInit {
         this.toastr.success('Welkom', 'Admin');
         this.adminisLoggedIn = true;
         this.edSer.API_getresearch().subscribe(value => this.gotResearches(value));
+        this.edSer.API_getadminemail().subscribe(value => this.gotAdminEmail(value));
+
       }
       // TODO: Check if is ok
       this.showLoginSpinner = false;
@@ -436,7 +483,6 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   // opening a modal
   openLargeModal(template: TemplateRef < any > , _whichwhat, _id) {
-    
     switch (_whichwhat) {
       case 'newresearch':
         this.newResearch = true;
@@ -917,7 +963,22 @@ export class AdminComponent implements OnInit, AfterViewInit {
     this.currentUserEmail = '';
     this.edSer.debugLog(_event);
     this.edSer.API_getusers().subscribe(value => this.gotUsers(value));
+  }
 
+  saveAdminEmail(){
+    if (this.emailAdmin !== ''){
+      // Api call save admin email
+      this.edSer.API_saveadminemail(this.emailAdmin).subscribe(value => this.adminEmailSaved(value));
+
+    }
+  }
+
+  adminEmailSaved(_resp){
+    this.edSer.API_getadminemail().subscribe(value => this.gotAdminEmail(value));
+
+    this.toastr.success('Gewijzigd', '', {
+      timeOut: 20000
+    });
   }
 
 }

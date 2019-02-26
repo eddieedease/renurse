@@ -852,4 +852,51 @@ export class EdserService {
       .pipe(map(res => res.json()));
   }
 
+
+  // Get admin email
+   // DELETE publication
+   API_getadminemail(): Observable < any > {
+    const url = environment.apilink + 'getadminemail?rnd=' + new Date().getTime();
+    // tslint:disable-next-line:prefer-const
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    const options = new RequestOptions({
+      headers: headers
+    });
+
+    return this.http_.get(url, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+
+  // Create publication
+  API_saveadminemail(_mail): Observable < any > {
+    // tslint:disable-next-line:max-line-length
+    const url = environment.apilink + 'saveadminemail?rnd=' + new Date().getTime();
+    // let blobReplaceUserId = jsonblobstring.replace('__userid__', '' + this.curID);
+    const upt = {
+      'email': _mail,
+    };
+    const body = JSON.stringify(upt);
+    // const howmanykb = this.byteCount(body);
+    // Line beneath show how many KB
+    // console.log('JSONBLOB = ' + howmanykb + ' Bytes');
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Cache-control': 'no-cache',
+      'Expires': '0',
+      'Pragma': 'no-cache'
+      /*  ,'Authorization': 'bearer ' + this.curTOKEN */
+    });
+    const options = new RequestOptions({
+      headers: headers,
+      method: 'post'
+    });
+    return this.http_.post(url, body, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+
 }

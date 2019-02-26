@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 25, 2019 at 08:20 AM
+-- Generation Time: Feb 26, 2019 at 09:46 PM
 -- Server version: 5.7.25-0ubuntu0.18.04.2
 -- PHP Version: 7.2.15-0ubuntu0.18.04.1
 
@@ -34,6 +34,13 @@ CREATE TABLE `cfg` (
   `maintenance` int(11) NOT NULL,
   `extra` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `cfg`
+--
+
+INSERT INTO `cfg` (`id`, `Name`, `adminemail`, `version`, `maintenance`, `extra`) VALUES
+(1, 'Renurse', 'test@test.nldfdsfs', 'v1.2', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -136,16 +143,6 @@ CREATE TABLE `textblocks` (
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `textblocks`
---
-
-INSERT INTO `textblocks` (`id`, `wysig`, `extra`, `date`) VALUES
-(1, '<p>testsdfdsfsd</p>', '', '2019-02-24 18:17:42'),
-(2, '<p>Wauwww</p>', '', '2019-02-24 18:19:17'),
-(3, '<p>testsdfsdfwerwer</p>', '', '2019-02-24 18:37:03'),
-(4, '<p>waarom</p>', '', '2019-02-24 18:57:08');
-
 -- --------------------------------------------------------
 
 --
@@ -163,14 +160,6 @@ CREATE TABLE `users` (
   `active` int(11) NOT NULL DEFAULT '1',
   `lastlogin` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `uname`, `lastname`, `email`, `pwd`, `secret`, `type`, `active`, `lastlogin`) VALUES
-(9, 'werew', 'werw', 'admin', 'admin', 'SM9WwlXIsQNgnfmG', 2, 0, '2019-01-30 16:47:22'),
-(10, 'iemand', 'okok', 'cwsf', 'aweq', 'k7HWyH8lqHNB7lh6', 1, 1, '2019-02-24 14:17:52');
 
 -- --------------------------------------------------------
 
@@ -256,7 +245,7 @@ ALTER TABLE `users_to_groups`
 -- AUTO_INCREMENT for table `cfg`
 --
 ALTER TABLE `cfg`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `files`
 --
@@ -291,7 +280,7 @@ ALTER TABLE `sections`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users_to_groups`
 --

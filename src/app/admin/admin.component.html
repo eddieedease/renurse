@@ -6,8 +6,7 @@
     <div class="modal-body text-center">
       <p>Je staat op het punt om dit item te verwijderen</p>
       <p>Weet je het zeker?</p>
-      <button type="button" class="btn btn-default" (click)="sureModal('yes')">Ja</button>&nbsp;&nbsp;
-      <button type="button" class="btn btn-primary" (click)="sureModal('no')">Nee</button>
+       <button type="button" class="btn btn-primary" (click)="sureModal('no')">Nee</button>
     </div>
   </ng-template>
 
@@ -639,8 +638,15 @@
         <tab heading="Instellingen" (select)="getSome('logos')"><br>
           <h2>Instellingen</h2>
           <br>
+          <fieldset class="form-group has-danger">
+            <label for="password" class="form-control-label">Email adres waar het contactformulier naar wordt gestuurd:</label>
+            <input [(ngModel)]="emailAdmin" [ngModelOptions]="{standalone: true}" type="email" class="form-control form-control-danger">
+          </fieldset>
+          <button type="button" class="btn btn-primary" (click)="saveAdminEmail()">Email bijwerken</button>&nbsp;&nbsp;
+
+          <br><br>
           <h4>Logo's</h4>
-          <p>Hier kun je partner logo's uploaden & verwijderen.<br> Upload een nieuwe logo:</p>
+          <p>Hier kun je partner logo's uploaden & verwijderen.<br> Upload een nieuw logo:</p>
           <input type="file" (change)="thumbUploadStart($event, 'orglogo')"> <br><br>
           Verwijder
 
@@ -648,7 +654,7 @@
             <div class="row">
               <div  *ngFor="let logo of logoArray; let i = index"  class="col-sm">
                   <img [src]="'uploads/' + logo.filename" class="img-thumbnail">
-                  <button type="button" class="btn btn-danger btn-sm">X</button>
+                  <button type="button" (click)="openSureModal(areusure, 'orglogo', logo.id)" class="btn btn-danger btn-sm">X</button>
               </div>
             </div>
           </div>

@@ -121,7 +121,7 @@ $app->get('/deletelogo/{logoid}', function (Request $request, Response $response
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
     //     NOTE 5 pieces --> [0] actions [1] arcades [2] archive [3] highscores [4] teams
     //     a query get all the correct records from the gemeenten table
-    $sqlfiles = "SELECT * FROM logos WHERE id = $logoid";
+    $sqlfiles = "DELETE FROM logos WHERE id = $logoid";
     $stmtfiles = $dbh->prepare($sqlfiles);
     $stmtfiles->execute();
     $resultfiles = $stmtfiles->fetchAll(PDO::FETCH_ASSOC);
