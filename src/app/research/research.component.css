@@ -3,10 +3,12 @@
     height: 100px;
     background-size: cover;
     border-radius: 15px;
+    object-fit: cover;
 }
 
 .resthumb{
     width: 200px;
     height: 170px;
     background-size: cover;
+    object-fit: cover;
 }

@@ -224,7 +224,7 @@
       <app-wysig [elementId]="'textblockwysig'" [(prefill)]="currentTextBlockWysig" (onEditorKeyup)="keyupHandlerFunction($event)"
         (carretPosition)="giveRangeBack($event)">
       </app-wysig><br>
-      <button type="button" (click)="saveTextBlock()" class="btn btn-danger btn-sm btn-block">Aanpassen</button>
+      <button type="button" (click)="saveTextBlock()" class="btn btn-primary btn-sm btn-block">Aanpassen</button>
 
     </div>
   </div>
@@ -590,43 +590,47 @@
           <div class="container">
             <div class="row">
               <div class="col">
-                <div class="card" style="width: 18rem;">
-                  <img src="..." class="card-img-top" alt="...">
+                <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <a  (click)="openLargeModal(textblocks, 'textblocks', 1)" class="btn btn-primary">Wijzig tekst</a>
+                      <img src="assets/service/icon/visie.png">
+                    <h5 class="card-title">Visie</h5>
+                    <a  (click)="openLargeModal(textblocks, 'textblocks', 1)" style="color:white" class="btn btn-primary">Wijzig tekst</a>
                   </div>
                 </div>
               </div>
               <div class="col">
-                <div class="card" style="width: 18rem;">
-                  <img src="..." class="card-img-top" alt="...">
+                <div class="card">
+                  
                   <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <a (click)="openLargeModal(textblocks, 'textblocks', 2)" class="btn btn-primary">Wijzig tekst</a>
+                      <img src="assets/service/icon/samenwerking.png">
+                    <h5 class="card-title">Samenwerking</h5>
+                    <a (click)="openLargeModal(textblocks, 'textblocks', 2)" style="color:white" class="btn btn-primary">Wijzig tekst</a>
                   </div>
                 </div>
               </div>
+              <div class="col">
+                  <div class="card">
+                    
+                    <div class="card-body">
+                        <img src="assets/service/icon/onderzoek.png">
+                      <h5 class="card-title">Onderzoeksprogramma</h5>
+                      <a (click)="openLargeModal(textblocks, 'textblocks', 3)" style="color:white" class="btn btn-primary">Wijzig tekst</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card">
+                    
+                    <div class="card-body">
+                        <img src="assets/service/icon/agenda.png" >
+                      <h5 class="card-title">Agenda</h5>
+                      <a (click)="openLargeModal(textblocks, 'textblocks', 4)" style="color:white" class="btn btn-primary">Wijzig tekst</a>
+                    </div>
+                  </div>
+                </div>
             </div>
             <div class="row">
-              <div class="col">
-                <div class="card" style="width: 18rem;">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <a (click)="openLargeModal(textblocks, 'textblocks', 3)" class="btn btn-primary">Wijzig tekst</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="card" style="width: 18rem;">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <a (click)="openLargeModal(textblocks, 'textblocks', 4)" class="btn btn-primary">Wijzig tekst</a>
-                  </div>
-                </div>
-              </div>
+              
             </div>
           </div>
 

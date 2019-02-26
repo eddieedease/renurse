@@ -87,16 +87,16 @@ export class LandingComponent implements OnInit {
           this.currentBlockId = _id;
           switch (_id) {
             case 1:
-            this.currentBlockTitle =  'Blok1';
+            this.currentBlockTitle =  'Visie';
               break;
               case 2:
-            this.currentBlockTitle =  'Blok 2';
+            this.currentBlockTitle =  'Samenwerking';
               break;
               case 3:
-            this.currentBlockTitle =  'Blok 3';
+            this.currentBlockTitle =  'Onderzoeksprogramma';
               break;
               case 4:
-            this.currentBlockTitle =  'Blok 4';
+            this.currentBlockTitle =  'Agenda';
               break;
           
          

@@ -5,7 +5,13 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="modal-body"><br>
+
+    <div class="modal-body">
+            <div class="text-center">
+            <img *ngIf="currentBlockId == 1" src="assets/service/icon/visie.png" class="img-fluid" alt="Responsive image">
+            <img *ngIf="currentBlockId == 2" src="assets/service/icon/samenwerking.png" class="img-fluid" alt="Responsive image">
+            <img *ngIf="currentBlockId == 3" src="assets/service/icon/onderzoek.png" class="img-fluid" alt="Responsive image">
+            <img *ngIf="currentBlockId == 4" src="assets/service/icon/agenda.png" class="img-fluid" alt="Responsive image"></div><br>
       <!-- registration form-->
       <div [innerHTML]="currentHtml | safe: 'html'"></div>
     </div>
@@ -21,7 +27,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="slider-content slider-text-animation">
                             <h1>RENursE</h1>
-                            <a style="cursor: pointer">Betere zorg, samen</a>									
+                            <a>Research, Education, Nursing regarding Elderly</a>									
                         </div>
                     </div>
                 </div>	
@@ -42,7 +48,8 @@
                             <h4 class="text--theme">Samenwerking is key</h4>
                             <h2 class="text--theme">RENursE</h2>
                             <div class="htc__support__details" style="margin-right:20px">
-                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                                <p>RENursE (Research, Education, Nursing regarding Elderly) is een consortium van STZ-ziekenhuizen die gezamenlijk tot doel hebben om met behulp van wetenschappelijk onderzoek de kwaliteit van de verpleegkundige zorg voor ouderen, nu en in de toekomst, te borgen.
+                                    De 10 STZ-ziekenhuizen werken samen de Universiteit Utrecht en de Haagse Hogeschool om het onderzoeksprogramma vorm te geven. </p>
                             </div>
                             
                         </div>
@@ -85,54 +92,56 @@
             <div class="offset-lg-5 col-lg-7 col-md-12 col-12">
                 <div class="htc__solve__items">
                         <p>Klik op de volgende onderdelen voor meer informatie:</p><br><br>
-                    <div class="htc__solve__content pb--80">
+                    
+                    <!-- End Single Items -->
+                    <div class="htc__solve__content"  >
                         <!-- Start Single Items -->
-                       
                         <div class="ht__sin__solve" (click)="openModal(textblocks,1)" style="cursor:pointer">
                             <div class="ser_icon">
-                                <img src="assets/service/icon/ser-cion.png" alt="services Icon">
+                                <img src="assets/service/icon/visie.png" alt="services Icon">
                             </div>
                             <div class="ser__content">
-                                <h4>Onderzoeken</h4>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration.</p>
+                                <h4>Visie</h4>
+                                <p>Onze missie en visie</p><br><br>
                             </div>
                         </div>
                         <!-- End Single Items -->
                         <!-- Start Single Items -->
                         <div class="ht__sin__solve" (click)="openModal(textblocks,2)" style="cursor:pointer">
                             <div class="ser_icon">
-                                <img src="assets/service/icon/ser-cion-3.png" alt="services Icon">
-                            </div>
+                                <img src="assets/service/icon/samenwerking.png" alt="services Icon">
+                            </div> 
                             <div class="ser__content">
-                                <h4>Samenwerken</h4>
-                                <p>Perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque dantium, totam rem aperiam, eaque</p>
+                                <h4>Samenwerking</h4>
+                                <p>Informatie over samenwerking</p><br><br>
                             </div>
                         </div>
+                        <!-- End Single Items -->
                     </div>
-                    <!-- End Single Items -->
-                    <div class="htc__solve__content" (click)="openModal(textblocks,3)" style="cursor:pointer">
+
+                    <div class="htc__solve__content pb--80">
                         <!-- Start Single Items -->
-                        <div class="ht__sin__solve">
+                       
+                        <div class="ht__sin__solve" (click)="openModal(textblocks,3)" style="cursor:pointer">
                             <div class="ser_icon">
-                                <img src="assets/service/icon/ser-cion-2.png" alt="services Icon">
+                                <img src="assets/service/icon/onderzoek.png" alt="services Icon">
                             </div>
                             <div class="ser__content">
-                                <h4>Verscherpen</h4>
-                                <p>Perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque dantium, totam rem aperiam, eaque</p>
+                                <h4>Onderzoeksprogramma</h4>
+                                <p>Informatie over het onderzoeksprogramma</p><br><br>
                             </div>
                         </div>
                         <!-- End Single Items -->
                         <!-- Start Single Items -->
                         <div class="ht__sin__solve" (click)="openModal(textblocks,4)" style="cursor:pointer">
                             <div class="ser_icon">
-                                <img src="assets/service/icon/ser-cion-4.png" alt="services Icon">
-                            </div> 
+                                <img src="assets/service/icon/agenda.png" alt="services Icon">
+                            </div>
                             <div class="ser__content">
-                                <h4>Optimaliseren</h4>
-                                <p>Perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque dantium, totam rem aperiam, eaque</p>
+                                <h4>Agenda</h4>
+                                <p>Vergaderingen en congresbezoeken</p><br><br>
                             </div>
                         </div>
-                        <!-- End Single Items -->
                     </div>
                 </div>
             </div>

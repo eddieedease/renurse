@@ -72,11 +72,13 @@ export class ResearchComponent implements OnInit {
   gotResearch(_event) {
     this.edSer.debugLog(_event);
     this.researchArray = _event;
+    this.researchArray.reverse();
   }
 
   gotPublications(_event) {
     this.edSer.debugLog(_event);
     this.publicationArray = _event;
+    this.publicationArray.reverse();
   }
 
   

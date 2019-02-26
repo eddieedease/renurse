@@ -240,7 +240,6 @@ export class AdminComponent implements OnInit, AfterViewInit {
           break;
         case 'file':
 
-
           break;
         case 'logo':
 
@@ -464,7 +463,8 @@ export class AdminComponent implements OnInit, AfterViewInit {
         // TODO: For the fetching for editting, we will need an additional parameter id
       case 'editresearch':
         this.newResearch = false;
-
+        this.currentResearchResearches = '';
+        this.currentResearchStatus = '';
         this.researchRows.forEach(element => {
           if (element.id === _id) {
             this.edSer.debugLog('We have a hit');
@@ -572,7 +572,6 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   gotTextBlocks(_resp, _id) {
-    let TextBlocks = _resp;
     this.edSer.debugLog(_resp);
     for (let index = 0; index < _resp.length; index++) {
       if (+_resp[index].id === _id) {
@@ -583,16 +582,16 @@ export class AdminComponent implements OnInit, AfterViewInit {
         this.edSer.debugLog('WE HAVE A HIT!!   +  ' + _resp[index].wysig);
         switch (_id) {
           case 1:
-            this.currentTextBlockName = 'Blok 1';
+            this.currentTextBlockName = 'Visie';
             break;
           case 2:
-          this.currentTextBlockName = 'Blok 2';
+          this.currentTextBlockName = 'Samenwerking';
             break;
           case 3:
-          this.currentTextBlockName = 'Blok 3';
+          this.currentTextBlockName = 'Onderzoeksprogramma';
             break;
           case 4:
-          this.currentTextBlockName = 'Blok 4';
+          this.currentTextBlockName = 'Agenda';
             break;
         }
       }
@@ -696,6 +695,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
     this.edSer.debugLog(_event);
     this.loading = false;
     this.researchRows = _event;
+    this.researchRows.reverse();
   }
 
   adjustResearches(_case) {
@@ -749,6 +749,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
     this.edSer.debugLog(_event);
     this.loading = false;
     this.publicationRows = _event;
+    this.publicationRows.reverse();
   }
 
   adjustPublications(_case) {
@@ -793,6 +794,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
     this.edSer.debugLog(_event);
     this.loading = false;
     this.groupRows = _event;
+    this.groupRows.reverse();
   }
 
   adjustGroups(_case) {
@@ -872,6 +874,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   gotUsers(_event) {
     this.userRows = _event;
+    this.userRows.reverse();
     this.edSer.debugLog(_event);
     this.loading = false;
   }

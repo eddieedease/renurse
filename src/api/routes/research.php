@@ -13,18 +13,18 @@ $app->post('/createresearch', function (Request $request, Response $response) {
     // Some logic to check the pwd's
     $researchname = $parsedBody[researchname];
     $researchwysig = $parsedBody[researchwysig];
-    $researchstatus = $parsedBody[researchstatus];
-    $researchinitiative = $parsedBody[researchinitiative];
+    //$researchstatus = $parsedBody[researchstatus];
+    //$researchinitiative = $parsedBody[researchinitiative];
 
     $researchname = addcslashes($researchname, "'");
     $researchwysig = addcslashes($researchwysig, "'");
-    $researchstatus = addcslashes($researchstatus, "'");
-    $researchinitiative = addcslashes($researchinitiative, "'");
+    // $researchstatus = addcslashes($researchstatus, "'");
+    // $researchinitiative = addcslashes($researchinitiative, "'");
     // UPDATE, I THINKKKK, It's better to make 2 API CALLS, first store the data. If this succeeds, another 'file upload' for thumbnail
     include 'db.php';
     // Insert the link into our DATABASE
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
-    $sqladdresearch = "INSERT INTO research (uname, wysig, status, initiative) VALUES ('$researchname', '$researchwysig', '$researchstatus', '$researchinitiative')";
+    $sqladdresearch = "INSERT INTO research (uname, wysig, status, initiative) VALUES ('$researchname', '$researchwysig', 'open', '')";
     $stmtaddresearch = $dbh->prepare($sqladdresearch);
     $stmtaddresearch->execute();
     $resultaddresearch= $stmtaddresearch->fetchAll(PDO::FETCH_ASSOC);
