@@ -51,8 +51,8 @@
           <div class="row">
 
 
-            <div *ngFor="let research of researchArray; let i = index" class="col-lg-6 col-xl-6 col-md-6 col-6" style="cursor:pointer;padding:5px">
-              <div (click)='openModal(researchtemplate, research.id)' class="single_latest_post flex " style="height: 200px">
+            <div *ngFor="let research of researchArray; let i = index" class="col-lg-6 col-xl-6 col-md-6 col-12" style="cursor:pointer;padding:5px">
+              <div (click)='openModal(researchtemplate, research.id)' class="single_latest_post flex " >
                 <div class="ht__blog__thumb">
                   <a>
                     <img *ngIf="research.coverurl != ''" [src]="'uploads/' + research.coverurl" class="resthumb" alt="blog images">
@@ -93,7 +93,7 @@
             <li *ngFor="let publication of publicationArray; let i = index" class="list-group-item" >
 
                 <div class="row">
-                    <div class="col-2"> <img *ngIf="publication.coverurl != ''" [src]="'uploads/' + publication.coverurl"  class="img-reponsive img-rounded pubthumb" />
+                    <div class="col-lg-2 col-xl-2 col-md-6 col-12"> <img *ngIf="publication.coverurl != ''" [src]="'uploads/' + publication.coverurl"  class="img-reponsive img-rounded pubthumb" />
                       <img *ngIf="publication.coverurl == ''" src="assets/publication.jpg"  class="img-reponsive img-rounded pubthumb" /></div>
                     <div class="col-10"> <div>
                         <p>Titel</p>
