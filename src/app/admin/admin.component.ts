@@ -631,7 +631,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
             this.currentTextBlockName = 'Visie';
             break;
           case 2:
-          this.currentTextBlockName = 'Samenwerking';
+          this.currentTextBlockName = 'Oprichting';
             break;
           case 3:
           this.currentTextBlockName = 'Onderzoeksprogramma';

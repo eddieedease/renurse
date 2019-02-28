@@ -90,7 +90,7 @@ export class LandingComponent implements OnInit {
             this.currentBlockTitle =  'Visie';
               break;
               case 2:
-            this.currentBlockTitle =  'Samenwerking';
+            this.currentBlockTitle =  'Oprichting';
               break;
               case 3:
             this.currentBlockTitle =  'Onderzoeksprogramma';
