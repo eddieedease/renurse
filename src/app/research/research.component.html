@@ -51,8 +51,8 @@
           <div class="row">
 
 
-            <div *ngFor="let research of researchArray; let i = index" class="col-lg-6 col-xl-6 col-md-6 col-6" style="padding:5px; cursor:pointer">
-              <div (click)='openModal(researchtemplate, research.id)' class="single_latest_post flex ">
+            <div *ngFor="let research of researchArray; let i = index" class="col-lg-6 col-xl-6 col-md-6 col-6" style="cursor:pointer;padding:5px">
+              <div (click)='openModal(researchtemplate, research.id)' class="single_latest_post flex " style="height: 200px">
                 <div class="ht__blog__thumb">
                   <a>
                     <img *ngIf="research.coverurl != ''" [src]="'uploads/' + research.coverurl" class="resthumb" alt="blog images">
@@ -62,7 +62,7 @@
 
                 <div class="htc__blog__content">
                   <div class="blog__post_title">
-                    <h2><a>{{research.uname}}</a></h2>
+                    <h5 style="color:red"><a>{{research.uname}}</a></h5>
                   </div>
                   <div class="blog_post__meta">
                     <!-- <div class="post_author_img">
@@ -71,12 +71,8 @@
                     <div class="post_content">
                       <div class="author_tile">
                         <div class="publish_info">
-                          <ul>
-                            <li><b>Status:</b>&nbsp;{{research.status}}</li>
-                          </ul>
-                          <ul>
-                              <li><b>Onderzoekers:</b>&nbsp;{{research.initiative}}</li>
-                            </ul>
+                          <p><b>Status:</b>&nbsp;{{research.status}}</p>
+                          <p><b>Onderzoekers:</b>&nbsp;{{research.initiative}}</p>
                         </div>
                       </div>
                     </div>
@@ -91,34 +87,22 @@
           </div>
         </tab>
         <tab heading="Publicaties"><br>
-          <ul class="list-group" style="padding:30px">
-
-
-              <li  *ngFor="let publication of publicationArray; let i = index" class="list-group-item" >
-                 <span style="padding:10px" class="pull-left ">
-                    <img *ngIf="publication.coverurl != ''" [src]="'uploads/' + publication.coverurl"  class="img-reponsive img-rounded pubthumb" />
-                    <img *ngIf="publication.coverurl == ''" src="assets/publication.jpg"  class="img-reponsive img-rounded pubthumb" />
-
-                 </span>
-                 <div>&nbsp;&nbsp;
-                 <p><b>Titel:</b></p>
-                 <h4>{{publication.name}}</h4></div><br>
-                 <div [innerHTML]="publication.wysig | safe: 'html'"></div>
-              </li>
-
-
-              
-          </ul>
+          
 
           <ul class="list-group">
             <li *ngFor="let publication of publicationArray; let i = index" class="list-group-item" >
-               <span class="pull-left ">
-                <img *ngIf="publication.coverurl != ''" [src]="'uploads/' + publication.coverurl"  class="img-reponsive img-rounded pubthumb" />
-                <img *ngIf="publication.coverurl == ''" src="assets/publication.jpg"  class="img-reponsive img-rounded pubthumb" />
-               </span>
-               <p><b>Titel:</b></p>
-               <h4>{{publication.name}}</h4><br>
-               <div [innerHTML]="publication.wysig | safe: 'html'"></div>
+
+                <div class="row">
+                    <div class="col-2"> <img *ngIf="publication.coverurl != ''" [src]="'uploads/' + publication.coverurl"  class="img-reponsive img-rounded pubthumb" />
+                      <img *ngIf="publication.coverurl == ''" src="assets/publication.jpg"  class="img-reponsive img-rounded pubthumb" /></div>
+                    <div class="col-10"> <div>
+                        <p>Titel</p>
+                        <h5 style="color:red">{{publication.name}}</h5><br>
+                        <div [innerHTML]="publication.wysig | safe: 'html'"></div></div></div>
+                  </div>
+
+
+              
             </li>
         </ul>
         </tab>

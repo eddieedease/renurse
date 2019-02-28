@@ -120,7 +120,11 @@ h6, .h6 {
 }
 ul,
 ol {
-    list-style: none;
+    padding: 20px;
+}
+
+.navul {
+    list-style: none !important;
 }
 
 ol {
