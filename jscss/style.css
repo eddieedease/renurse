@@ -1237,8 +1237,8 @@ ul.main__menu>li:hover>a {
 --------------*/
 .special_banner {
   background: rgba(0, 0, 0, 0) url("../src/assets/banner/banner-2.jpg") no-repeat scroll center center / cover;
-  padding-bottom: 135px;
-  padding-top: 135px;
+  padding-bottom: 200px;
+  padding-top: 200px;
 }
 
 /*-------------
