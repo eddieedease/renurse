@@ -30,7 +30,7 @@ $app->post('/sendcontactform', function (Request $request, Response $response) {
     $stmtgetadminemail = $dbh->prepare($sqlgetadminemail);
     $stmtgetadminemail->execute();
     $resultgetadminemail = $stmtgetadminemail->fetchAll(PDO::FETCH_ASSOC);$sqllogin = "SELECT * FROM users WHERE id = '$usrid'";
-    $aipassword = $resultlogin[0]['adminemail'];
+    $aiemail = $resultlogin[0]['adminemail'];
 
 
     $mail = new PHPMailer;
@@ -40,12 +40,12 @@ $app->post('/sendcontactform', function (Request $request, Response $response) {
     $mail->SMTPAuth = true;
     $mail->SMTPKeepAlive = true; // SMTP connection will not close after each email sent, reduces SMTP overhead
     $mail->Port = 465;
-    $mail->Username = '';
-    $mail->Password = 'dearca';
+    $mail->Username = 'noreply@renurse.nl';
+    $mail->Password = 'replyno';
     // NOTE:
-    $mail->setFrom('arcade@ewastearcades.nl', 'Ewaste Arcade');
-    $mail->addReplyTo('arcade@ewastearcades.nl', 'Ewaste Arcade');
-    $mail->Subject = "Je wachtwoord voor de Arcade Shop";
+    $mail->setFrom('noreply@renurse.nl', 'Renurse Contactformulier');
+    $mail->addReplyTo('noreply@renurse.nl', 'Renurse Contactformulier');
+    $mail->Subject = "Contactformulier vraag";
 
     //msgHTML also sets AltBody, but if you want a custom one, set it afterwards
     $mail->AltBody = 'Om deze html te bekijken heb je een email client nodig die html mails kan laten zien!';
@@ -315,7 +315,7 @@ $app->post('/sendcontactform', function (Request $request, Response $response) {
                       <td>
                          <h3>Contact email vanaf de site</h3>
                         <p>Er is een bericht via de site verstuurd</p>
-                        <p>Zender:' . $contactemail . '</b> door '. contactname . ' </p><br><br>
+                        <p>Zender:' . $contactemail . '</b> door '. $contactname . ' </p><br><br>
                         <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                           <tbody>
                             <tr>

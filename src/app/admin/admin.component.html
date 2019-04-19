@@ -138,12 +138,12 @@
       </fieldset>
 
       <hr class="m-b-2" />
-      <div *ngIf="!newPublication">
+     <!--  <div *ngIf="!newPublication">
           <img *ngIf="currentPublicationCover != ''" [src]="'uploads/' + currentPublicationCover"  class="img-reponsive img-rounded" />
           <img *ngIf="currentPublicationCover == ''" src="assets/publication.jpg"  class="img-reponsive img-rounded" />
         <p>Afbeelding uploaden</p>
         <input type="file" (change)="thumbUploadStart($event, 'publication')"> <br>
-      </div>
+      </div> -->
       <div class="htmladjust2">
         <app-wysig [elementId]="'publicationwysig'" [(prefill)]="currentPublicationWysig" (onEditorKeyup)="keyupHandlerFunction($event)"
           (carretPosition)="giveRangeBack($event)">

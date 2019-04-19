@@ -12,27 +12,27 @@
                               <div class="htc__app__box__inner">
                                   <div class="htc__app__box">
                                       <div class="input_inner">
-                                          <input type="text" placeholder="..Naam..">
+                                          <input [(ngModel)]="currentName" [ngModelOptions]="{standalone: true}" type="text" placeholder="..Naam..">
                                       </div>
                                   </div>
                                </div>
                               <div class="htc__app__box__inner">
                                   <div class="htc__app__box">
-                                      <input type="email" placeholder="..Email..">
+                                      <input [(ngModel)]="currentEmail" [ngModelOptions]="{standalone: true}" type="email" placeholder="..Email..">
                                   </div>
                               </div>
                               <div class="htc__app__box__inner">
                                   <div class="htc__app__box">
-                                      <input type="text" placeholder="..Onderwerp..">
+                                      <input [(ngModel)]="currentSubject" [ngModelOptions]="{standalone: true}" placeholder="..Onderwerp..">
                                   </div>
                               </div> 
                              
                               <div class="appoinment_message">
                                   <div class="htc__app__box message">
-                                     <textarea name="Message" placeholder="Type uw bericht"></textarea>
+                                     <textarea [(ngModel)]="currentMessage" [ngModelOptions]="{standalone: true}" name="Message" placeholder="Type uw bericht"></textarea>
                                   </div>
                                   <div class="ht__appoin__btn">
-                                      <button type="submit">Verzend</button>
+                                      <button (click)="sendMail()" type="submit">Verzend</button>
                                   </div>
                               </div>
                           </form>

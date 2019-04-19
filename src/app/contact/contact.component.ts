@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { EdserService } from '../edser.service';
 
+import {
+  ToastrService
+} from 'ngx-toastr';
+
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -9,7 +13,13 @@ import { EdserService } from '../edser.service';
 })
 export class ContactComponent implements OnInit {
 
-  constructor(private edSer: EdserService) {
+  // currents
+  currentName = '';
+  currentEmail = '';
+  currentSubject = '';
+  currentMessage = '';
+
+  constructor(private edSer: EdserService, private toastr: ToastrService) {
       this.edSer.updatedMin(false);
     
   }
@@ -18,6 +28,21 @@ export class ContactComponent implements OnInit {
   ngOnInit() {
     // scroll to top
     window.scrollTo(0, 0);
+  }
+
+
+  sendMail() {
+    if (this.currentEmail !== '' && this.currentMessage !== '' && this.currentName !== '' && this.currentSubject !== '') {
+      this.edSer.API_sendcontactform(this.currentEmail, this.currentName, this.currentMessage).subscribe(value => this.contactFormSend(value));
+    } else {
+      this.toastr.warning('Nog niet alles ingevuld', '');
+    }
+  }
+
+
+  contactFormSend(_resp){
+    this.edSer.debugLog(_resp);
+    this.toastr.success('Bedankt!', 'We proberen zo snel mogelijk te reageren.');
   }
 
 }

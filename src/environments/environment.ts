@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apilink: 'http://localhost/renurse/src/api/'
+  apilink: 'http://localhost:8888/renurse/src/api/'
 };

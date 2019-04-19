@@ -41,7 +41,7 @@ export class WysigComponent implements  AfterViewInit, OnDestroy {
         skin_url: '../assets/skins/lightgray',
         // tslint:disable-next-line:max-line-length
         toolbar1: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent table | link | code',
-        height: 200,
+        height: 350,
         branding: false,
         relative_urls: false,
         indent: false,
