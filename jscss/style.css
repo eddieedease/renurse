@@ -158,7 +158,6 @@
   line-height: 68px;
   padding: 0 18px;
   position: relative;
-  text-transform: capitalize;
   -webkit-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
 }
@@ -1235,10 +1234,23 @@ ul.main__menu>li:hover>a {
     Special banner css here
 --------------*/
 .special_banner {
+  background: rgba(0, 0, 0, 0) url("../src/assets/banner/banner-3.jpg") no-repeat scroll center center / cover;
+  padding-bottom: 200px;
+  padding-top: 200px;
+}
+
+.special_banner2 {
   background: rgba(0, 0, 0, 0) url("../src/assets/banner/banner-2.jpg") no-repeat scroll center center / cover;
   padding-bottom: 200px;
   padding-top: 200px;
 }
+
+.special_banner4 {
+  background: rgba(0, 0, 0, 0) url("../src/assets/banner/banner-4.jpg") no-repeat scroll center center / cover;
+  padding-bottom: 200px;
+  padding-top: 200px;
+}
+
 
 /*-------------
     Specialized Doctor css here

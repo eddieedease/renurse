@@ -38,6 +38,7 @@ import { LockedComponent } from './locked/locked.component';
 import { ContactComponent } from './contact/contact.component';
 import { WysigComponent } from './wysig/wysig.component';
 import { WysigPipe } from './wysig-pipe.pipe';
+import { WiezijnwijComponent } from './wiezijnwij/wiezijnwij.component';
 
 const appRoutes: Routes = [
   { path: 'landing', component: LandingComponent },
@@ -46,6 +47,7 @@ const appRoutes: Routes = [
   { path: 'loggedin', component: LockedComponent},
   { path: 'contact', component: ContactComponent},
   { path: 'admin', component: AdminComponent },
+  { path: 'wiezijnwij', component: WiezijnwijComponent },
   { path: '',
     redirectTo: '/landing',
     pathMatch: 'full'
@@ -63,12 +65,13 @@ const appRoutes: Routes = [
     LockedComponent,
     ContactComponent,
     WysigComponent,
-    WysigPipe
+    WysigPipe,
+    WiezijnwijComponent
   ],
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { useHash: true } // <-- debugging purposes only
+      { useHash: false } // <-- debugging purposes only
     ),
     BrowserModule,
     ToastrModule.forRoot(),

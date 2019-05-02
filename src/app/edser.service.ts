@@ -901,13 +901,14 @@ export class EdserService {
 
   
   // Create publication
-  API_sendcontactform(_mail, _name, _message): Observable < any > {
+  API_sendcontactform(_mail, _name, _subject, _message): Observable < any > {
     // tslint:disable-next-line:max-line-length
     const url = environment.apilink + 'sendcontactform?rnd=' + new Date().getTime();
     // let blobReplaceUserId = jsonblobstring.replace('__userid__', '' + this.curID);
     const upt = {
       'email': _mail,
       'name': _name,
+      'subject' : _subject,
       'message': _message
     };
     const body = JSON.stringify(upt);

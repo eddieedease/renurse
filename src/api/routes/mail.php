@@ -22,6 +22,7 @@ $app->post('/sendcontactform', function (Request $request, Response $response) {
     $contactname = $parsedBody[name];
     $contactemail = $parsedBody[email];
     $contactmessage = $parsedBody[message];
+    $contactsubject = $parsedBody[subject];
 
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
@@ -316,6 +317,7 @@ $app->post('/sendcontactform', function (Request $request, Response $response) {
                          <h3>Contact email vanaf de site</h3>
                         <p>Er is een bericht via de site verstuurd</p>
                         <p>Zender:' . $contactemail . '</b> door '. $contactname . ' </p><br><br>
+                        ' . $contactsubject . '<br><br>
                         <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                           <tbody>
                             <tr>
@@ -345,7 +347,7 @@ $app->post('/sendcontactform', function (Request $request, Response $response) {
               <table border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td class="content-block">
-                    <span class="apple-link">E-waste Arcades</span>
+                    <span class="apple-link">RENursE</span>
 
                   </td>
                 </tr>

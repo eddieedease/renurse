@@ -34,6 +34,8 @@ import {
   environment
 } from '../environments/environment';
 
+declare var $: any;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -74,6 +76,11 @@ export class AppComponent {
       this.doTestCall();
     } else {}
   }
+
+  hideMenu() {
+    $('.navbar-collapse').collapse('hide');
+  }
+
 
   doTestCall() {
     this.edSer.API_testCall().subscribe(value => this.gotTest(value));
