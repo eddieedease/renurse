@@ -775,6 +775,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
       timeOut: 20000
     });
     this.getResearches();
+    this.modalRef.hide();
   }
 
   getLogos() {

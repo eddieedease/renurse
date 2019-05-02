@@ -204,7 +204,7 @@
         <p>type: <b>{{file.type}}</b></p>
         <img src="assets/file.png" style="max-width:100px"><br>
         <a type="button" [href]="'uploads/' +file.name" download class="btn btn-info btn-sm btn-block" style="color:black">Download</a>
-        <button type="button" class="btn btn-danger btn-sm btn-block">Verwijder</button>
+        <button type="button" (click)="openSureModal(areusure, 'file', file.id)" class="btn btn-danger btn-sm btn-block">Verwijder</button>
       </div>
     </div>
   </div>
@@ -603,7 +603,7 @@
                   
                   <div class="card-body">
                       <img src="assets/service/icon/samenwerking.png">
-                    <h5 class="card-title">Organisatie</h5>
+                    <h5 class="card-title">Oprichting</h5>
                     <a (click)="openLargeModal(textblocks, 'textblocks', 2)" style="color:white" class="btn btn-primary">Wijzig tekst</a>
                   </div>
                 </div>

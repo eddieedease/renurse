@@ -30,8 +30,8 @@ $app->post('/sendcontactform', function (Request $request, Response $response) {
     $sqlgetadminemail = "SELECT adminemail FROM cfg WHERE id = 1";
     $stmtgetadminemail = $dbh->prepare($sqlgetadminemail);
     $stmtgetadminemail->execute();
-    $resultgetadminemail = $stmtgetadminemail->fetchAll(PDO::FETCH_ASSOC);$sqllogin = "SELECT * FROM users WHERE id = '$usrid'";
-    $aiemail = $resultlogin[0]['adminemail'];
+    $resultgetadminemail = $stmtgetadminemail->fetchAll(PDO::FETCH_ASSOC);
+    $aiemail = $resultgetadminemail[0]['adminemail'];
 
 
     $mail = new PHPMailer;

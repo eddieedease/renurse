@@ -51,7 +51,7 @@ $app->post('/filetogroup/{groupid}', function (Request $request, Response $respo
 $app->get('/removefilefromgroup/{fileid}', function (Request $request, Response $response) {
 
     $fileid = $request->getAttribute('fileid');
-    $fileid = (int) $fileid;
+    $fileid = (int)$fileid;
 
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
