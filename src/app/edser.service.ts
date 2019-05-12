@@ -900,6 +900,8 @@ export class EdserService {
   }
 
   
+
+  
   // Create publication
   API_sendcontactform(_mail, _name, _subject, _message): Observable < any > {
     // tslint:disable-next-line:max-line-length
