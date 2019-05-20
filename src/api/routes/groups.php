@@ -106,10 +106,26 @@ $app->get('/getusersgroupsandfiles/{userid}', function (Request $request, Respon
     }
     $str = join(', ', $groupsAr);
 
-    $sqlrelevantfiles = "SELECT id, name, type, urlloc FROM files WHERE togroup IN ($str)";
+    $sqlrelevantfiles = "SELECT id, name, type, togroup, urlloc FROM files WHERE togroup IN ($str)";
     $stmtrelevantfiles = $dbh->prepare($sqlrelevantfiles);
     $stmtrelevantfiles->execute();
     $resultrelevantfiles = $stmtrelevantfiles->fetchAll(PDO::FETCH_ASSOC);
+
+    // we also want the group names
+    $sqlrelevantgroups = "SELECT id, name, wysig FROM groups WHERE id IN ($str)";
+    $stmtrelevantgroups = $dbh->prepare($sqlrelevantgroups);
+    $stmtrelevantgroups->execute();
+    $resultrelevantgroups = $stmtrelevantgroups->fetchAll(PDO::FETCH_ASSOC);
+
+    for ($i = 0; $i < sizeof($resultrelevantfiles); $i++) {
+       for ($b = 0; $b < sizeof($resultrelevantgroups); $b++) {
+           if ($resultrelevantfiles[$i][togroup] == $resultrelevantgroups[$b][id]){
+            $resultrelevantfiles[$i][groupname]= $resultrelevantgroups[$b][name];
+            $resultrelevantfiles[$i][wysig]= $resultrelevantgroups[$b][wysig];
+           }
+       }
+    }
+
 
 
 

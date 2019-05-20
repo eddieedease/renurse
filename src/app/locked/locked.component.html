@@ -15,14 +15,23 @@
                   <div class="media-body">
                     <h5 class="mt-0 mb-1">Bestanden die voor u zijn klaargezet:</h5><br>
                     
-                    <div class="row">
+                    
                       <br>
-                      <div *ngFor="let file of userFiles; let i = index" class="col-3">
-                        <h5>{{file.name}}</h5>
-                        <p>type: <b>{{file.type}}</b></p>
-                        <img src="assets/file.png" style="max-width:100px"><br>
-                        <a type="button" [href]="'uploads/' + file.name" download class="btn btn-info btn-sm btn-block" style="color:black">Download</a>
+                      <div *ngFor="let group of userFiles; let i = index">
+                        <h4 style="color: red">{{group[0].groupname}}</h4><br>
+                        <div class="row">
+                        <div *ngFor="let file of userFiles[i]; let u = index" class="col-3">
+                          <h6>{{file.name}}</h6>
+                          <p>type: <b>{{file.type}}</b></p>
+                          <img src="assets/file.png" style="max-width:100px"><br>
+                          <a type="button" [href]="'uploads/' + file.name" download class="btn btn-info btn-sm btn-block" style="color:black">Download</a>
+                        </div>
+                      
+                      
+                      
                       </div>
+
+                      <br><br>
                     </div>
                   </div>
                 </li>

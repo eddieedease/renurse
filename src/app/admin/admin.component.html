@@ -2,14 +2,14 @@
 </ngx-loading>
 
 <ng-template #areusure>
-    <!-- (click)="openSureModal(areusure,'deletecourse',row.id) -->
-    <div class="modal-body text-center">
-      <p>Je staat op het punt om dit item te verwijderen</p>
-      <p>Weet je het zeker?</p>
-       <button type="button" class="btn btn-default" (click)="sureModal('no')">Nee</button>&nbsp;&nbsp;
-       <button type="button" class="btn btn-primary" (click)="sureModal('yes')">Ja</button>
-    </div>
-  </ng-template>
+  <!-- (click)="openSureModal(areusure,'deletecourse',row.id) -->
+  <div class="modal-body text-center">
+    <p>Je staat op het punt om dit item te verwijderen</p>
+    <p>Weet je het zeker?</p>
+    <button type="button" class="btn btn-default" (click)="sureModal('no')">Nee</button>&nbsp;&nbsp;
+    <button type="button" class="btn btn-primary" (click)="sureModal('yes')">Ja</button>
+  </div>
+</ng-template>
 
 <ng-template #adminmodal>
   <div class="modal-header">
@@ -21,7 +21,8 @@
   <div class="modal-body">
     <!-- registration form-->
     <div class="col-sm text-center">
-      <svg *ngIf="showLoginSpinner" class="spinner text-center" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+      <svg *ngIf="showLoginSpinner" class="spinner text-center" width="65px" height="65px" viewBox="0 0 66 66"
+        xmlns="http://www.w3.org/2000/svg">
         <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
       </svg>
     </div>
@@ -39,12 +40,13 @@
     </div> -->
       <fieldset class="form-group has-danger">
         <label for="mail" class="form-control-label">Email adres:</label>
-        <input [(ngModel)]="admId" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+        <input [(ngModel)]="admId" [ngModelOptions]="{standalone: true}" type="text"
+          class="form-control form-control-danger">
       </fieldset>
       <fieldset class="form-group has-danger">
         <label for="password" class="form-control-label">Wachtwoord:</label>
-        <input [(ngModel)]="admPwd" [ngModelOptions]="{standalone: true}" type="password" class="form-control form-control-danger"
-          id="password">
+        <input [(ngModel)]="admPwd" [ngModelOptions]="{standalone: true}" type="password"
+          class="form-control form-control-danger" id="password">
       </fieldset>
 
 
@@ -88,34 +90,45 @@
     <form class="">
       <fieldset class="form-group has-danger">
         <label class="form-control-label">Titel</label>
-        <input [(ngModel)]="currentResearchTitle" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+        <input [(ngModel)]="currentResearchTitle" [ngModelOptions]="{standalone: true}" type="text"
+          class="form-control form-control-danger">
       </fieldset>
       <hr class="m-b-2" />
 
       <div *ngIf="!newResearch">
-          <img *ngIf="currentResearchCover != ''" [src]="'uploads/' + currentResearchCover"  class="img-reponsive img-rounded" />
-          <img *ngIf="currentResearchCover == ''" src="assets/research.jpg"  class="img-reponsive img-rounded" />
-          <br> <p>Afbeelding uploaden</p>
+        <img *ngIf="currentResearchCover != ''" [src]="'uploads/' + currentResearchCover"
+          class="img-reponsive img-rounded" />
+        <img *ngIf="currentResearchCover == ''" src="assets/research.jpg" class="img-reponsive img-rounded" />
+        <br>
+        <p>Afbeelding uploaden</p>
         <input type="file" (change)="thumbUploadStart($event, 'research')"> <br><br><br>
         <fieldset class="form-group has-danger">
-            <label class="form-control-label">Status</label>
-            <input [(ngModel)]="currentResearchStatus" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
-          </fieldset>
-          <fieldset class="form-group has-danger">
-              <label class="form-control-label">Onderzoekers</label>
-              <input [(ngModel)]="currentResearchResearches" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
-            </fieldset>
+          <label class="form-control-label">Status</label>
+          <input [(ngModel)]="currentResearchStatus" [ngModelOptions]="{standalone: true}" type="text"
+            class="form-control form-control-danger">
+        </fieldset>
+        <fieldset class="form-group has-danger">
+          <label class="form-control-label">Onderzoekers</label>
+          <input [(ngModel)]="currentResearchResearches" [ngModelOptions]="{standalone: true}" type="text"
+            class="form-control form-control-danger">
+        </fieldset><br><br>
+
+       <!--  <label for="start">Datum:<small><br>De meest recente komt bovenaan de site</small></label><br>
+        
+        <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31"><br><br> -->
       </div>
 
 
 
       <div class="htmladjust2">
-        <app-wysig [elementId]="'researchwysig'" [(prefill)]="currentResearchWysig" (onEditorKeyup)="keyupHandlerFunction($event)"
-          (carretPosition)="giveRangeBack($event)">
+        <app-wysig [elementId]="'researchwysig'" [(prefill)]="currentResearchWysig"
+          (onEditorKeyup)="keyupHandlerFunction($event)" (carretPosition)="giveRangeBack($event)">
         </app-wysig>
       </div>
-      <button *ngIf="newResearch" type="submit" (click)="adjustResearches('new')" class="btn btn-primary btn-lg">Opslaan</button>
-      <button *ngIf="!newResearch" (click)="adjustResearches('edit')" type="submit" class="btn btn-primary btn-lg">Bijwerken</button>
+      <button *ngIf="newResearch" type="submit" (click)="adjustResearches('new')"
+        class="btn btn-primary btn-lg">Opslaan</button>
+      <button *ngIf="!newResearch" (click)="adjustResearches('edit')" type="submit"
+        class="btn btn-primary btn-lg">Bijwerken</button>
     </form>
     <!-- /registration form-->
   </div>
@@ -134,23 +147,26 @@
     <form class="">
       <fieldset class="form-group has-danger">
         <label class="form-control-label">Titel</label>
-        <input [(ngModel)]="currentPublicationTitle" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+        <input [(ngModel)]="currentPublicationTitle" [ngModelOptions]="{standalone: true}" type="text"
+          class="form-control form-control-danger">
       </fieldset>
 
       <hr class="m-b-2" />
-     <!--  <div *ngIf="!newPublication">
+      <!--  <div *ngIf="!newPublication">
           <img *ngIf="currentPublicationCover != ''" [src]="'uploads/' + currentPublicationCover"  class="img-reponsive img-rounded" />
           <img *ngIf="currentPublicationCover == ''" src="assets/publication.jpg"  class="img-reponsive img-rounded" />
         <p>Afbeelding uploaden</p>
         <input type="file" (change)="thumbUploadStart($event, 'publication')"> <br>
       </div> -->
       <div class="htmladjust2">
-        <app-wysig [elementId]="'publicationwysig'" [(prefill)]="currentPublicationWysig" (onEditorKeyup)="keyupHandlerFunction($event)"
-          (carretPosition)="giveRangeBack($event)">
+        <app-wysig [elementId]="'publicationwysig'" [(prefill)]="currentPublicationWysig"
+          (onEditorKeyup)="keyupHandlerFunction($event)" (carretPosition)="giveRangeBack($event)">
         </app-wysig>
       </div>
-      <button *ngIf="newPublication" (click)="adjustPublications('new')" type="submit" class="btn btn-primary btn-lg">Opslaan</button>
-      <button *ngIf="!newPublication" (click)="adjustPublications('edit')" type="submit" class="btn btn-primary btn-lg">Bijwerken</button>
+      <button *ngIf="newPublication" (click)="adjustPublications('new')" type="submit"
+        class="btn btn-primary btn-lg">Opslaan</button>
+      <button *ngIf="!newPublication" (click)="adjustPublications('edit')" type="submit"
+        class="btn btn-primary btn-lg">Bijwerken</button>
     </form>
     <!-- /registration form-->
   </div>
@@ -168,16 +184,19 @@
     <form class="">
       <fieldset class="form-group has-danger">
         <label class="form-control-label">Titel</label>
-        <input [(ngModel)]="currentGroupTitle" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+        <input [(ngModel)]="currentGroupTitle" [ngModelOptions]="{standalone: true}" type="text"
+          class="form-control form-control-danger">
       </fieldset>
       <hr class="m-b-2" />
       <div class="htmladjust2">
-        <app-wysig [elementId]="'groupwysig'" [(prefill)]="currentGroupWysig" (onEditorKeyup)="keyupHandlerFunction($event)"
-          (carretPosition)="giveRangeBack($event)">
+        <app-wysig [elementId]="'groupwysig'" [(prefill)]="currentGroupWysig"
+          (onEditorKeyup)="keyupHandlerFunction($event)" (carretPosition)="giveRangeBack($event)">
         </app-wysig>
       </div>
-      <button *ngIf="newGroup" (click)="adjustGroups('new')" type="submit" class="btn btn-primary btn-lg">Opslaan</button>
-      <button *ngIf="!newGroup" (click)="adjustGroups('edit')" type="submit" class="btn btn-primary btn-lg">Bijwerken</button>
+      <button *ngIf="newGroup" (click)="adjustGroups('new')" type="submit"
+        class="btn btn-primary btn-lg">Opslaan</button>
+      <button *ngIf="!newGroup" (click)="adjustGroups('edit')" type="submit"
+        class="btn btn-primary btn-lg">Bijwerken</button>
     </form>
   </div>
 
@@ -203,8 +222,10 @@
         <h5>{{file.name}}</h5>
         <p>type: <b>{{file.type}}</b></p>
         <img src="assets/file.png" style="max-width:100px"><br>
-        <a type="button" [href]="'uploads/' +file.name" download class="btn btn-info btn-sm btn-block" style="color:black">Download</a>
-        <button type="button" (click)="openSureModal(areusure, 'file', file.id)" class="btn btn-danger btn-sm btn-block">Verwijder</button>
+        <a type="button" [href]="'uploads/' +file.name" download class="btn btn-info btn-sm btn-block"
+          style="color:black">Download</a>
+        <button type="button" (click)="openSureModal(areusure, 'file', file.id)"
+          class="btn btn-danger btn-sm btn-block">Verwijder</button>
       </div>
     </div>
   </div>
@@ -221,8 +242,8 @@
   <div class="modal-body"><br>
     <!-- registration form-->
     <div *ngIf='textblockloaded' class="htmladjust2">
-      <app-wysig [elementId]="'textblockwysig'" [(prefill)]="currentTextBlockWysig" (onEditorKeyup)="keyupHandlerFunction($event)"
-        (carretPosition)="giveRangeBack($event)">
+      <app-wysig [elementId]="'textblockwysig'" [(prefill)]="currentTextBlockWysig"
+        (onEditorKeyup)="keyupHandlerFunction($event)" (carretPosition)="giveRangeBack($event)">
       </app-wysig><br>
       <button type="button" (click)="saveTextBlock()" class="btn btn-primary btn-sm btn-block">Aanpassen</button>
 
@@ -244,23 +265,28 @@
     <form class="">
       <fieldset class="form-group has-danger">
         <label class="form-control-label">Naam</label>
-        <input [(ngModel)]="currentUserName" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+        <input [(ngModel)]="currentUserName" [ngModelOptions]="{standalone: true}" type="text"
+          class="form-control form-control-danger">
       </fieldset>
       <fieldset class="form-group has-danger">
         <label class="form-control-label">Achternaam</label>
-        <input [(ngModel)]="currentUserLastName" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+        <input [(ngModel)]="currentUserLastName" [ngModelOptions]="{standalone: true}" type="text"
+          class="form-control form-control-danger">
       </fieldset>
       <fieldset class="form-group has-danger">
         <label class="form-control-label">Email / Gebruikersnaam</label>
-        <input [(ngModel)]="currentUserEmail" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-danger">
+        <input [(ngModel)]="currentUserEmail" [ngModelOptions]="{standalone: true}" type="text"
+          class="form-control form-control-danger">
       </fieldset>
       <fieldset class="form-group has-danger">
         <label class="form-control-label">Wachtwoord</label>
-        <input [(ngModel)]="currentUserPwd" [ngModelOptions]="{standalone: true}" type="password" class="form-control form-control-danger">
+        <input [(ngModel)]="currentUserPwd" [ngModelOptions]="{standalone: true}" type="password"
+          class="form-control form-control-danger">
       </fieldset>
       <hr class="m-b-2" />
       <button *ngIf="newUser" (click)="adjustUsers('new')" type="submit" class="btn btn-primary btn-lg">Opslaan</button>
-      <button *ngIf="!newUser" (click)="adjustUsers('edit')" type="submit" class="btn btn-primary btn-lg">Bijwerken</button>
+      <button *ngIf="!newUser" (click)="adjustUsers('edit')" type="submit"
+        class="btn btn-primary btn-lg">Bijwerken</button>
     </form>
   </div>
 </ng-template>
@@ -274,53 +300,55 @@
     </button>
   </div>
   <div class="modal-body">
-    <ngx-datatable class="bootstrap" [rows]="userRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
-    [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
-    <ngx-datatable-column name="Naam" prop="uname" [sortable]="true">
+    <ngx-datatable class="bootstrap" [rows]="userRows" [columns]="columns" [columnMode]="'force'"
+      [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+      <ngx-datatable-column name="Naam" prop="uname" [sortable]="true">
 
-      <ng-template let-column="column" let-sort="sortFn">
-        <span style="cursor:pointer">
-          {{column.name}}
-        </span>
-      </ng-template>
+        <ng-template let-column="column" let-sort="sortFn">
+          <span style="cursor:pointer">
+            {{column.name}}
+          </span>
+        </ng-template>
 
-      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-        <div [innerHTML]="row['uname'] + ' ' + row['lastname']"></div>
-      </ng-template>
-    </ngx-datatable-column>
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <div [innerHTML]="row['uname'] + ' ' + row['lastname']"></div>
+        </ng-template>
+      </ngx-datatable-column>
 
-    <ngx-datatable-column name="Email" prop="email" [sortable]="true">
+      <ngx-datatable-column name="Email" prop="email" [sortable]="true">
 
-      <ng-template let-column="column" let-sort="sortFn">
-        <span style="cursor:pointer">
-          {{column.name}}
-        </span>
-      </ng-template>
+        <ng-template let-column="column" let-sort="sortFn">
+          <span style="cursor:pointer">
+            {{column.name}}
+          </span>
+        </ng-template>
 
-      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-        <div [innerHTML]="row['email']"></div>
-      </ng-template>
-    </ngx-datatable-column>
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <div [innerHTML]="row['email']"></div>
+        </ng-template>
+      </ngx-datatable-column>
 
-    <ngx-datatable-column name="Acties" [sortable]="true">
+      <ngx-datatable-column name="Aan groep" [sortable]="true">
 
-      <ng-template let-column="column" let-sort="sortFn">
-        <span style="cursor:pointer">
-          {{column.name}}
-        </span>
-      </ng-template>
+        <ng-template let-column="column" let-sort="sortFn">
+          <span style="cursor:pointer">
+            {{column.name}}
+          </span>
+        </ng-template>
 
-      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button type="button" *ngIf="row['togroup'] == 0" (click)="userToFromGroup('add', row['id'])" class="btn btn-success">
-            <i class="fa fa-plus"></i>
-          </button><button type="button" *ngIf="row['togroup'] == 1" (click)="userToFromGroup('remove', row['id'])" class="btn btn-danger">
-          <i class="fa fa-minus"></i>
-        </button></div>
-      </ng-template>
-    </ngx-datatable-column>
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" *ngIf="row['togroup'] == 0" (click)="userToFromGroup('add', row['id'])"
+              class="btn btn-danger">
+              &nbsp;&nbsp;&nbsp;
+            </button><button type="button" *ngIf="row['togroup'] == 1" (click)="userToFromGroup('remove', row['id'])"
+              class="btn btn-success">
+              &nbsp;&nbsp;&nbsp;
+            </button></div>
+        </ng-template>
+      </ngx-datatable-column>
 
-  </ngx-datatable>
+    </ngx-datatable>
   </div>
 </ng-template>
 
@@ -354,7 +382,8 @@
 
       <!-- Research -->
 
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1>Admin</h1>
       </div>
 
@@ -363,11 +392,12 @@
           <br>
           <h2>Onderzoeken</h2>
           <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary " style="border-radius: 10px" (click)="openLargeModal(researchtemplate, 'newresearch', 0)"><i
-                class="fa fa-plus" aria-hidden="true"></i> Onderzoek toevoegen</button>
+            <button type="button" class="btn btn-primary " style="border-radius: 10px"
+              (click)="openLargeModal(researchtemplate, 'newresearch', 0)"><i class="fa fa-plus" aria-hidden="true"></i>
+              Onderzoek toevoegen</button>
           </div><br><br>
-          <ngx-datatable class="bootstrap" [rows]="researchRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
-            [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+          <ngx-datatable class="bootstrap" [rows]="researchRows" [columns]="columns" [columnMode]="'force'"
+            [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
             <ngx-datatable-column name="Naam onderzoek" prop="userid" [sortable]="true">
 
               <ng-template let-column="column" let-sort="sortFn">
@@ -404,14 +434,14 @@
 
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                 <div class="btn-group">
-                <button type="button" (click)="openLargeModal(researchtemplate, 'editresearch', row['id'])" class="btn btn-warning"
-                  data-toggle="modal" data-target=".modal-edit">
-                  <i class="fa fa-edit"></i>
-                </button>
-                <button type="button" (click)="openSureModal(areusure, 'research', row['id'])" class="btn btn-danger"
-                  data-toggle="modal" data-target=".modal-edit">
-                  <i class="fa fa-trash"></i>
-                </button></div>
+                  <button type="button" (click)="openLargeModal(researchtemplate, 'editresearch', row['id'])"
+                    class="btn btn-warning" data-toggle="modal" data-target=".modal-edit">
+                    <i class="fa fa-edit"></i>
+                  </button>
+                  <button type="button" (click)="openSureModal(areusure, 'research', row['id'])" class="btn btn-danger"
+                    data-toggle="modal" data-target=".modal-edit">
+                    <i class="fa fa-trash"></i>
+                  </button></div>
               </ng-template>
             </ngx-datatable-column>
 
@@ -423,8 +453,9 @@
           <p>Publicaties kun je koppelen aan onderzoeken.</p>
           <p>Als de publicatie nergens aan gekoppeld zit, komt deze bij de losstaande publicaties te staan.</p>
           <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary" style="border-radius: 10px" (click)="openLargeModal(publicationtemplate, 'newpublication', 0)"><i
-                class="fa fa-plus" aria-hidden="true"></i> Publicatie toevoegen</button>
+            <button type="button" class="btn btn-primary" style="border-radius: 10px"
+              (click)="openLargeModal(publicationtemplate, 'newpublication', 0)"><i class="fa fa-plus"
+                aria-hidden="true"></i> Publicatie toevoegen</button>
           </div><br><br>
           <ngx-datatable class="bootstrap" [rows]="publicationRows" [columns]="columns" [columnMode]="'force'"
             [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
@@ -464,14 +495,14 @@
 
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                 <div class="btn-group">
-                <button type="button" (click)="openLargeModal(publicationtemplate, 'editpublication', row['id'])" class="btn btn-warning"
-                  data-toggle="modal" data-target=".modal-edit">
-                  <i class="fa fa-edit"></i>
-                </button>
-                <button type="button" (click)="openSureModal(areusure, 'publication', row['id'])" class="btn btn-danger"
-                data-toggle="modal" data-target=".modal-edit">
-                <i class="fa fa-trash"></i>
-              </button></div>
+                  <button type="button" (click)="openLargeModal(publicationtemplate, 'editpublication', row['id'])"
+                    class="btn btn-warning" data-toggle="modal" data-target=".modal-edit">
+                    <i class="fa fa-edit"></i>
+                  </button>
+                  <button type="button" (click)="openSureModal(areusure, 'publication', row['id'])"
+                    class="btn btn-danger" data-toggle="modal" data-target=".modal-edit">
+                    <i class="fa fa-trash"></i>
+                  </button></div>
               </ng-template>
             </ngx-datatable-column>
 
@@ -481,11 +512,12 @@
           <h2>Groepen</h2><br>
           <p>Gekoppelde gebruikers kunnen bestanden hiervan downloaden op hun downloadpagina.</p>
           <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary" style="border-radius: 10px" (click)="openLargeModal(grouptemplate, 'newgroup', 0)"><i
-                class="fa fa-plus" aria-hidden="true"></i> Groep toevoegen</button>
+            <button type="button" class="btn btn-primary" style="border-radius: 10px"
+              (click)="openLargeModal(grouptemplate, 'newgroup', 0)"><i class="fa fa-plus" aria-hidden="true"></i> Groep
+              toevoegen</button>
           </div><br><br>
-          <ngx-datatable class="bootstrap" [rows]="groupRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
-            [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+          <ngx-datatable class="bootstrap" [rows]="groupRows" [columns]="columns" [columnMode]="'force'"
+            [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
             <ngx-datatable-column name="Groepnaam" prop="name" [sortable]="true">
 
               <ng-template let-column="column" let-sort="sortFn">
@@ -509,11 +541,11 @@
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                 <div class="btn-group" role="group" aria-label="Basic example">
 
-                  <button type="button" (click)="openLargeModal(grouptemplate, 'editgroup', row['id'])" class="btn btn-warning"
-                    data-toggle="modal" data-target=".modal-edit">
+                  <button type="button" (click)="openLargeModal(grouptemplate, 'editgroup', row['id'])"
+                    class="btn btn-warning" data-toggle="modal" data-target=".modal-edit">
                     <i class="fa fa-edit"></i>
-                  </button><button type="button" (click)="openLargeModal(groupusers, 'groupusers', row['id'])" class="btn btn-info"
-                    data-toggle="modal" data-target=".modal-edit">
+                  </button><button type="button" (click)="openLargeModal(groupusers, 'groupusers', row['id'])"
+                    class="btn btn-info" data-toggle="modal" data-target=".modal-edit">
                     <i class="fa fa-group"></i>
                   </button><button type="button" (click)="openLargeModal(filestogroup, 'filestogroup', row['id'])"
                     class="btn btn-success" data-toggle="modal" data-target=".modal-edit">
@@ -528,11 +560,12 @@
         <tab (select)="getSome('users')" heading="Gebruikers"><br>
           <h2>Gebruikers</h2><br>
           <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary" style="border-radius: 10px" (click)="openLargeModal(usertemplate, 'newuser', 0)"><i
-                class="fa fa-plus" aria-hidden="true"></i> Gebruiker toevoegen</button>
+            <button type="button" class="btn btn-primary" style="border-radius: 10px"
+              (click)="openLargeModal(usertemplate, 'newuser', 0)"><i class="fa fa-plus" aria-hidden="true"></i>
+              Gebruiker toevoegen</button>
           </div><br><br>
-          <ngx-datatable class="bootstrap" [rows]="userRows" [columns]="columns" [columnMode]="'force'" [messages]="tableMessages"
-            [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+          <ngx-datatable class="bootstrap" [rows]="userRows" [columns]="columns" [columnMode]="'force'"
+            [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
             <ngx-datatable-column name="Naam" prop="uname" [sortable]="true">
 
               <ng-template let-column="column" let-sort="sortFn">
@@ -569,14 +602,14 @@
 
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                 <div class="btn-group" role="group" aria-label="Basic example">
-                  <button type="button" (click)="openLargeModal(usertemplate, 'edituser', row['id'])" class="btn btn-warning"
-                    data-toggle="modal" data-target=".modal-edit">
+                  <button type="button" (click)="openLargeModal(usertemplate, 'edituser', row['id'])"
+                    class="btn btn-warning" data-toggle="modal" data-target=".modal-edit">
                     <i class="fa fa-edit"></i>
-                  </button> <button type="button" (click)="openSureModal(areusure, 'user', row['id'])" class="btn btn-danger"
-                  data-toggle="modal" data-target=".modal-edit">
-                  <i class="fa fa-trash"></i>
-                </button></div>
-                  
+                  </button> <button type="button" (click)="openSureModal(areusure, 'user', row['id'])"
+                    class="btn btn-danger" data-toggle="modal" data-target=".modal-edit">
+                    <i class="fa fa-trash"></i>
+                  </button></div>
+
               </ng-template>
             </ngx-datatable-column>
 
@@ -586,51 +619,55 @@
         <tab heading="Blokteksten" (select)="getSome('textblocks')"><br>
           <h4>Blokteksten aanpassen</h4>
           <p>Hier Hier kun je de Blokteksten aanpassen.</p>
-         
+
           <div class="container">
             <div class="row">
               <div class="col">
                 <div class="card">
                   <div class="card-body">
-                      <img src="assets/service/icon/visie.png">
+                    <img src="assets/service/icon/visie.png">
                     <h5 class="card-title">Visie</h5>
-                    <a  (click)="openLargeModal(textblocks, 'textblocks', 1)" style="color:white" class="btn btn-primary">Wijzig tekst</a>
+                    <a (click)="openLargeModal(textblocks, 'textblocks', 1)" style="color:white"
+                      class="btn btn-primary">Wijzig tekst</a>
                   </div>
                 </div>
               </div>
               <div class="col">
                 <div class="card">
-                  
+
                   <div class="card-body">
-                      <img src="assets/service/icon/samenwerking.png">
+                    <img src="assets/service/icon/samenwerking.png">
                     <h5 class="card-title">Oprichting</h5>
-                    <a (click)="openLargeModal(textblocks, 'textblocks', 2)" style="color:white" class="btn btn-primary">Wijzig tekst</a>
+                    <a (click)="openLargeModal(textblocks, 'textblocks', 2)" style="color:white"
+                      class="btn btn-primary">Wijzig tekst</a>
                   </div>
                 </div>
               </div>
               <div class="col">
-                  <div class="card">
-                    
-                    <div class="card-body">
-                        <img src="assets/service/icon/onderzoek.png">
-                      <h5 class="card-title">Onderzoeksprogramma</h5>
-                      <a (click)="openLargeModal(textblocks, 'textblocks', 3)" style="color:white" class="btn btn-primary">Wijzig tekst</a>
-                    </div>
+                <div class="card">
+
+                  <div class="card-body">
+                    <img src="assets/service/icon/onderzoek.png">
+                    <h5 class="card-title">Onderzoeksprogramma</h5>
+                    <a (click)="openLargeModal(textblocks, 'textblocks', 3)" style="color:white"
+                      class="btn btn-primary">Wijzig tekst</a>
                   </div>
                 </div>
-                <div class="col">
-                  <div class="card">
-                    
-                    <div class="card-body">
-                        <img src="assets/service/icon/agenda.png" >
-                      <h5 class="card-title">Agenda</h5>
-                      <a (click)="openLargeModal(textblocks, 'textblocks', 4)" style="color:white" class="btn btn-primary">Wijzig tekst</a>
-                    </div>
+              </div>
+              <div class="col">
+                <div class="card">
+
+                  <div class="card-body">
+                    <img src="assets/service/icon/agenda.png">
+                    <h5 class="card-title">Agenda</h5>
+                    <a (click)="openLargeModal(textblocks, 'textblocks', 4)" style="color:white"
+                      class="btn btn-primary">Wijzig tekst</a>
                   </div>
                 </div>
+              </div>
             </div>
             <div class="row">
-              
+
             </div>
           </div>
 
@@ -640,8 +677,10 @@
           <h2>Instellingen</h2>
           <br>
           <fieldset class="form-group has-danger">
-            <label for="password" class="form-control-label">Email adres waar het contactformulier naar wordt gestuurd:</label>
-            <input [(ngModel)]="emailAdmin" [ngModelOptions]="{standalone: true}" type="email" class="form-control form-control-danger">
+            <label for="password" class="form-control-label">Email adres waar het contactformulier naar wordt
+              gestuurd:</label>
+            <input [(ngModel)]="emailAdmin" [ngModelOptions]="{standalone: true}" type="email"
+              class="form-control form-control-danger">
           </fieldset>
           <button type="button" class="btn btn-primary" (click)="saveAdminEmail()">Email bijwerken</button>&nbsp;&nbsp;
 
@@ -653,9 +692,10 @@
 
           <div class="container">
             <div class="row">
-              <div  *ngFor="let logo of logoArray; let i = index"  class="col-sm">
-                  <img [src]="'uploads/' + logo.filename" class="img-thumbnail">
-                  <button type="button" (click)="openSureModal(areusure, 'orglogo', logo.id)" class="btn btn-danger btn-sm">X</button>
+              <div *ngFor="let logo of logoArray; let i = index" class="col-sm">
+                <img [src]="'uploads/' + logo.filename" class="img-thumbnail">
+                <button type="button" (click)="openSureModal(areusure, 'orglogo', logo.id)"
+                  class="btn btn-danger btn-sm">X</button>
               </div>
             </div>
           </div>
