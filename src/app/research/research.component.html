@@ -94,7 +94,10 @@
 
                 <div class="row">
                     <div class="col-lg-2 col-xl-2 col-md-6 col-12"> 
-                      <img src="assets/publication.jpg"  class="img-reponsive img-rounded pubthumb" /></div>
+                   
+                      <img *ngIf="publication.coverurl != ''" [src]="'uploads/' + publication.coverurl" class="img-reponsive img-rounded pubthumb" alt="blog images">
+                      <img *ngIf="publication.coverurl == ''" src="assets/publication.jpg" class="img-reponsive img-rounded pubthumb" alt="blog images">
+                    </div>
                     <div class="col-10"> <div>
                         <p>Titel</p>
                         <h5 style="color:red">{{publication.name}}</h5><br>
