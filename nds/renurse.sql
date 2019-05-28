@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 28, 2019 at 10:40 AM
+-- Generation Time: May 28, 2019 at 02:24 PM
 -- Server version: 5.6.38
 -- PHP Version: 7.2.1
 
@@ -190,6 +190,7 @@ CREATE TABLE `users_to_groups` (
 CREATE TABLE `whoiswho` (
   `id` int(11) NOT NULL,
   `name` text NOT NULL,
+  `type` int(11) NOT NULL DEFAULT '1',
   `active` int(11) NOT NULL DEFAULT '1',
   `coverurl` varchar(50) NOT NULL DEFAULT '',
   `wysig` text NOT NULL,

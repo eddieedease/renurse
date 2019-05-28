@@ -98,6 +98,15 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   researchRows = [];
   tempResearchRows = [];
+
+  newsRows = [];
+  tempNewsRows = [];
+  
+  whoRows = [];
+  tempWhoRows = [];
+  
+  
+  
   // FilesRow?
 
   logoArray = [];
@@ -146,6 +155,19 @@ export class AdminComponent implements OnInit, AfterViewInit {
   currentPublicationWysig;
   currentPublicationId;
 
+  currentNewsTitle;
+  currentNewsCover;
+  currentNewsActive;
+  currentNewsWysig;
+  currentNewsId;
+
+  currentWhoTitle;
+  currentWhoCover;
+  currentWhoActive;
+  currentWhoWysig;
+  currentWhoType;
+  currentWhoId;
+
   currentGroupTitle;
   currentGroupSumUsers;
   currentGroupWysig;
@@ -164,6 +186,8 @@ export class AdminComponent implements OnInit, AfterViewInit {
   newPublication = false;
   newGroup = false;
   newUser = false;
+  newNews = false;
+  newWho = false;
 
   // another for the current WYSIG
   currentwysig;
@@ -211,7 +235,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   }
 
-  gotAdminEmail(_resp){
+  gotAdminEmail(_resp) {
     this.emailAdmin = _resp.adminemail[0].adminemail;
   }
 
@@ -234,22 +258,22 @@ export class AdminComponent implements OnInit, AfterViewInit {
       // Do the actual deleting
       switch (this.sureModalTask) {
         case 'research':
-        this.edSer.API_deleteresearch(this.delId).subscribe(value => this.isDeleted(value, 'research'));
+          this.edSer.API_deleteresearch(this.delId).subscribe(value => this.isDeleted(value, 'research'));
           break;
         case 'publication':
-        this.edSer.API_deletepublication(this.delId).subscribe(value => this.isDeleted(value, 'publication'));
+          this.edSer.API_deletepublication(this.delId).subscribe(value => this.isDeleted(value, 'publication'));
           break;
         case 'group':
-        this.edSer.API_deletegroup(this.delId).subscribe(value => this.isDeleted(value, 'group'));
+          this.edSer.API_deletegroup(this.delId).subscribe(value => this.isDeleted(value, 'group'));
           break;
         case 'user':
-        this.edSer.API_deleteuser(this.delId).subscribe(value => this.isDeleted(value, 'user'));
+          this.edSer.API_deleteuser(this.delId).subscribe(value => this.isDeleted(value, 'user'));
           break;
         case 'file':
-        this.edSer.API_removefilefromgroup(this.delId).subscribe(value => this.isDeleted(value, 'file'));
+          this.edSer.API_removefilefromgroup(this.delId).subscribe(value => this.isDeleted(value, 'file'));
           break;
         case 'orglogo':
-        this.edSer.API_deletelogo(this.delId).subscribe(value => this.isDeleted(value, 'logo'));
+          this.edSer.API_deletelogo(this.delId).subscribe(value => this.isDeleted(value, 'logo'));
           break;
       }
     } else {
@@ -262,27 +286,27 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
 
   // Deleting server response
-  isDeleted(_event, _case){
+  isDeleted(_event, _case) {
     this.toastr.success('Verwijderd', '');
 
     switch (_case) {
       case 'research':
-      this.getResearches();
-          break;
+        this.getResearches();
+        break;
       case 'publication':
-      this.getPublications();
+        this.getPublications();
         break;
       case 'group':
-      this.getGroups();
+        this.getGroups();
         break;
       case 'user':
-      this.getUsers();
+        this.getUsers();
         break;
       case 'file':
-      this.edSer.API_getgroupfiles(this.currentGroupId).subscribe(value => this.gotGroupFiles(value));
+        this.edSer.API_getgroupfiles(this.currentGroupId).subscribe(value => this.gotGroupFiles(value));
         break;
       case 'logo':
-      this.getLogos();
+        this.getLogos();
         break;
     }
   }
@@ -349,7 +373,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
         break;
       case 'publication':
-        this.edSer.API_uploadthumb(_event, _case, this.currentPublicationId).subscribe(value => this.thumbUploaded(value,'publication'));
+        this.edSer.API_uploadthumb(_event, _case, this.currentPublicationId).subscribe(value => this.thumbUploaded(value, 'publication'));
 
         break;
       case 'orglogo':
@@ -367,10 +391,10 @@ export class AdminComponent implements OnInit, AfterViewInit {
       case 'research':
         this.getResearches();
         break;
-        case 'publication':
+      case 'publication':
         this.getPublications();
         break;
-        case 'orglogo':
+      case 'orglogo':
         this.getLogos();
         break;
     }
@@ -489,6 +513,16 @@ export class AdminComponent implements OnInit, AfterViewInit {
         this.currentResearchTitle = '';
         this.currentResearchWysig = '';
         break;
+        case 'newnews':
+        this.newNews = true;
+        this.currentNewsTitle = '';
+        this.currentNewsWysig = '';
+        break;
+        case 'newwho':
+        this.newWho = true;
+        this.currentWhoTitle = '';
+        this.currentWhoWysig = '';
+        break;
       case 'newpublication':
         this.newPublication = true;
         this.currentPublicationTitle = '';
@@ -523,7 +557,20 @@ export class AdminComponent implements OnInit, AfterViewInit {
             this.currentResearchStatus = element.status;
           }
         });
-
+        break;
+        case 'editnews':
+        this.newNews = false;
+        this.currentNewsTitle = '';
+        this.newsRows.forEach(element => {
+          if (element.id === _id) {
+            this.edSer.debugLog('We have a hit');
+            this.currentNewsId = element.id;
+            this.currentNewsTitle = element.uname;
+            this.currentNewsWysig = element.wysig;
+            this.currentNewsCover = element.coverurl;
+            this.currentNewsActive = element.active;
+          }
+        });
         break;
       case 'editpublication':
         this.newPublication = false;
@@ -537,7 +584,19 @@ export class AdminComponent implements OnInit, AfterViewInit {
             this.currentPublicationWysig = element.wysig;
           }
         });
-
+        break;
+        case 'editwho':
+        this.newWho = false;
+        this.whoRows.forEach(element => {
+          if (element.id === _id) {
+            this.edSer.debugLog('We have a hit');
+            this.currentWhoActive = element.active;
+            this.currentWhoCover = element.coverurl;
+            this.currentWhoId = element.id;
+            this.currentWhoTitle = element.name;
+            this.currentWhoWysig = element.wysig;
+          }
+        });
         break;
       case 'editgroup':
         this.newGroup = false;
@@ -621,7 +680,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
     this.edSer.debugLog(_resp);
     for (let index = 0; index < _resp.length; index++) {
       if (+_resp[index].id === _id) {
-        
+
         this.currentTextBlockWysig = _resp[index].wysig;
         this.currentTextBlock = +_resp[index].id;
 
@@ -631,13 +690,13 @@ export class AdminComponent implements OnInit, AfterViewInit {
             this.currentTextBlockName = 'Visie';
             break;
           case 2:
-          this.currentTextBlockName = 'Oprichting';
+            this.currentTextBlockName = 'Oprichting';
             break;
           case 3:
-          this.currentTextBlockName = 'Onderzoeksprogramma';
+            this.currentTextBlockName = 'Onderzoeksprogramma';
             break;
           case 4:
-          this.currentTextBlockName = 'Agenda';
+            this.currentTextBlockName = 'Agenda';
             break;
         }
       }
@@ -647,11 +706,11 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   // Save text block
-  saveTextBlock(){
+  saveTextBlock() {
     this.edSer.API_edittextblock(this.currentTextBlock, this.currentwysig).subscribe(value => this.textBlockAdjusted(value));
   }
 
-  textBlockAdjusted(_response){
+  textBlockAdjusted(_response) {
     this.edSer.debugLog(_response);
     this.toastr.success('Gewijzigd', '', {
       timeOut: 20000
@@ -661,7 +720,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
     // this.edSer.API_gettextblocks().subscribe(value => this.gotTextBlocks(value, this.currentTextBlock));
   }
 
-  gotTextBlockssDoNothing(_resp){
+  gotTextBlockssDoNothing(_resp) {
     this.edSer.debugLog(_resp)
   }
 
@@ -727,7 +786,39 @@ export class AdminComponent implements OnInit, AfterViewInit {
       case 'textblocks':
         // TODO: get textblocks via api
         break;
+      case 'news':
+        this.getNews();
+        break;
+      case 'whoiswho':
+        this.getWhoIsWho();
+        break;
     }
+  }
+
+  getNews() {
+    this.loading = true;
+    this.edSer.API_getnews().subscribe(value => this.gotNews(value));
+  }
+
+  // response
+  gotNews(_event) {
+    this.edSer.debugLog(_event);
+    this.loading = false;
+    this.newsRows = _event;
+    this.newsRows.reverse();
+  }
+
+  getWhoIsWho() {
+    this.loading = true;
+    this.edSer.API_getwhoiswho().subscribe(value => this.gotWhoIsWho(value));
+  }
+
+  // response
+  gotWhoIsWho(_event) {
+    this.loading = false;
+    this.edSer.debugLog(_event);
+    this.whoRows = _event;
+    this.whoRows.reverse();
   }
 
   // HTTP API CALLS HANDLING VIA SERVICE
@@ -758,7 +849,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
         break;
       case 'edit':
         if (this.currentResearchTitle !== '' && this.currentGroupWysig !== '') {
-          this.edSer.API_editresearch(this.currentResearchId, this.currentResearchTitle, this.currentwysig,  this.currentResearchStatus, this.currentResearchResearches).subscribe(value => this.researchAdjusted(value));
+          this.edSer.API_editresearch(this.currentResearchId, this.currentResearchTitle, this.currentwysig, this.currentResearchStatus, this.currentResearchResearches).subscribe(value => this.researchAdjusted(value));
 
         } else {
 
@@ -966,15 +1057,15 @@ export class AdminComponent implements OnInit, AfterViewInit {
     this.edSer.API_getusers().subscribe(value => this.gotUsers(value));
   }
 
-  saveAdminEmail(){
-    if (this.emailAdmin !== ''){
+  saveAdminEmail() {
+    if (this.emailAdmin !== '') {
       // Api call save admin email
       this.edSer.API_saveadminemail(this.emailAdmin).subscribe(value => this.adminEmailSaved(value));
 
     }
   }
 
-  adminEmailSaved(_resp){
+  adminEmailSaved(_resp) {
     this.edSer.API_getadminemail().subscribe(value => this.gotAdminEmail(value));
 
     this.toastr.success('Gewijzigd', '', {

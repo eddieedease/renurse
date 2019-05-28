@@ -135,6 +135,60 @@
 
 </ng-template>
 
+
+
+
+<ng-template #newstemplate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Nieuws</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <!-- registration form-->
+      <form class="">
+        <fieldset class="form-group has-danger">
+          <label class="form-control-label">Nieuwsbericht titel</label>
+          <input [(ngModel)]="currentNewsTitle" [ngModelOptions]="{standalone: true}" type="text"
+            class="form-control form-control-danger">
+        </fieldset>
+        <hr class="m-b-2" />
+  
+        <div *ngIf="!newNews">
+          <img *ngIf="currentNewsCover != ''" [src]="'uploads/' + currentNewsCover"
+            class="img-reponsive img-rounded" />
+          <img *ngIf="currentNewsCover == ''" src="assets/news.jpg" class="img-reponsive img-rounded" />
+          <br>
+          <p>Afbeelding uploaden</p>
+          <input type="file" (change)="thumbUploadStart($event, 'news')"> <br><br><br>
+         <!--  <label for="start">Datum:<small><br>De meest recente komt bovenaan de site</small></label><br>
+          <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31"><br><br> -->
+        </div>
+  
+  
+  
+        <div class="htmladjust2">
+          <app-wysig [elementId]="'Newswysig'" [(prefill)]="currentNewsWysig"
+            (onEditorKeyup)="keyupHandlerFunction($event)" (carretPosition)="giveRangeBack($event)">
+          </app-wysig>
+        </div>
+        <button *ngIf="newNews" type="submit" (click)="adjustNews('new')"
+          class="btn btn-primary btn-lg">Opslaan</button>
+        <button *ngIf="!newNews" (click)="adjustNews('edit')" type="submit"
+          class="btn btn-primary btn-lg">Bijwerken</button>
+      </form>
+      <!-- /registration form-->
+    </div>
+  
+  </ng-template>
+
+
+
+
+
+
+
 <ng-template #publicationtemplate>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Publicatie</h4>
@@ -170,8 +224,62 @@
     </form>
     <!-- /registration form-->
   </div>
-
 </ng-template>
+
+
+
+<ng-template #whotemplate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Persoon</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <!-- registration form-->
+      <form class="">
+        <fieldset class="form-group has-danger">
+          <label class="form-control-label">Naam</label>
+          <input [(ngModel)]="currentWhoTitle" [ngModelOptions]="{standalone: true}" type="text"
+            class="form-control form-control-danger">
+        </fieldset>
+
+        <fieldset class="form-group has-danger">
+            <label class="form-control-label">Organisatie</label>
+            <input [(ngModel)]="currentWhoWysig" [ngModelOptions]="{standalone: true}" type="text"
+              class="form-control form-control-danger">
+          </fieldset>
+          <p>Soort;</p>
+          <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" [checked]="currentWhoType === '1'" class="form-check-input" value="1" [attr.name]="'who'"> Stuurgroep
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" [checked]="currentWhoType === '0'" class="form-check-input" value="0" [attr.name]="'who'"> Ondersteunende groep
+              </label>
+            </div>
+        <hr class="m-b-2" />
+        <div *ngIf="!newWho">
+            <img *ngIf="currentWhoCover != ''" [src]="'uploads/' + currentWhoCover"  class="img-reponsive img-rounded" />
+            <img *ngIf="currentWhoCover == ''" src="assets/who.jpg"  class="img-reponsive img-rounded" />
+          <p>Afbeelding uploaden</p>
+          <input type="file" (change)="thumbUploadStart($event, 'Who')"> <br>
+        </div>
+        <br><br>
+    
+        <button *ngIf="newWho" (click)="adjustWho('new')" type="submit"
+          class="btn btn-primary btn-lg">Opslaan</button>
+        <button *ngIf="!newWho" (click)="adjustWho('edit')" type="submit"
+          class="btn btn-primary btn-lg">Bijwerken</button>
+      </form>
+      <!-- /registration form-->
+    </div>
+  </ng-template>
+
+
+
 
 <ng-template #grouptemplate>
   <div class="modal-header">
@@ -367,7 +475,7 @@
   <div class="row">
     <nav class="col-md-2 d-none d-md-block bg-light sidebar"><br><br>
       <div class="sidebar-sticky" style="padding:20px">
-        <p>v1.1 <br>
+        <p>v1.3 <br>
           <a href="https://edease.nl" target="_blank">EaseCMS</a><br>
           door
           <a href="https://edease.nl" target="_blank">EDease</a><br>
@@ -388,6 +496,10 @@
       </div>
 
       <tabset type="pills">
+          
+
+
+
         <tab heading="Onderzoeken" (select)="getSome('research')">
           <br>
           <h2>Onderzoeken</h2>
@@ -557,6 +669,67 @@
           </ngx-datatable>
         </tab>
 
+        <tab heading="Nieuws" (select)="getSome('news')">
+            <br>
+            <h2>Nieuws</h2>
+            <div class="btn-group float-right" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-primary " style="border-radius: 10px"
+                (click)="openLargeModal(newstemplate, 'newnews', 0)"><i class="fa fa-plus" aria-hidden="true"></i>
+                Nieuws toevoegen</button>
+            </div><br><br>
+            <ngx-datatable class="bootstrap" [rows]="newsRows" [columns]="columns" [columnMode]="'force'"
+              [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+              <ngx-datatable-column name="Naam nieuws" prop="userid" [sortable]="true">
+  
+                <ng-template let-column="column" let-sort="sortFn">
+                  <span style="cursor:pointer">
+                    {{column.name}}
+                  </span>
+                </ng-template>
+  
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <div [innerHTML]="row['name']"></div>
+                </ng-template>
+              </ngx-datatable-column>
+  
+              <!-- <ngx-datatable-column name="Actief" prop="userid" [sortable]="true">
+  
+                <ng-template let-column="column" let-sort="sortFn">
+                  <span style="cursor:pointer">
+                    {{column.name}}
+                  </span>
+                </ng-template>
+  
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  X/X
+                </ng-template>
+              </ngx-datatable-column> -->
+  
+              <ngx-datatable-column name="Acties" [sortable]="true">
+  
+                <ng-template let-column="column" let-sort="sortFn">
+                  <span style="cursor:pointer">
+                    {{column.name}}
+                  </span>
+                </ng-template>
+  
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <div class="btn-group">
+                    <button type="button" (click)="openLargeModal(newstemplate, 'editnews', row['id'])"
+                      class="btn btn-warning" data-toggle="modal" data-target=".modal-edit">
+                      <i class="fa fa-edit"></i>
+                    </button>
+                    <button type="button" (click)="openSureModal(areusure, 'news', row['id'])" class="btn btn-danger"
+                      data-toggle="modal" data-target=".modal-edit">
+                      <i class="fa fa-trash"></i>
+                    </button></div>
+                </ng-template>
+              </ngx-datatable-column>
+  
+            </ngx-datatable>
+  
+          </tab>
+
         <tab (select)="getSome('users')" heading="Gebruikers"><br>
           <h2>Gebruikers</h2><br>
           <div class="btn-group float-right" role="group" aria-label="Basic example">
@@ -672,6 +845,67 @@
           </div>
 
         </tab>
+
+        <tab heading="Wie is wie?" (select)="getSome('whoiswho')">
+            <br>
+            <h2>Wie is wie?</h2>
+            <div class="btn-group float-right" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-primary " style="border-radius: 10px"
+                (click)="openLargeModal(whotemplate, 'newwho', 0)"><i class="fa fa-plus" aria-hidden="true"></i>
+                Persoon toevoegen</button>
+            </div><br><br>
+            <ngx-datatable class="bootstrap" [rows]="whoRows" [columns]="columns" [columnMode]="'force'"
+              [messages]="tableMessages" [headerHeight]="40" [footerHeight]="40" [limit]="40" [rowHeight]="'auto'">
+              <ngx-datatable-column name="Naam onderzoek" prop="userid" [sortable]="true">
+  
+                <ng-template let-column="column" let-sort="sortFn">
+                  <span style="cursor:pointer">
+                    {{column.name}}
+                  </span>
+                </ng-template>
+  
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <div [innerHTML]="row['name']"></div>
+                </ng-template>
+              </ngx-datatable-column>
+  
+              <!-- <ngx-datatable-column name="Actief" prop="userid" [sortable]="true">
+  
+                <ng-template let-column="column" let-sort="sortFn">
+                  <span style="cursor:pointer">
+                    {{column.name}}
+                  </span>
+                </ng-template>
+  
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  X/X
+                </ng-template>
+              </ngx-datatable-column> -->
+  
+              <ngx-datatable-column name="Acties" [sortable]="true">
+  
+                <ng-template let-column="column" let-sort="sortFn">
+                  <span style="cursor:pointer">
+                    {{column.name}}
+                  </span>
+                </ng-template>
+  
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <div class="btn-group">
+                    <button type="button" (click)="openLargeModal(whotemplate, 'editwho', row['id'])"
+                      class="btn btn-warning" data-toggle="modal" data-target=".modal-edit">
+                      <i class="fa fa-edit"></i>
+                    </button>
+                    <button type="button" (click)="openSureModal(areusure, 'who', row['id'])" class="btn btn-danger"
+                      data-toggle="modal" data-target=".modal-edit">
+                      <i class="fa fa-trash"></i>
+                    </button></div>
+                </ng-template>
+              </ngx-datatable-column>
+  
+            </ngx-datatable>
+  
+          </tab>
 
         <tab heading="Instellingen" (select)="getSome('logos')"><br>
           <h2>Instellingen</h2>
