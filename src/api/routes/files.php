@@ -24,11 +24,11 @@ $app->post('/filetogroup/{groupid}', function (Request $request, Response $respo
     // // handle single input with single file upload
     $uploadedFile = $uploadedFiles[file];
     $nameofuploaded = $uploadedFile->getClientFilename();
-    
+
     // $file = $_FILES[file][tmp_name];
     // list($width, $height) = getimagesize($_FILES[file][tmp_name]);
     $ext = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
-    
+
     if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
         $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . $nameofuploaded);
         // shoot in the database
@@ -51,7 +51,7 @@ $app->post('/filetogroup/{groupid}', function (Request $request, Response $respo
 $app->get('/removefilefromgroup/{fileid}', function (Request $request, Response $response) {
 
     $fileid = $request->getAttribute('fileid');
-    $fileid = (int)$fileid;
+    $fileid = (int) $fileid;
 
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
@@ -72,7 +72,7 @@ $app->get('/removefilefromgroup/{fileid}', function (Request $request, Response 
 // TODO: Test it out
 $app->get('/getfilesfromgroup/{groupid}', function (Request $request, Response $response) {
     $groupid = $request->getAttribute('groupid');
-    $groupid = (int)$groupid;
+    $groupid = (int) $groupid;
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
     //     NOTE 5 pieces --> [0] actions [1] arcades [2] archive [3] highscores [4] teams
@@ -88,10 +88,6 @@ $app->get('/getfilesfromgroup/{groupid}', function (Request $request, Response $
     $response = json_encode($resultfiles);
     return $response;
 });
-
-
-
-
 
 // GET LOGO's
 $app->get('/getlogos', function (Request $request, Response $response) {
@@ -116,7 +112,7 @@ $app->get('/getlogos', function (Request $request, Response $response) {
 // TODO: Work out
 $app->get('/deletelogo/{logoid}', function (Request $request, Response $response) {
     $logoid = $request->getAttribute('logoid');
-    $logoid = (int)$logoid;
+    $logoid = (int) $logoid;
     include 'db.php';
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
     //     NOTE 5 pieces --> [0] actions [1] arcades [2] archive [3] highscores [4] teams
@@ -217,6 +213,12 @@ $app->post('/uploadthumb/{case}/{id}', function (Request $request, Response $res
             break;
         case "publication":
             $sqladdfile = "UPDATE publications SET coverurl = '$filename' WHERE id = '$idd'";
+            break;
+        case "whoiswho":
+            $sqladdfile = "UPDATE whoiswho SET coverurl = '$filename' WHERE id = '$idd'";
+            break;
+        case "news":
+            $sqladdfile = "UPDATE news SET coverurl = '$filename' WHERE id = '$idd'";
             break;
         case "orglogo":
             $sqladdfile = "INSERT INTO logos (filename) VALUES ('$filename')";

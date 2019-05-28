@@ -576,40 +576,7 @@ export class EdserService {
       .pipe(map(res => res.json()));
   }
 
-   // GET ALL publication
-   API_getlogos(): Observable < any > {
-    const url = environment.apilink + 'getlogos?rnd=' + new Date().getTime();
-    // tslint:disable-next-line:prefer-const
-    const headers = new Headers({
-      'Content-Type': 'application/json'
-    });
-
-    const options = new RequestOptions({
-      headers: headers
-    });
-
-    return this.http_.get(url, options)
-      .pipe(throttleTime(5000))
-      .pipe(map(res => res.json()));
-  }
-
-
-    // DELETE user
-    API_deletelogo(logo_id): Observable < any > {
-      const url = environment.apilink + 'deletelogo/' + logo_id + '?rnd=' + new Date().getTime();
-      // tslint:disable-next-line:prefer-const
-      const headers = new Headers({
-        'Content-Type': 'application/json'
-      });
   
-      const options = new RequestOptions({
-        headers: headers
-      });
-  
-      return this.http_.get(url, options)
-        .pipe(throttleTime(5000))
-        .pipe(map(res => res.json()));
-    }
 
   // Create publication
   API_createpublication(_name, _wysig): Observable < any > {
@@ -689,8 +656,217 @@ export class EdserService {
   }
 
 
+
+// news news news
+  // news news news
+  // news news news
+  // news news news
+
+  // GET ALL news
+  API_getnews(): Observable < any > {
+    const url = environment.apilink + 'getnews?rnd=' + new Date().getTime();
+    // tslint:disable-next-line:prefer-const
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    const options = new RequestOptions({
+      headers: headers
+    });
+
+    return this.http_.get(url, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+
+  
+
+  // Create news
+  API_createnews(_name, _wysig): Observable < any > {
+    // tslint:disable-next-line:max-line-length
+    const url = environment.apilink + 'createnews?rnd=' + new Date().getTime();
+    // let blobReplaceUserId = jsonblobstring.replace('__userid__', '' + this.curID);
+    const upt = {
+      'name': _name,
+      'wysig': _wysig
+    };
+    const body = JSON.stringify(upt);
+    // const howmanykb = this.byteCount(body);
+    // Line beneath show how many KB
+    // console.log('JSONBLOB = ' + howmanykb + ' Bytes');
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Cache-control': 'no-cache',
+      'Expires': '0',
+      'Pragma': 'no-cache'
+      /*  ,'Authorization': 'bearer ' + this.curTOKEN */
+    });
+    const options = new RequestOptions({
+      headers: headers,
+      method: 'post'
+    });
+    return this.http_.post(url, body, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+
+
+  // Create news
+  API_editnews(_id, _name, _wysig): Observable < any > {
+    // tslint:disable-next-line:max-line-length
+    const url = environment.apilink + 'editnews/ ' + _id + '?rnd=' + new Date().getTime();
+    // let blobReplaceUserId = jsonblobstring.replace('__userid__', '' + this.curID);
+    const upt = {
+      'name': _name,
+      'wysig': _wysig
+    };
+    const body = JSON.stringify(upt);
+    // const howmanykb = this.byteCount(body);
+    // Line beneath show how many KB
+    // console.log('JSONBLOB = ' + howmanykb + ' Bytes');
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Cache-control': 'no-cache',
+      'Expires': '0',
+      'Pragma': 'no-cache'
+      /*  ,'Authorization': 'bearer ' + this.curTOKEN */
+    });
+    const options = new RequestOptions({
+      headers: headers,
+      method: 'post'
+    });
+    return this.http_.post(url, body, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+
+
+  // DELETE news
+  API_deletenews(news_id): Observable < any > {
+    const url = environment.apilink + 'deletenews/' + news_id + '?rnd=' + new Date().getTime();
+    // tslint:disable-next-line:prefer-const
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    const options = new RequestOptions({
+      headers: headers
+    });
+
+    return this.http_.get(url, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+  
+
+
+
+
+  // who who who
+  // who who who
+  // who who who
+  // who who who
+
+  // GET ALL who
+  API_getwhoiswho(): Observable < any > {
+    const url = environment.apilink + 'getwhoiswho?rnd=' + new Date().getTime();
+    // tslint:disable-next-line:prefer-const
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    const options = new RequestOptions({
+      headers: headers
+    });
+
+    return this.http_.get(url, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+
+  
+
+  // Create who
+  API_createwho(_name, _wysig): Observable < any > {
+    // tslint:disable-next-line:max-line-length
+    const url = environment.apilink + 'createwho?rnd=' + new Date().getTime();
+    // let blobReplaceUserId = jsonblobstring.replace('__userid__', '' + this.curID);
+    const upt = {
+      'name': _name,
+      'wysig': _wysig
+    };
+    const body = JSON.stringify(upt);
+    // const howmanykb = this.byteCount(body);
+    // Line beneath show how many KB
+    // console.log('JSONBLOB = ' + howmanykb + ' Bytes');
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Cache-control': 'no-cache',
+      'Expires': '0',
+      'Pragma': 'no-cache'
+      /*  ,'Authorization': 'bearer ' + this.curTOKEN */
+    });
+    const options = new RequestOptions({
+      headers: headers,
+      method: 'post'
+    });
+    return this.http_.post(url, body, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+
+
+  // Create who
+  API_editwho(_id, _name, _wysig): Observable < any > {
+    // tslint:disable-next-line:max-line-length
+    const url = environment.apilink + 'editwho/ ' + _id + '?rnd=' + new Date().getTime();
+    // let blobReplaceUserId = jsonblobstring.replace('__userid__', '' + this.curID);
+    const upt = {
+      'name': _name,
+      'wysig': _wysig
+    };
+    const body = JSON.stringify(upt);
+    // const howmanykb = this.byteCount(body);
+    // Line beneath show how many KB
+    // console.log('JSONBLOB = ' + howmanykb + ' Bytes');
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Cache-control': 'no-cache',
+      'Expires': '0',
+      'Pragma': 'no-cache'
+      /*  ,'Authorization': 'bearer ' + this.curTOKEN */
+    });
+    const options = new RequestOptions({
+      headers: headers,
+      method: 'post'
+    });
+    return this.http_.post(url, body, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+
+
+  // DELETE who
+  API_deletewho(who_id): Observable < any > {
+    const url = environment.apilink + 'deletewho/' + who_id + '?rnd=' + new Date().getTime();
+    // tslint:disable-next-line:prefer-const
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    const options = new RequestOptions({
+      headers: headers
+    });
+
+    return this.http_.get(url, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+
+  // NOTE: IS NOT IMPLEMENTED!!! UPLOAD THUMB INSTEAD!
   // Create research
-  // FOR BOTH RESEARCH AND PUBLICATIONS AND GROUPS
+  // FOR BOTH RESEARCH AND PUBLICATIONS AND GROUPS, NEWS AND WHOISWHO
+  // NOTE: IS NOT IMPLEMENTED!!!
   API_changecover(_id, _type, _url): Observable < any > {
     // tslint:disable-next-line:max-line-length
     let url;
@@ -765,6 +941,41 @@ export class EdserService {
       .pipe(throttleTime(5000))
       .pipe(map(res => res.json()));
   }
+
+   // GET ALL publication
+   API_getlogos(): Observable < any > {
+    const url = environment.apilink + 'getlogos?rnd=' + new Date().getTime();
+    // tslint:disable-next-line:prefer-const
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    const options = new RequestOptions({
+      headers: headers
+    });
+
+    return this.http_.get(url, options)
+      .pipe(throttleTime(5000))
+      .pipe(map(res => res.json()));
+  }
+
+
+    // DELETE user
+    API_deletelogo(logo_id): Observable < any > {
+      const url = environment.apilink + 'deletelogo/' + logo_id + '?rnd=' + new Date().getTime();
+      // tslint:disable-next-line:prefer-const
+      const headers = new Headers({
+        'Content-Type': 'application/json'
+      });
+  
+      const options = new RequestOptions({
+        headers: headers
+      });
+  
+      return this.http_.get(url, options)
+        .pipe(throttleTime(5000))
+        .pipe(map(res => res.json()));
+    }
 
 
   API_filetogroup($event, _groupsid): Observable < any > {

@@ -43,6 +43,8 @@ $app->get('/testcall', function (Request $request, Response $response) {
 require 'routes/users.php';
 require 'routes/groups.php';
 require 'routes/publications.php';
+require 'routes/news.php';
+require 'routes/whoiswho.php';
 require 'routes/research.php';
 require 'routes/files.php';
 require 'routes/mail.php';
