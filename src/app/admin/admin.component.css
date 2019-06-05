@@ -11,6 +11,10 @@ body {
   /*
    * Sidebar
    */
+
+  .nav-tabs .nav-link.active {
+    color: #dc3545 !important;
+  }
   
   .sidebar {
     position: fixed;

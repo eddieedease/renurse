@@ -13,6 +13,7 @@ $app->post('/createwho', function (Request $request, Response $response) {
     // Some logic to check the pwd's
     $whoname = $parsedBody[name];
     $whowysig = $parsedBody[wysig];
+    $ttype = $parsedBody[ttype];
 
     $whoname = addcslashes($whoname, "'");
     $whowysig = addcslashes($whowysig, "'");
@@ -21,7 +22,7 @@ $app->post('/createwho', function (Request $request, Response $response) {
     include 'db.php';
     // Insert the link into our DATABASE
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
-    $sqladdwho = "INSERT INTO whoiswho (name, wysig) VALUES ('$whoname', '$whowysig')";
+    $sqladdwho = "INSERT INTO whoiswho (name, type, wysig) VALUES ('$whoname', $ttype , '$whowysig')";
     $stmtaddwho = $dbh->prepare($sqladdwho);
     $stmtaddwho->execute();
     $resultaddwho= $stmtaddwho->fetchAll(PDO::FETCH_ASSOC);
@@ -65,6 +66,7 @@ $app->post('/editwho/{whoid}', function (Request $request, Response $response) {
     // Some logic to check the pwd's
     $whoname = $parsedBody[name];
     $whowysig = $parsedBody[wysig];
+    $whowtype = $parsedBody[ttype];
 
     $whoname = addcslashes($whoname, "'");
     $whowysig = addcslashes($whowysig, "'");
@@ -74,7 +76,7 @@ $app->post('/editwho/{whoid}', function (Request $request, Response $response) {
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
     
 
-    $sqleditwho = "UPDATE whoiswho SET name = '$whoname' , wysig = '$whowysig' WHERE id = '$whoid'";
+    $sqleditwho = "UPDATE whoiswho SET name = '$whoname' , type = $whowtype,  wysig = '$whowysig' WHERE id = '$whoid'";
     $stmteditwho = $dbh->prepare($sqleditwho);
     $stmteditwho->execute();
     //     NOTE colleting everything for converting

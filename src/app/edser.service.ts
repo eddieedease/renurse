@@ -22,7 +22,6 @@ import {
   map
 } from 'rxjs/operators';
 
-
 // import evironment for current dev bunlde
 import {
   environment
@@ -787,13 +786,14 @@ export class EdserService {
   
 
   // Create who
-  API_createwho(_name, _wysig): Observable < any > {
+  API_createwho(_name, _wysig, _type): Observable < any > {
     // tslint:disable-next-line:max-line-length
     const url = environment.apilink + 'createwho?rnd=' + new Date().getTime();
     // let blobReplaceUserId = jsonblobstring.replace('__userid__', '' + this.curID);
     const upt = {
       'name': _name,
-      'wysig': _wysig
+      'wysig': _wysig,
+      'ttype': _type
     };
     const body = JSON.stringify(upt);
     // const howmanykb = this.byteCount(body);
@@ -817,13 +817,14 @@ export class EdserService {
 
 
   // Create who
-  API_editwho(_id, _name, _wysig): Observable < any > {
+  API_editwho(_id, _name, _wysig, _type): Observable < any > {
     // tslint:disable-next-line:max-line-length
     const url = environment.apilink + 'editwho/ ' + _id + '?rnd=' + new Date().getTime();
     // let blobReplaceUserId = jsonblobstring.replace('__userid__', '' + this.curID);
     const upt = {
       'name': _name,
-      'wysig': _wysig
+      'wysig': _wysig,
+      'ttype': _type
     };
     const body = JSON.stringify(upt);
     // const howmanykb = this.byteCount(body);

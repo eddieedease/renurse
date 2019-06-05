@@ -74,7 +74,7 @@ $app->post('/editnews/{newsid}', function (Request $request, Response $response)
     $dbh = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
     
 
-    $sqleditnews = "UPDATE news SET name = '$newsname' , wysig = '$newswysig' WHERE id = '$newsid'";
+    $sqleditnews = "UPDATE news SET name = '$newsname' , wysig = '$newswysig' WHERE id = $newsid";
     $stmteditnews = $dbh->prepare($sqleditnews);
     $stmteditnews->execute();
     //     NOTE colleting everything for converting

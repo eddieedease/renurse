@@ -269,6 +269,12 @@ export class AdminComponent implements OnInit, AfterViewInit {
         case 'user':
           this.edSer.API_deleteuser(this.delId).subscribe(value => this.isDeleted(value, 'user'));
           break;
+          case 'news':
+          this.edSer.API_deletenews(this.delId).subscribe(value => this.isDeleted(value, 'news'));
+          break;
+          case 'who':
+          this.edSer.API_deletewho(this.delId).subscribe(value => this.isDeleted(value, 'who'));
+          break;
         case 'file':
           this.edSer.API_removefilefromgroup(this.delId).subscribe(value => this.isDeleted(value, 'file'));
           break;
@@ -307,6 +313,12 @@ export class AdminComponent implements OnInit, AfterViewInit {
         break;
       case 'logo':
         this.getLogos();
+        break;
+        case 'news':
+        this.getNews();
+        break;
+        case 'who':
+        this.getWhoIsWho();
         break;
     }
   }
@@ -362,9 +374,10 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   // section for course thumb image uploading
   startThumbUpload(_event, _case): void {
-    this.edSer.debugLog('start profile pic uploading uploading');
+    this.edSer.debugLog('start  uploading');
     this.loading = true;
-    // TODO: make the call to the uploading
+    
+    // TODO: Also implement the news and WhoisWHo
 
     // takeID
     switch (_case) {
@@ -378,6 +391,13 @@ export class AdminComponent implements OnInit, AfterViewInit {
         break;
       case 'orglogo':
         this.edSer.API_uploadthumb(_event, _case, 0).subscribe(value => this.thumbUploaded(value, 'orglogo'));
+
+        break;
+        case 'news':
+        this.edSer.API_uploadthumb(_event, _case, this.currentNewsId).subscribe(value => this.thumbUploaded(value, 'news'));
+        break;
+        case 'whoiswho':
+        this.edSer.API_uploadthumb(_event, _case, this.currentWhoId).subscribe(value => this.thumbUploaded(value, 'whoiswho'));
 
         break;
     }
@@ -396,6 +416,12 @@ export class AdminComponent implements OnInit, AfterViewInit {
         break;
       case 'orglogo':
         this.getLogos();
+        break;
+        case 'news':
+        this.getNews();
+        break;
+        case 'whoiswho':
+        this.getWhoIsWho();
         break;
     }
 
@@ -522,6 +548,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
         this.newWho = true;
         this.currentWhoTitle = '';
         this.currentWhoWysig = '';
+        this.currentWhoType = 1;
         break;
       case 'newpublication':
         this.newPublication = true;
@@ -565,7 +592,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
           if (element.id === _id) {
             this.edSer.debugLog('We have a hit');
             this.currentNewsId = element.id;
-            this.currentNewsTitle = element.uname;
+            this.currentNewsTitle = element.name;
             this.currentNewsWysig = element.wysig;
             this.currentNewsCover = element.coverurl;
             this.currentNewsActive = element.active;
@@ -593,6 +620,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
             this.currentWhoActive = element.active;
             this.currentWhoCover = element.coverurl;
             this.currentWhoId = element.id;
+            this.currentWhoType = +element.type;
             this.currentWhoTitle = element.name;
             this.currentWhoWysig = element.wysig;
           }
@@ -721,7 +749,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   gotTextBlockssDoNothing(_resp) {
-    this.edSer.debugLog(_resp)
+    this.edSer.debugLog(_resp);
   }
 
 
@@ -808,6 +836,35 @@ export class AdminComponent implements OnInit, AfterViewInit {
     this.newsRows.reverse();
   }
 
+    // ADJUST
+  adjustNews(_case) {
+    switch (_case) {
+      case 'new':
+        if (this.currentNewsTitle !== '' && this.currentwysig !== '') {
+          this.edSer.API_createnews(this.currentNewsTitle, this.currentwysig).subscribe(value => this.newsAdjusted(value));
+        } else {
+          this.toastr.warning('Niet alles ingevuld', '', {
+            timeOut: 20000
+          });
+        }
+        break;
+      case 'edit':
+        if (this.currentNewsTitle !== '') {
+          this.edSer.API_editnews(this.currentNewsId, this.currentNewsTitle, this.currentwysig).subscribe(value => this.newsAdjusted(value));
+        }
+        break;
+    }
+  }
+
+  newsAdjusted(_event) {
+    this.loading = false;
+    this.modalRef.hide();
+    this.toastr.success('Gewijzigd', '', {
+      timeOut: 20000
+    });
+    this.getNews();
+  }
+
   getWhoIsWho() {
     this.loading = true;
     this.edSer.API_getwhoiswho().subscribe(value => this.gotWhoIsWho(value));
@@ -820,6 +877,37 @@ export class AdminComponent implements OnInit, AfterViewInit {
     this.whoRows = _event;
     this.whoRows.reverse();
   }
+
+  // TODO: ADJUST
+  adjustWho(_case) {
+      switch (_case) {
+        case 'new':
+          if (this.currentWhoTitle !== '' && this.currentwysig !== '') {
+            this.edSer.API_createwho(this.currentWhoTitle, this.currentWhoWysig, this.currentWhoType).subscribe(value => this.whoAdjusted(value));
+          } else {
+            this.toastr.warning('Niet alles ingevuld', '', {
+              timeOut: 20000
+            });
+          }
+          break;
+        case 'edit':
+          if (this.currentWhoTitle !== '') {
+            this.edSer.API_editwho(this.currentWhoId, this.currentWhoTitle, this.currentWhoWysig, this.currentWhoType).subscribe(value => this.whoAdjusted(value));
+  
+          }
+          break;
+      }
+    }
+  
+    whoAdjusted(_event) {
+      this.edSer.debugLog(_event);
+      this.loading = false;
+      this.modalRef.hide();
+      this.toastr.success('Gewijzigd', '', {
+        timeOut: 20000
+      });
+      this.getWhoIsWho();
+    }
 
   // HTTP API CALLS HANDLING VIA SERVICE
   // RESEARCHES
