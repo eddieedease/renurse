@@ -39,12 +39,14 @@ import { ContactComponent } from './contact/contact.component';
 import { WysigComponent } from './wysig/wysig.component';
 import { WysigPipe } from './wysig-pipe.pipe';
 import { WiezijnwijComponent } from './wiezijnwij/wiezijnwij.component';
+import { NewsComponent } from './news/news.component';
 
 const appRoutes: Routes = [
   { path: 'landing', component: LandingComponent },
   { path: 'publications', component: PublicationsComponent},
   { path: 'research', component: ResearchComponent},
   { path: 'loggedin', component: LockedComponent},
+  { path: 'nieuws', component: NewsComponent},
   { path: 'contact', component: ContactComponent},
   { path: 'admin', component: AdminComponent },
   { path: 'wiezijnwij', component: WiezijnwijComponent },
@@ -66,7 +68,8 @@ const appRoutes: Routes = [
     ContactComponent,
     WysigComponent,
     WysigPipe,
-    WiezijnwijComponent
+    WiezijnwijComponent,
+    NewsComponent
   ],
   imports: [
     RouterModule.forRoot(

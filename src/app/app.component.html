@@ -118,6 +118,7 @@
                 <li class="drop"><a style="cursor:pointer" routerLink="/">Home</a></li>
                 <li class="drop"><a style="cursor:pointer" routerLink="/wiezijnwij">Wie zijn wij?</a></li>
                 <li class="drop"><a style="cursor:pointer" routerLink="/research">Onderzoeken & Publicaties</a></li>
+                <li class="drop"><a style="cursor:pointer" routerLink="/nieuws">Nieuws</a></li>
                 <li class="drop"><a style="cursor:pointer" routerLink="/contact">Contact</a></li>
                 <li class="drop"><a style="cursor:pointer" *ngIf="isLoggedIn"  routerLink="/loggedin">Downloadpagina</a></li>
                 <li class="drop"><a style="cursor:pointer" *ngIf="!isLoggedIn" (click)='openModal(loginmodal)' style="color:blue; cursor:pointer"><b>Inloggen</b></a></li>
@@ -138,6 +139,9 @@
             </li>
             <li class="nav-item ">
               <a class="nav-link" (click)="hideMenu()" routerLink="/research">Onderzoeken & Publicaties</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" (click)="hideMenu()" routerLink="/nieuws">Nieuws</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" (click)="hideMenu()" routerLink="/contact">Contact</a>
