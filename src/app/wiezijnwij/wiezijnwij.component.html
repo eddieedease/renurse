@@ -8,52 +8,15 @@
             <table class="table table-striped " style='background-color:white;color: rgb(21, 9, 75)'>
               <thead>
                 <tr>
-
                   <th></th>
                   <th scope="col">Naam</th>
-                  <th scope="col">Ziekenhuis</th>
                 </tr>
               </thead>
               <tbody>
-
-                
-                <tr>
-                  <td><img src="assets/wieiswie/wilma-jackson.png" class="rounded mx-auto d-block" alt="..."></td>
-                  <td>Wilma Jackson</td>
-                  <td>Voorzitter, Elisabeth-Tweesteden Ziekenhuis</td>
+                <tr *ngFor="let mainn of mainGroup; let i = index">
+                  <td><div [style.background-image]="'url(/uploads/' + mainn.coverurl + ')'" style="width:150px;background-size: cover"><br><br><br><br><br></div></td>
+                  <td>{{mainn.name}}<br>{{mainn.wysig}}</td>
                 </tr>
-                <tr>
-                    <td><img src="assets/wieiswie/monique-dings.png" class="rounded mx-auto d-block" alt="..."></td>
-
-                  <td>Monique Dings</td>
-                  <td>Máxima Medisch Centrum</td>
-                </tr>
-                <tr>
-                    <td><img src="assets/wieiswie/marieke-schuurmans.png" class="rounded mx-auto d-block" alt="..."></td>
-
-                  <td>Prof. dr. Marieke Schuurmans</td>
-                  <td>Universitair Medisch Centrum Utrecht</td>
-                </tr>
-
-                <tr>
-                    <td><img src="assets/wieiswie/jeroen-dikken.png" class="rounded mx-auto d-block" alt="..."></td>
-
-                  <td>dr. Jeroen Dikken</td>
-                  <td>De Haagse Hogeschool</td>
-                </tr>
-                <tr>
-                    <td><img src="https://via.placeholder.com/150" class="rounded mx-auto d-block" alt="..."></td>
-
-                  <td>dr. Catharina van Oostveen</td>
-                  <td>Spaarne Gasthuis</td>
-                </tr>
-                <tr>
-                    <td><img src="assets/wieiswie/trieling.png" class="rounded mx-auto d-block" alt="..."></td>
-
-                  <td>dr. Marika Trieling-Laan</td>
-                  <td>Elisabeth-Tweesteden Ziekenhuis</td>
-                </tr>
-                <tr>
               </tbody>
             </table>
           </div>
@@ -66,98 +29,13 @@
                 <tr>
                   <th></th>
                   <th scope="col">Naam</th>
-                  <th scope="col">Ziekenhuis</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                    <td><img src="https://via.placeholder.com/150" class="rounded mx-auto d-block" alt="..."></td>
-
-                  <td>Ingrid Steenis</td>
-                  <td>Albert Schweitzer ziekenhuis</td>
+                <tr *ngFor="let sup of supportGroup; let i = index">
+                  <td><div [style.background-image]="'url(/uploads/' + sup.coverurl + ')'" style="width:150px;background-size: cover"><br><br><br><br><br></div></td>
+                  <td>{{sup.name}}<br>{{sup.wysig}}</td>
                 </tr>
-                <tr>
-                    <td><img src="assets/wieiswie/Joke-Bosch.png" class="rounded mx-auto d-block" alt="..."></td>
-
-                  <td>Joke Bosch</td>
-                  <td>Albert Schweitzer ziekenhuis</td>
-                </tr>
-                <tr>
-                    <td><img src="assets/wieiswie/caroline-otter.png" class="rounded mx-auto d-block" alt="..."></td>
-
-                  <td>Caroline Otter</td>
-                  <td>Martini ziekenhuis</td>
-                </tr>
-                <tr>
-                    <td><img src="assets/wieiswie/marjo-van-den-elsen.png" class="rounded mx-auto d-block" alt="..."></td>
-
-                  <td>Marjo van den Elsen</td>
-                  <td>Deventer ziekenhuis</td>
-                </tr>
-                      <tr>
-                          <td><img src="assets/wieiswie/Bianca-boxma.png" class="rounded mx-auto d-block" alt="..."></td>
-
-                        <td>Bianca Boxma</td>
-                        <td>Franciscus Vlietland Groep</td>
-                      </tr>
-                      <tr>
-                          <td><img src="assets/wieiswie/Lysette-hakvoort.png" class="rounded mx-auto d-block" alt="..."></td>
-
-                        <td>Lysette Hakvoort</td>
-                        <td>Maxima MC</td>
-                      </tr>
-      
-                      <tr>
-                          <td><img src="https://via.placeholder.com/150" class="rounded mx-auto d-block" alt="..."></td>
-
-                        <td>Christa Hoogewind</td>
-                        <td>Isala ziekenhuis</td>
-                      </tr>
-                      <tr>
-                          <td><img src="assets/wieiswie/Yvonne-Jordens-Isala.png" class="rounded mx-auto d-block" alt="..."></td>
-
-                        <td>Yvonne Jordens</td>
-                        <td>Isala Ziekenhuis</td>
-                      </tr>
-                     
-                      <tr>
-                          <td><img src="assets/wieiswie/Wendy-woerd.png" class="rounded mx-auto d-block" alt="..."></td>
-
-                              <td>Wendy te Woerd</td>
-                              <td>Rijnstate</td>
-                            </tr>
-                            <tr>
-                                <td><img src="assets/wieiswie/esther-burgers.png" class="rounded mx-auto d-block" alt="..."></td>
-
-                              <td>Esther Burgers</td>
-                              <td>Rijnstate</td>
-                            </tr>
-                            <tr>
-                                <td><img src="assets/wieiswie/Christel-derks.png" class="rounded mx-auto d-block" alt="..."></td>
-
-                              <td>Christel Derks</td>
-                              <td>Elisabeth-Tweesteden Ziekenhuis</td>
-                            </tr>
-            
-                            <tr>
-                                <td><img src="assets/wieiswie/sandra-koster.png" class="rounded mx-auto d-block" alt="..."></td>
-
-                              <td>Sandra Koster</td>
-                              <td>Medisch Spectrum Twente</td>
-                            </tr>
-                            <tr>
-                                <td><img src="https://via.placeholder.com/150" class="rounded mx-auto d-block" alt="..."></td>
-
-                              <td>Miranda Kroezen</td>
-                              <td>Medisch Spectrum Twente</td>
-                            </tr>
-                            <tr>
-                                <td><img src="https://via.placeholder.com/150" class="rounded mx-auto d-block" alt="..."></td>
-
-                              <td>Catharina van Oostveen</td>
-                              <td>Spaarne Gasthuis</td>
-                            </tr>
-                            <tr>
               </tbody>
             </table>
           </div>
@@ -173,13 +51,25 @@
             <div class="htc__support__details" style="margin-right:20px">
               <p>RENursE bestaat uit een stuurgroep, een onderzoeksgroep en een ondersteunende groep.
                 <br><br>
-                De stuurgroep bevordert en behartigt de belangen van het samenwerkingsverband. Daarnaast geeft zij richting aan het onderzoeksprogramma en de landelijke communicatie. In de stuurgroep zitten zowel de kartrekkende ziekenhuizen, als Prof. dr. Marieke Schuurmans, hoogleraar Verplegingswetenschap Universiteit Utrecht en dr. Jeroen Dikken, docent Haagse Hogeschool, beide vanwege hun inhoudelijke expertise.
+                De stuurgroep bevordert en behartigt de belangen van het samenwerkingsverband. Daarnaast geeft zij
+                richting aan het onderzoeksprogramma en de landelijke communicatie. In de stuurgroep zitten zowel de
+                kartrekkende ziekenhuizen, als Prof. dr. Marieke Schuurmans, hoogleraar Verplegingswetenschap
+                Universiteit Utrecht en dr. Jeroen Dikken, docent Haagse Hogeschool, beide vanwege hun inhoudelijke
+                expertise.
                 <br><br>
-                De onderzoeksgroep bestaat uit verpleegkundige onderzoekers die een onderzoeksvraag uitwerken en het onderzoek na goedkeuring door de stuurgroep uitvoeren. De onderzoeksgroep verwerkt de onderzoeksresultaten in publicaties en een onderzoeksrapport. Zij rapporteert aan de stuurgroep en de ondersteunende groep.
+                De onderzoeksgroep bestaat uit verpleegkundige onderzoekers die een onderzoeksvraag uitwerken en het
+                onderzoek na goedkeuring door de stuurgroep uitvoeren. De onderzoeksgroep verwerkt de
+                onderzoeksresultaten in publicaties en een onderzoeksrapport. Zij rapporteert aan de stuurgroep en de
+                ondersteunende groep.
                 <br><br>
-                De ondersteunende groep bestaat uit vertegenwoordigers van de deelnemende ziekenhuizen. Zij leveren een bijdrage aan de dataverzameling voor lopende onderzoeksprojecten. Daarnaast worden de resultaten uit de onderzoeksprojecten binnen deze groep besproken en wordt ook richting gegeven aan mogelijkheden voor vervolgonderzoek.
+                De ondersteunende groep bestaat uit vertegenwoordigers van de deelnemende ziekenhuizen. Zij leveren een
+                bijdrage aan de dataverzameling voor lopende onderzoeksprojecten. Daarnaast worden de resultaten uit de
+                onderzoeksprojecten binnen deze groep besproken en wordt ook richting gegeven aan mogelijkheden voor
+                vervolgonderzoek.
                 <br><br>
-                Elk onderzoek wordt uitgewerkt door een nieuw in te richten onderzoeksgroep met verpleegkundig onderzoekers uit de participerende ziekenhuizen. Per onderzoek wordt op maat samenwerking gezocht met Hogescholen en/of Universiteiten.
+                Elk onderzoek wordt uitgewerkt door een nieuw in te richten onderzoeksgroep met verpleegkundig
+                onderzoekers uit de participerende ziekenhuizen. Per onderzoek wordt op maat samenwerking gezocht met
+                Hogescholen en/of Universiteiten.
               </p>
             </div>
           </div>

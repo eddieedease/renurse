@@ -32,22 +32,18 @@
                   </div>
                    <div   class="col-lg-8 col-md-12 col-12">
                        <div *ngFor="let news of newsArray; let i = index" class="post_details_inner">
-                           <div class="single_post_thumbnail">
-                               <img [src]="'/uploads/' + news.coverurl" alt="single post thumbail">
+                           <div class="single_post_thumbnail" [style.background-image]="'url(/uploads/' + news.coverurl + ')'" style="background-size: cover" alt="single post thumbail">
+                               <br><br><br><br><br><br><br><br>
                            </div>
                            <div class="single_post_content">
                                <div class="single_post_top_contnt">
                                    <div class="single_post_title">
-                                       <h2>{{news.name}}</h2>
+                                       <h3>{{news.name}}</h3>
                                    </div>
-                                   <div class="single_post_meta">
-                                       <div class="single_post_left_meta">
-                                           <ul>
-                                               <li>{{news.date}}</li>
-                                           </ul>
-                                       </div>
-                                      
-                                   </div>
+                                   <ul>
+                                        <li>{{news.date}}</li>
+                                    </ul>
+                                   
                                </div>
                                
                                <div [innerHTML]="news.wysig | safe: 'html'" class="post_excerpt">

@@ -46,7 +46,7 @@ export class NewsComponent implements OnInit {
   }
 
 
-  gotNews(_resp){
+  gotNews(_resp) {
     this.edSer.debugLog(_resp);
     this.newsArray = _resp;
     this.newsArray.reverse();
