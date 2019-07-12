@@ -186,11 +186,13 @@ $app->post('/uploadthumb/{case}/{id}', function (Request $request, Response $res
             break;
         case "jpeg":
             $imageResourceId = imagecreatefromjpeg($file);
+            correctImageOrientation($imageResourceId);
             $targetLayer = imageResize($imageResourceId, $width, $height);
             imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
             break;
         case "JPEG":
             $imageResourceId = imagecreatefromjpeg($file);
+            correctImageOrientation($imageResourceId);
             $targetLayer = imageResize($imageResourceId, $width, $height);
             imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
             break;
@@ -250,8 +252,8 @@ $app->post('/uploadthumb/{case}/{id}', function (Request $request, Response $res
  */
 function imageResize($file, $width, $height)
 {
-    $targetWidth = 500;
-    $targetHeight = 400;
+    $targetWidth = 1000;
+    $targetHeight = 700;
     if ($width > $height && $targetHeight < $height) {
         $targetHeight = $height / ($width / $targetWidth);
     } else if ($width < $height && $targetWidth < $width) {
@@ -285,3 +287,32 @@ function moveUploadedFile($directory, UploadedFile $uploadedFile, $lessonid)
     $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . $lessonid . DIRECTORY_SEPARATOR . $filename);
     return $filename;
 };
+
+function correctImageOrientation($filename) {
+    if (function_exists('exif_read_data')) {
+      $exif = exif_read_data($filename);
+      if($exif && isset($exif['Orientation'])) {
+        $orientation = $exif['Orientation'];
+        if($orientation != 1){
+          $img = imagecreatefromjpeg($filename);
+          $deg = 0;
+          switch ($orientation) {
+            case 3:
+              $deg = 180;
+              break;
+            case 6:
+              $deg = 270;
+              break;
+            case 8:
+              $deg = 90;
+              break;
+          }
+          if ($deg) {
+            $img = imagerotate($img, $deg, 0);        
+          }
+          // then rewrite the rotated image back to the disk as $filename 
+          imagejpeg($img, $filename, 95);
+        } // if there is some rotation necessary
+      } // if have the exif orientation info
+    } // if function exists      
+  }
