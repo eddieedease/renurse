@@ -156,44 +156,51 @@ $app->post('/uploadthumb/{case}/{id}', function (Request $request, Response $res
     switch ($ext) {
         case "png":
             $imageResourceId = imagecreatefrompng($file);
-            $targetLayer = imageResize($imageResourceId, $width, $height);
+            $targetLayer = resize_image_max($imageResourceId, 900, 900);
             imagepng($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
             break;
         case "PNG":
             $imageResourceId = imagecreatefrompng($file);
-            $targetLayer = imageResize($imageResourceId, $width, $height);
+            $targetLayer = resize_image_max($imageResourceId, 900, 900);
             imagepng($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
             break;
         case "gif":
             $imageResourceId = imagecreatefromgif($file);
-            $targetLayer = imageResize($imageResourceId, $width, $height);
+            $targetLayer = resize_image_max($imageResourceId, 900, 900);
             imagegif($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
             break;
         case "GIF":
             $imageResourceId = imagecreatefromgif($file);
-            $targetLayer = imageResize($imageResourceId, $width, $height);
+            $targetLayer = resize_image_max($imageResourceId, 900, 900);
             imagegif($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
             break;
         case "jpg":
+            $file = correctImageOrientation($file);
+            list($width, $height) = getimagesize($file);
             $imageResourceId = imagecreatefromjpeg($file);
-            $targetLayer = imageResize($imageResourceId, $width, $height);
+            $targetLayer = resize_image_max($imageResourceId, 900, 900);
             imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
             break;
         case "JPG":
             $file = correctImageOrientation($file);
             list($width, $height) = getimagesize($file);
             $imageResourceId = imagecreatefromjpeg($file);
-            $targetLayer = imageResize($imageResourceId, $width, $height);
+            $targetLayer = resize_image_max($imageResourceId, 900, 900);
+            // $targetLayer = imageResize($imageResourceId, $width, $height);
             imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
             break;
         case "jpeg":
+            $file = correctImageOrientation($file);
+            list($width, $height) = getimagesize($file);
             $imageResourceId = imagecreatefromjpeg($file);
-            $targetLayer = imageResize($imageResourceId, $width, $height);
+            $targetLayer = resize_image_max($imageResourceId, 900, 900);
             imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
             break;
         case "JPEG":
+            $file = correctImageOrientation($file);
+            list($width, $height) = getimagesize($file);
             $imageResourceId = imagecreatefromjpeg($file);
-            $targetLayer = imageResize($imageResourceId, $width, $height);
+            $targetLayer = resize_image_max($imageResourceId, 900, 900);
             imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
             break;
         default:
@@ -266,6 +273,30 @@ function imageResize($file, $width, $height)
     imagecopyresampled($targetLayer, $file, 0, 0, 0, 0, $targetWidth, $targetHeight, $width, $height);
     return $targetLayer;
 };
+
+function resize_image_max($image,$max_width,$max_height) {
+	$w = imagesx($image); //current width
+	$h = imagesy($image); //current height
+	if ((!$w) || (!$h)) { $GLOBALS['errors'][] = 'Image couldn\'t be resized because it wasn\'t a valid image.'; return false; }
+
+	if (($w <= $max_width) && ($h <= $max_height)) { return $image; } //no resizing needed
+	
+	//try max width first...
+	$ratio = $max_width / $w;
+	$new_w = $max_width;
+	$new_h = $h * $ratio;
+	
+	//if that didn't work
+	if ($new_h > $max_height) {
+		$ratio = $max_height / $h;
+		$new_h = $max_height;
+		$new_w = $w * $ratio;
+	}
+	
+	$new_image = imagecreatetruecolor ($new_w, $new_h);
+	imagecopyresampled($new_image,$image, 0, 0, 0, 0, $new_w, $new_h, $w, $h);
+	return $new_image;
+}
 /**
  * Moves the uploaded file to the upload directory and assigns it a unique name
  * to avoid overwriting an existing uploaded file.
