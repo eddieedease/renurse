@@ -143,7 +143,7 @@ $app->post('/uploadthumb/{case}/{id}', function (Request $request, Response $res
     $uploadedFile = $uploadedFiles[file];
     $nameofuploaded = $uploadedFile->getClientFilename();
     $file = $_FILES[file][tmp_name];
-    list($width, $height) = getimagesize($_FILES[file][tmp_name]);
+    list($width, $height) = getimagesize($file);
     $ext = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
     $basename = bin2hex(random_bytes(8)); // see http://php.net/manual/en/function.random-bytes.php
     $filename = sprintf('%s.%0.8s', $basename, $ext);
@@ -180,19 +180,19 @@ $app->post('/uploadthumb/{case}/{id}', function (Request $request, Response $res
             imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
             break;
         case "JPG":
+            $file = correctImageOrientation($file);
+            list($width, $height) = getimagesize($file);
             $imageResourceId = imagecreatefromjpeg($file);
             $targetLayer = imageResize($imageResourceId, $width, $height);
             imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
             break;
         case "jpeg":
             $imageResourceId = imagecreatefromjpeg($file);
-            correctImageOrientation($imageResourceId);
             $targetLayer = imageResize($imageResourceId, $width, $height);
             imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
             break;
         case "JPEG":
             $imageResourceId = imagecreatefromjpeg($file);
-            correctImageOrientation($imageResourceId);
             $targetLayer = imageResize($imageResourceId, $width, $height);
             imagejpeg($targetLayer, $directory . DIRECTORY_SEPARATOR . $filename);
             break;
@@ -314,5 +314,6 @@ function correctImageOrientation($filename) {
           imagejpeg($img, $filename, 95);
         } // if there is some rotation necessary
       } // if have the exif orientation info
-    } // if function exists      
+    } // if function exists    
+    return $filename;  
   }
