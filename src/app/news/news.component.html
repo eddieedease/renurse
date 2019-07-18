@@ -14,14 +14,17 @@
                <div class="row">
                   <div class="col-lg-4 col-md-8 col-12">
                       <div class="sidebar_right">
-                         
+                            
                           <div class="widget author_information">
                               <div class="author_info_imag">
                                   <img src="images/blog/sidebar/author_image.png" alt="">
                               </div>
                               <div class="author_content text-center">
+                                   
+
                                   <h3 style="color:red">Nieuws</h3>
-                                  <p>Het laatste van RENursE!</p>
+                                  <p>Het laatste van RENursE!</p><br>
+                                  <img src="assets/news.png" class="img-reponsive">
                               </div>
                               
                           </div>      
@@ -32,7 +35,7 @@
                   </div>
                    <div   class="col-lg-7 col-md-12 col-12">
                        <div *ngFor="let news of newsArray; let i = index" class="post_details_inner">
-                           <div class="single_post_thumbnail" [style.background-image]="'url(/uploads/' + news.coverurl + ')'" style="background-size: cover; background-position: center;" alt="single post thumbail">
+                           <div *ngIf="news.coverurl !== ''" class="single_post_thumbnail" [style.background-image]="'url(/uploads/' + news.coverurl + ')'" style="background-size: cover; background-position: center; line-height:50px" alt="single post thumbail">
                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                            </div>
                            <div class="single_post_content">
