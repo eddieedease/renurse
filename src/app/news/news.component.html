@@ -35,7 +35,7 @@
                   </div>
                    <div   class="col-lg-7 col-md-12 col-12">
                        <div *ngFor="let news of newsArray; let i = index" class="post_details_inner">
-                           <div *ngIf="news.coverurl !== ''" class="single_post_thumbnail" [style.background-image]="'url(/uploads/' + news.coverurl + ')'" style="background-size: cover; background-position: center; line-height:50px" alt="single post thumbail">
+                           <div *ngIf="news.coverurl !== ''" class="single_post_thumbnail" [style.background-image]="'url(/uploads/' + news.coverurl + ')'" style="background-size: cover; background-position: center" alt="single post thumbail">
                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                            </div>
                            <div class="single_post_content">

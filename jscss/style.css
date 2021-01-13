@@ -1042,7 +1042,7 @@ ul.main__menu>li:hover>a {
 }
 
 .htc__support__inner h4 {
-  color: #525252;
+  color: #040404;
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 25px;
@@ -1090,26 +1090,26 @@ ul.main__menu>li:hover>a {
 }
 
 .htc__support__inner h3 {
-  color: #505050;
+  color: #040404;
   font-size: 26px;
   margin-bottom: 32px;
 }
 
 .htc__support__details>p {
-  color: #525252;
+  color: #040404;
   font-size: 18px;
   line-height: 30px;
 }
 
 .htc__support__inner h3 span {
-  color: #505050;
+  color: #040404;
   font-size: 26px;
 }
 
 .htc__support__inner span.cholist {
   text-transform: lowercase;
   font-size: 16px;
-  color: #505050;
+  color: #040404;
 }
 
 .htc__spt__dai p {
@@ -1310,7 +1310,7 @@ ul.main__menu>li:hover>a {
 }
 
 .ht__sin__solve p {
-  color: #525252;
+  color: #040404;
   line-height: 26px;
 }
 
@@ -4872,7 +4872,7 @@ footer.footer_area {
 }
 
 .publish_info ul li {
-  color: #525252;
+  color: #040404;
   font-size: 13px;
   list-style: inside none disc;
   margin-left: 5px;
@@ -6228,7 +6228,7 @@ blockquote {
 }
 
 .progress_label_bar span {
-  color: #505050;
+  color: #040404;
   font-size: 14px;
 }
 
