@@ -60,6 +60,105 @@
     </div>
 </ng-template>
 
+
+<header id="header">
+  <!-- header top area start -->
+  <div class="header-top">
+      <div class="container">
+          <div class="row align-items-center">
+              <div class="col-md-3">
+                  <ul class="ht-social">
+                      <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                      <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                      <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                      <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                  </ul>
+              </div>
+              <div class="col-md-9">
+                  <ul class="ht-contacts">
+                      <li><a href="#"><i class="fa fa-clock-o"></i>Sun-Fri (8am -6pm)</a></li>
+                      <li><a href="#"><i class="fa fa-envelope"></i>info@medhelp.com</a></li>
+                      <li><a href="#"><i class="fa fa-phone"></i>Toll Free: 888.387.5000</a></li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- header top area end -->
+  <!-- header bottom area start -->
+  <div class="header-bottom-wrapper">
+      <div class="header-bottom">
+          <div class="container">
+              <div class="row align-items-center">
+                  <div class="col-lg-3">
+                      <div class="logo">
+                          <a href="index.html"><img src="assets/images/icon/logo.png" alt="logo"></a>
+                      </div>
+                  </div>
+                  <div class="col-lg-9 d-none d-lg-block">
+                      <div class="main-menu">
+                          <nav>
+                              <ul id="nav_mobile_menu">
+                                  <li class="active"><a routerLink="/">Home</a>
+                                      
+                                  </li>
+                                  <li><a routerLink="/wiezijnwij">Wie zijn wij?</a>
+                                      
+                                  </li>
+                                  <li><a routerLink="/research">Onderzoeken</a>
+                                      
+                                  </li>
+                                  <li><a routerLink="/publications">Publicaties</a>
+                                      
+                                  </li>
+
+                                  <li><a routerLink="/nieuws">Nieuws</a>
+                                      
+                                  </li>
+
+                                  <li><a routerLink="/contact">Contact</a>
+                                      
+                                  </li>
+
+                                  <li><a *ngIf="isLoggedIn"  routerLink="/loggedin">Downloads</a>
+                                      
+                                  </li>
+
+                                  <li><a *ngIf="!isLoggedIn" (click)='openModal(loginmodal)'>Inloggen</a>
+                                      
+                                  </li>
+
+                                  <li><a *ngIf="isLoggedIn"  (click)='logOut()'>Uitloggen</a>
+                                      
+                                  </li>
+                                 
+                              </ul>
+
+
+
+
+
+                             
+                          </nav>
+                          <div class="search-btn"><i class="fa fa-search"></i></div>
+                          <div class="humburger-btn"><i class="fa fa-bars"></i></div>
+                      </div>
+                  </div>
+                  <div class="col-12 d-block d-lg-none">
+                      <div id="mobile_menu"></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- header bottom area end -->
+</header>
+
+
+
+
+
+
 <div class="wrapper">
   <!-- Start Header Style -->
   <header *ngIf="!dMin" class="htc__header">
@@ -165,6 +264,12 @@
     <!-- End Mainmenu Area -->
     <!-- End Mainmenu Area -->
   </header>
+
+
+
+
+
+  
   <router-outlet></router-outlet>
 
 
