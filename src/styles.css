@@ -1032,7 +1032,7 @@ a.scrollup-btn:hover{
 
 .header-top {
 
-  background: #0bc1bb;
+  background: #e74628;
 
   padding: 9px 0;
 
@@ -1599,7 +1599,7 @@ a.scrollup-btn:hover{
 
   padding: 140px 0 211px;
 
-  background: url(/assets/images/hero-bg1.jpg) center/cover no-repeat;
+  background: url(/assets/hero-bg1.jpg) center/cover no-repeat;
 
 }
 
@@ -1649,7 +1649,7 @@ a.scrollup-btn:hover{
 
   height: 60px;
 
-  background: #2c76e2;
+  background: #e74628;
 
   line-height: 60px;
 
@@ -1709,8 +1709,6 @@ a.scrollup-btn:hover{
 
 .single-feature {
 
-  text-align: center;
-
   padding: 34px 20px 26px;
 
   background: #fff;
@@ -1761,7 +1759,7 @@ a.scrollup-btn:hover{
 
 .single-feature .content p {
 
-  font-size: 14px;
+  font-size: 16px;
 
   color: #878787;
 
