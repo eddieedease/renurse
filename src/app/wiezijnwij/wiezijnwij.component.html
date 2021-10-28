@@ -1,13 +1,12 @@
-<section class="htc__support__area ptb--100 bg__white">
+<section style="margin-top: 20px;">
   <div class="container">
-    <div class="row">
+    <div class="row content">
 
 
       <div class="col-lg-7 col-sm-12">
-        <div class="htc__support__content">
-          <div class="htc__support__inner">
-            <h2 class="text--theme">Wie zijn wij?</h2>
-            <div class="htc__support__details" style="margin-right:20px">
+      
+            <h2 class="">Wie zijn wij?</h2>
+            <div class="content" style="margin-right:20px">
               <p>RENurse bestaat uit een stuurgroep, een onderzoeksgroep en een ondersteunende groep.
                 <br><br>
                 De stuurgroep bevordert en behartigt de belangen van het samenwerkingsverband. Daarnaast geeft zij
@@ -31,13 +30,14 @@
                 Hogescholen en/of Universiteiten.
               </p>
             </div>
-          </div>
-        </div>
+     
       </div>
 
       
       <div class="col-lg-5 col-12">
         <div class="sepcial_banner_content">
+
+          
           <h4>Leden stuurgroep:</h4><br>
           <div class="table-responsive">
             <table class="table table-striped " style='background-color:white;color: rgb(21, 9, 75)'>
@@ -54,7 +54,26 @@
                 </tr>
               </tbody>
             </table>
+          </div><br><br>
+          <h4>Leden onderzoeksgroep:</h4><br>
+          <div class="table-responsive">
+            <table class="table table-striped " style='background-color:white;color: rgb(21, 9, 75)'>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th scope="col">Naam</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let rese of researchGroup; let i = index">
+                  <td><div [style.background-image]="'url(/uploads/' + rese.coverurl + ')'" style="width:150px;background-size: cover"><br><br><br><br><br></div></td>
+                  <td>{{rese.name}}<br>{{rese.wysig}}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
+
+          
 
           <br><br>
           <h4>Leden ondersteunende groep:</h4><br>

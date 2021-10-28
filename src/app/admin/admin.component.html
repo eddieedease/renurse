@@ -503,7 +503,7 @@
         <tab  heading="Onderzoeken" (select)="getSome('research')">
           <br>
           <h2 >Onderzoeken</h2>
-          <div class="btn-group float-right" role="group" aria-label="Basic example">
+          <div class="btn-group " role="group" aria-label="Basic example">
             <button type="button" class="btn btn-primary " style="border-radius: 10px"
               (click)="openLargeModal(researchtemplate, 'newresearch', 0)"><i class="fa fa-plus" aria-hidden="true"></i>
               Onderzoek toevoegen</button>
@@ -880,6 +880,7 @@
                   <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                     <div *ngIf="row['type'] == 1">Stuurgroep</div>
                     <div *ngIf="row['type'] == 0">Ondersteunend</div>
+                    <div *ngIf="row['type'] == 2">Onderzoeksgroep</div>
                   </ng-template>
                 </ngx-datatable-column>
   
@@ -958,4 +959,5 @@
 
     </main>
   </div>
+  <br><br><br><br><br><br><br><br>
 </div>

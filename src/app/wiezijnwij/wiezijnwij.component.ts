@@ -33,6 +33,8 @@ import {
 export class WiezijnwijComponent implements OnInit {
 
 
+  // Onderzoekende groep
+  researchGroup = [];
   // stuurgroep
   mainGroup = [];
   // ondersteunende groep
@@ -60,6 +62,9 @@ export class WiezijnwijComponent implements OnInit {
         case '1':
           this.mainGroup.push(person);
           break;
+          case '2':
+            this.researchGroup.push(person);
+            break;
       }
     });
   }
