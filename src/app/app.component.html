@@ -179,69 +179,20 @@
     <!-- Start Mainmenu Area -->
     <div class="d-lg-none">
       <div class="container">
-        <div class="row align-items-center">
-          <div class="col-md-3 col-lg-3 col-sm-6">
-
-
-            <!-- <div class="logo">
-              <a routerLink="/">
-                <img src="assets/logo/logo.png" alt="logo">
-              </a>
-
-            </div> -->
-            <div class="col-md-9 col-lg-9">
-              <nav class="main__menu__nav">
-                <ul class="main__menu navul">
-                  <li class="drop"><a style="cursor:pointer" routerLink="/">Home</a></li>
-                  <li class="drop"><a style="cursor:pointer" routerLink="/wiezijnwij">Wie zijn wij?</a></li>
-                  <li class="drop"><a style="cursor:pointer" routerLink="/research">Onderzoeken & Publicaties</a></li>
-                  <li class="drop"><a style="cursor:pointer" routerLink="/nieuws">Nieuws</a></li>
-                  <li class="drop"><a style="cursor:pointer" routerLink="/contact">Contact</a></li>
-                  <li class="drop"><a style="cursor:pointer" *ngIf="isLoggedIn"  routerLink="/loggedin">Downloadpagina</a></li>
-                  <li class="drop"><a style="cursor:pointer" *ngIf="!isLoggedIn" (click)='openModal(loginmodal)' style="color:blue; cursor:pointer"><b>Inloggen</b></a></li>
-                  <li class="drop"><a style="cursor:pointer" *ngIf="isLoggedIn"  (click)='logOut()' style="color:orange; cursor:pointer"><b>Uitloggen</b></a></li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-
-          
-
-
-          
-
-
-        </div>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" (click)="hideMenu()" routerLink="/">Home</a>
+        
+        <div class="btn-group" dropdown>
+          <button id="button-animated" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                  aria-controls="dropdown-animated">
+            Button dropdown <span class="caret"></span>
+          </button>
+          <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu"
+              role="menu" aria-labelledby="button-animated">
+            <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Another action</a>
             </li>
-            <li class="nav-item ">
-              <a class="nav-link" (click)="hideMenu()" routerLink="/wiezijnwij">Wie zijn wij?</a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" (click)="hideMenu()" routerLink="/research">Onderzoeken & Publicaties</a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" (click)="hideMenu()" routerLink="/nieuws">Nieuws</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" (click)="hideMenu()" routerLink="/contact">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" (click)="hideMenu()" *ngIf="isLoggedIn" routerLink="/loggedin">Downloadpagina</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" *ngIf="!isLoggedIn" (click)='openModal(loginmodal)' style="color:blue;cursor:pointer">Inloggen</a>
-              <a class="nav-link" *ngIf="isLoggedIn" (click)='logOut()' style="color:orange;cursor:pointer">Uitloggen</a>
-
-            </li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Something else
+              here</a></li>
           </ul>
-   <!--        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form> -->
         </div>
       </div>
     </div>
@@ -259,7 +210,7 @@
 
   <footer *ngIf="!dMin">
     <!-- footer area top start -->
-    <div class="footer-top ptb--60">
+    <div class="footer-top">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-sm-6">
