@@ -16,7 +16,7 @@
 
 
 <!-- feature area start -->
-<div class="feature-area pb--120">
+<div class="feature-area pb--120 bg-gray">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -35,7 +35,7 @@
 </div>
 <!-- feature area end -->
 <!-- help center area start -->
-<div class="help-center-area">
+<div class="help-center-area bg-gray">
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
@@ -87,28 +87,26 @@
 </div>
 <!-- help center area end -->
 <!-- service area start -->
-<div class="service-area bg-gray">
+<div class="service-area">
     <div class="container">
         <div class="row" style="font-size: 16px;">
             <div class="container">
-                
+                <img src="assets/stz.png" class="img-fluid" style="max-width:70px">
                 <div class="row">
 
-                    <div class="col-2">
-                        <img src="assets/stz.png" class="img-fluid" style="max-width:70px">
-                    </div>
+                    
 
 
 
-                        <div class="col-10">
+                        <div class="col-12">
                          
                                 <div class="sepcial_banner_content">
                                     <h4>Leden:</h4>
                                     <p></p>
                                 </div>
                                 <div class="row">
-                                        <div *ngFor="let logo of logoArray; let i = index" class="col-lg-6 col-6" style="height:150px">
-                                            <img [src]="'uploads/' + logo.filename" class="img-fluid" style="padding:10px" alt="blog images">
+                                        <div *ngFor="let logo of logoArray; let i = index" class="col-lg-3 col-3" >
+                                            <img [src]="'uploads/' + logo.filename" class="img-fluid logoz" style="padding:10px" alt="blog images">
                                         </div>
                                 </div>
                         </div>

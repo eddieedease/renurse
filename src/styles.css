@@ -850,7 +850,7 @@ a.scrollup-btn:hover{
 
 .bg-gray{
 
-    background: #e6f9f8;
+    background: rgba(85,69,150,0.05);
 
 }
 
@@ -968,6 +968,10 @@ a.scrollup-btn:hover{
 
     display: flex;
 
+}
+
+ul {
+  list-style-type: none;
 }
 
 

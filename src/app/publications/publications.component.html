@@ -52,6 +52,27 @@
             </div>
             <!-- End Single Gallery -->
            
+
+
+            <!-- <ul class="list-group">
+                <li *ngFor="let publication of publicationArray; let i = index" class="list-group-item" >
+    
+                    <div class="row">
+                        <div class="col-lg-2 col-xl-2 col-md-6 col-12"> 
+                       
+                          <img *ngIf="publication.coverurl != ''" [src]="'uploads/' + publication.coverurl" class="img-reponsive img-rounded pubthumb" alt="blog images">
+                          <img *ngIf="publication.coverurl == ''" src="assets/publication.jpg" class="img-reponsive img-rounded pubthumb" alt="blog images">
+                        </div>
+                        <div class="col-10"> <div>
+                            <p>Titel</p>
+                            <h5 style="color:red">{{publication.name}}</h5><br>
+                            <div [innerHTML]="publication.wysig | safe: 'html'"></div></div></div>
+                      </div>
+    
+    
+                  
+                </li>
+            </ul> -->
             
         </div>
     </div>

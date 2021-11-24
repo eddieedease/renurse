@@ -1,6 +1,6 @@
 <ng-template #researchtemplate>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">{{currentResearchTitle}}</h4>
+    <p>Onderzoek</p>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -14,11 +14,18 @@
     </div>
 
     <div class="row">
-      <div class="col-12">
-          <div class="text-center">
+      <div class="col-12" style="padding:20px">
+         <!--  <div class="text-center">
           <img *ngIf="currentCoverUrl != ''" [src]="'uploads/' + currentCoverUrl" style="padding-left: 20px" class="img-fluid rounded mx-auto d-block">
           <img *ngIf="currentCoverUrl == ''" src="assets/research.jpg" style="padding-left: 20px" class="img-fluid rounded mx-auto d-block">
-        </div><br><br>
+        </div> -->
+        <h2 style="color: #e74628;">{{currentResearchTitle}}</h2><br><br>
+        <div class="author_tile">
+          <div class="publish_info">
+            <p><b>Status:</b>&nbsp;{{currentResearchStatus}}</p>
+            <p><b>Onderzoekers:</b><br>{{currentResearchPeople}}</p>
+          </div>
+        </div><hr><br>
         <div [innerHTML]="currentResearchWysig | safe: 'html'"></div>
         <br><br><br>
       
@@ -33,7 +40,7 @@
 
 
 <!-- Start Blog Area -->
-<section class="htc__blog__area home-blog bg__white ptb--100">
+<section class="htc__blog__area home-blog bg__white ptb--100" style="background-color: rgba(85,69,150,0.05);">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -46,25 +53,24 @@
 
     </div>
     <div class=" mt--30">
-      <tabset>
-        <tab heading="Onderzoeken" id="tab1">
+      
           <div class="row">
 
 
-            <div *ngFor="let research of researchArray; let i = index" class="col-lg-6 col-xl-6 col-md-6 col-12" style="cursor:pointer;padding:5px">
-              <div (click)='openModal(researchtemplate, research.id)' class="single_latest_post " style="min-height:400px;">
-                <div class="ht__blog__thumb">
+            <div *ngFor="let research of researchArray; let i = index" class="col-lg-5 col-xl-6 col-md-6 col-12" style="cursor:pointer;padding:5px">
+              <div (click)='openModal(researchtemplate, research.id)' class="single_latest_post " style="min-height:300px; background-color: white;">
+                <!-- <div class="ht__blog__thumb">
                   <a>
                     <img *ngIf="research.coverurl != ''" [src]="'uploads/' + research.coverurl" class="resthumb" alt="blog images">
                     <img *ngIf="research.coverurl == ''" src="assets/research.jpg" class="resthumb" alt="blog images">
                   </a>
-                </div>
+                </div> -->
 
-                <div class="htc__blog__content">
+                <div class="htc__blog__content" style="padding: 25px;">
                   <div class="blog__post_title">
-                    <h5 style="color:red"><a>{{research.uname}}</a></h5>
+                    <h3 ><a>{{research.uname}}</a></h3>
                   </div>
-                  <div class="blog_post__meta">
+                  <div class="blog_post__meta"><br>
                     <!-- <div class="post_author_img">
                                     <a href="#"><img src="assets/blog/latest_post/author_img_1.png" alt=""></a>
                                 </div> -->
@@ -75,6 +81,7 @@
                           <p><b>Onderzoekers:</b><br>{{research.initiative}}</p>
                         </div>
                       </div>
+                      <button type="button" class="btn btn-warning"><h3>Meer lezen</h3></button>
                     </div>
                   </div>
                 </div>
@@ -85,31 +92,7 @@
 
 
           </div>
-        </tab>
-        <tab heading="Publicaties"><br>
-          
-
-          <ul class="list-group">
-            <li *ngFor="let publication of publicationArray; let i = index" class="list-group-item" >
-
-                <div class="row">
-                    <div class="col-lg-2 col-xl-2 col-md-6 col-12"> 
-                   
-                      <img *ngIf="publication.coverurl != ''" [src]="'uploads/' + publication.coverurl" class="img-reponsive img-rounded pubthumb" alt="blog images">
-                      <img *ngIf="publication.coverurl == ''" src="assets/publication.jpg" class="img-reponsive img-rounded pubthumb" alt="blog images">
-                    </div>
-                    <div class="col-10"> <div>
-                        <p>Titel</p>
-                        <h5 style="color:red">{{publication.name}}</h5><br>
-                        <div [innerHTML]="publication.wysig | safe: 'html'"></div></div></div>
-                  </div>
-
-
-              
-            </li>
-        </ul>
-        </tab>
-      </tabset>
+       
       <!-- Start single Blog -->
 
     </div>

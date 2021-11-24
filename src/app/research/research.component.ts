@@ -49,6 +49,9 @@ export class ResearchComponent implements OnInit {
 
   currentResearchTitle = '';
   currentResearchWysig = '';
+  currentResearchStatus ='';
+  currentResearchPeople = '';
+
 
   currentCoverUrl = '';
 
@@ -91,6 +94,8 @@ export class ResearchComponent implements OnInit {
         this.currentResearchTitle = element.uname;
         this.currentResearchWysig = element.wysig;
         this.currentCoverUrl = element.coverurl;
+        this.currentResearchPeople = element.initiative;
+        this.currentResearchStatus = element.status;
       }
     });
     

@@ -1,46 +1,64 @@
 <!-- Start Appoinment Area -->
 <section class="htc__appoinment__area">
   <div class="container">
-          <div class="row">
-              <div class="col-xl-8 offset-xl-2 col-lg-12 col-12">
-                  <div class="section__title text-center">
-                      <h2>Contactformulier</h2>
-                  </div>
-                  <div class="htc__appoinment__wrap">
-                      <div class="htc__appoinment__form">
-                          <form action="#">
-                              <div class="htc__app__box__inner">
-                                  <div class="htc__app__box">
-                                      <div class="input_inner">
-                                          <input [(ngModel)]="currentName" [ngModelOptions]="{standalone: true}" type="text" placeholder="..Naam..">
-                                      </div>
-                                  </div>
-                               </div>
-                              <div class="htc__app__box__inner">
-                                  <div class="htc__app__box">
-                                      <input [(ngModel)]="currentEmail" [ngModelOptions]="{standalone: true}" type="email" placeholder="..Email..">
-                                  </div>
-                              </div>
-                              <div class="htc__app__box__inner">
-                                  <div class="htc__app__box">
-                                      <input [(ngModel)]="currentSubject" [ngModelOptions]="{standalone: true}" placeholder="..Onderwerp..">
-                                  </div>
-                              </div> 
-                             
-                              <div class="appoinment_message">
-                                  <div class="htc__app__box message">
-                                     <textarea [(ngModel)]="currentMessage" [ngModelOptions]="{standalone: true}" name="Message" placeholder="Type uw bericht"></textarea>
-                                  </div>
-                                  <div class="ht__appoin__btn">
-                                      <button (click)="sendMail()" type="submit">Verzend</button>
-                                  </div>
-                              </div>
-                          </form>
-                      </div>                            
-                  </div>                            
-              </div>
-          </div>
+          
       </div>
+
+
+      <div class="contact-style1-area pt--110 pb--90">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="section-title">
+                        <h2 data-aos="fade-up">Contactformulier</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="cnt-style1-content">
+                        <p data-aos="fade-up"data-aos-delay="150">I have worls-class, flexible support via live chat, email and hone. I guarantee that you’ll
+                            be able to have any issue resolved within 24 hours.</p>
+
+                        <ul class="cnt-list" data-aos="fade-up"data-aos-delay="250">
+                            <li>
+                                <h5>Phone:</h5>
+                                <p>8 800 2534 236 <br> 8 800 2534 888</p>
+                            </li>
+                            <li>
+                                <h5>Send Email:</h5>
+                                <p>email@example.com <br> email@yoursite.com</p>
+                            </li>
+                            <li>
+                                <h5>Address:</h5>
+                                <p>27 Division St, New York, NY 10002 United States</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <form id="contactForm">
+                        <div class="form-group" data-aos="flip-left">
+                            <input name="name"  size="50" type="text" [(ngModel)]="currentName" [ngModelOptions]="{standalone: true}" type="text" placeholder="..Naam..">
+                        </div>
+                        <div class="form-group"data-aos="flip-left"data-aos-delay="50">
+                            <input name="email"  size="50" type="text" [(ngModel)]="currentEmail" [ngModelOptions]="{standalone: true}" type="email" placeholder="..Email..">
+                        </div>
+                        <div class="form-group"data-aos="flip-left" data-aos-delay="150">
+                            <input name="subject"  size="50" [(ngModel)]="currentSubject" [ngModelOptions]="{standalone: true}" placeholder="..Onderwerp..">
+                        </div>
+                        <div class="form-group"data-aos="flip-left"data-aos-delay="200">
+                            <textarea name="message"  cols="50" [(ngModel)]="currentMessage" [ngModelOptions]="{standalone: true}" name="Message" placeholder="Type uw bericht"></textarea>
+                        </div>
+                        <div class="form-group"data-aos="flip-left"data-aos-delay="250">
+                            <button type="submit" class="btn btn-primary px-5 text-uppercase btn-radius" (click)="sendMail()">Verstuur</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </section>
 <!-- End Appoinment Area -->
