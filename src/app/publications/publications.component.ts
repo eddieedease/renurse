@@ -9,6 +9,8 @@ import { EdserService } from '../edser.service';
 })
 export class PublicationsComponent implements OnInit {
 
+  publicationArray = [];
+
   constructor(private edSer: EdserService) {
       this.edSer.updatedMin(false);
   }
@@ -17,6 +19,13 @@ export class PublicationsComponent implements OnInit {
   ngOnInit() {
     // scroll to top
     window.scrollTo(0, 0);
+    this.edSer.API_getpublications().subscribe(value => this.gotPublications(value));
+  }
+
+  gotPublications(_event) {
+    this.edSer.debugLog(_event);
+    this.publicationArray = _event;
+    this.publicationArray.reverse();
   }
 
 }

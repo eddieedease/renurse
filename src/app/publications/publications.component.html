@@ -1,80 +1,78 @@
 <!-- Start Gallery Area -->
 <section class="htc__gallery__area gallery--1 pt--100 pb--70">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="section__title text-center pb--50">
-                    <h2 class="title__line text--theme">Publicaties</h2>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section__title text-center pb--50">
+          <h1 class="title__line text--theme">Publicaties</h1>
         </div>
-        <div class="row">
-           
-            <!-- Start Single Gallery -->
-            <div class="col-lg-4 col-md-6 col-12">
-                <div class="singel_project mb--30">
-                    <div class="project_img">
-                        <a href="#">
-                            <img src="assets/portfolio/project/1.png" alt="Cardiology Icon">
-                        </a>
-                    </div>
-                    <div class="project_content">
-                        <h3><img src="assets/portfolio/project/icon-1.png" alt="Cardiology Dept"><a href="#">Pub 1</a></h3>
-                        <p>The point of using Lorem Ipsum is that it has a more-or-less normal</p>
-                    </div>
-                </div>
-            </div>                   
-            <div class="col-lg-4 col-md-6 col-12">
-                <div class="singel_project mb--30">
-                    <div class="project_img">
-                        <a href="#">
-                            <img src="assets/portfolio/project/2.png" alt="Cardiology Dept">
-                        </a>
-                    </div>
-                    <div class="project_content">
-                        <h3><img src="assets/portfolio/project/ser-cion-2.png" alt="Cardiology icon"><a href="#">Pub 2</a></h3>
-                        <p>The point of using Lorem Ipsum is that it has a more-or-less normal</p>
-                    </div>
-                </div>
-            </div>                    
-            <div class="col-lg-4 col-md-6 col-12">
-                <div class="singel_project mb--30">
-                    <div class="project_img">
-                        <a href="#">
-                            <img src="assets/portfolio/project/3.png" alt="Cardiology Icon">
-                        </a>
-                    </div>
-                    <div class="project_content">
-                        <h3><img src="assets/portfolio/project/ser-cion-3.png" alt="Cardiology Dept"><a href="#">Pub 3</a></h3>
-                        <p>The point of using Lorem Ipsum is that it has a more-or-less normal</p>
-                    </div>
-                </div>
-            </div>
-            <!-- End Single Gallery -->
-           
+      </div>
+    </div>
+    <div class="row">
 
 
-            <!-- <ul class="list-group">
-                <li *ngFor="let publication of publicationArray; let i = index" class="list-group-item" >
-    
-                    <div class="row">
-                        <div class="col-lg-2 col-xl-2 col-md-6 col-12"> 
-                       
-                          <img *ngIf="publication.coverurl != ''" [src]="'uploads/' + publication.coverurl" class="img-reponsive img-rounded pubthumb" alt="blog images">
-                          <img *ngIf="publication.coverurl == ''" src="assets/publication.jpg" class="img-reponsive img-rounded pubthumb" alt="blog images">
-                        </div>
-                        <div class="col-10"> <div>
-                            <p>Titel</p>
-                            <h5 style="color:red">{{publication.name}}</h5><br>
-                            <div [innerHTML]="publication.wysig | safe: 'html'"></div></div></div>
-                      </div>
-    
-    
+        <div class="col-4"><img src="assets/publication.png" class="img-fluid"></div>
+
+        <div class="col-8">
+            <ol class="list-group list-group-numbered">
+                <li *ngFor="let pub of publicationArray; let i = index" class="list-group-item d-flex justify-content-between align-items-start">
+                  <div class="ms-2 me-auto">
+                    
+                    <div [innerHTML]="pub.wysig | safe: 'html'" class="fw-bold"></div>
+                    {{pub.name}}
+                  </div>
                   
                 </li>
-            </ul> -->
-            
+                
+              </ol>
         </div>
+
+      
     </div>
+    <!-- <div class="row">
+
+      <div class="col-lg-4 col-md-6 col-12">
+        <div class="singel_project mb--30">
+          <div class="project_img">
+            <a href="#">
+              <img src="assets/portfolio/project/1.png" alt="Cardiology Icon">
+            </a>
+          </div>
+          <div class="project_content">
+            <h3><img src="assets/portfolio/project/icon-1.png" alt="Cardiology Dept"><a href="#">Pub 1</a></h3>
+            <p>The point of using Lorem Ipsum is that it has a more-or-less normal</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-12">
+        <div class="singel_project mb--30">
+          <div class="project_img">
+            <a href="#">
+              <img src="assets/portfolio/project/2.png" alt="Cardiology Dept">
+            </a>
+          </div>
+          <div class="project_content">
+            <h3><img src="assets/portfolio/project/ser-cion-2.png" alt="Cardiology icon"><a href="#">Pub 2</a></h3>
+            <p>The point of using Lorem Ipsum is that it has a more-or-less normal</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-12">
+        <div class="singel_project mb--30">
+          <div class="project_img">
+            <a href="#">
+              <img src="assets/portfolio/project/3.png" alt="Cardiology Icon">
+            </a>
+          </div>
+          <div class="project_content">
+            <h3><img src="assets/portfolio/project/ser-cion-3.png" alt="Cardiology Dept"><a href="#">Pub 3</a></h3>
+            <p>The point of using Lorem Ipsum is that it has a more-or-less normal</p>
+          </div>
+        </div>
+      </div>
+
+
+    </div> -->
+  </div>
 </section>
 <!-- End Gallery Area -->

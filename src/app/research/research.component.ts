@@ -45,7 +45,7 @@ export class ResearchComponent implements OnInit {
   // array holding researchitems
   researchArray = [];
 
-  publicationArray = [];
+
 
   currentResearchTitle = '';
   currentResearchWysig = '';
@@ -69,7 +69,7 @@ export class ResearchComponent implements OnInit {
     window.scrollTo(0, 0);
     // get publications
     this.edSer.API_getresearch().subscribe(value => this.gotResearch(value));
-    this.edSer.API_getpublications().subscribe(value => this.gotPublications(value));
+    
   }
 
   gotResearch(_event) {
@@ -78,11 +78,7 @@ export class ResearchComponent implements OnInit {
     this.researchArray.reverse();
   }
 
-  gotPublications(_event) {
-    this.edSer.debugLog(_event);
-    this.publicationArray = _event;
-    this.publicationArray.reverse();
-  }
+  
 
   
 
