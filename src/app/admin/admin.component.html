@@ -263,6 +263,11 @@
                 <input type="radio" [(ngModel)]="currentWhoType" [ngModelOptions]="{standalone: true}"  class="form-check-input" [value]=0 [attr.name]="'who'"> Ondersteunende groep
               </label>
             </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" [(ngModel)]="currentWhoType" [ngModelOptions]="{standalone: true}"  class="form-check-input" [value]=2 [attr.name]="'who'"> Onderzoeksgroep
+              </label>
+            </div>
         <hr class="m-b-2" />
         <div *ngIf="!newWho">
             <img *ngIf="currentWhoCover != ''" [src]="'uploads/' + currentWhoCover"  class="img-reponsive img-rounded" />
