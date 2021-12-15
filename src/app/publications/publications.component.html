@@ -1,19 +1,26 @@
 <!-- Start Gallery Area -->
-<section class="htc__gallery__area gallery--1 pt--100 pb--70">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="section__title text-center pb--50">
-          <h4 style="font-size: 40px;font-weight:700;color: #e74628;">Publicaties</h4>
+<section class="htc__gallery__area gallery--1 ">
+
+  <div style="background: url(assets/bg/breadcumb6.jpg) no-repeat center center / cover;"
+        class="breadcumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="breadcumb-title">Publicaties</h2>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
+
+
+  <div class="container">
+    <br><br>
     <div class="row">
 
 
-        <div class="col-4"><img src="assets/publication.png" class="img-fluid"></div>
+        <div class="col-2"></div>
 
-        <div class="col-8">
+        <div class="col-10">
             <ol class="list-group list-group-numbered">
                 <li *ngFor="let pub of publicationArray; let i = index" class="list-group-item d-flex justify-content-between align-items-start">
                   <div class="ms-2 me-auto">
@@ -25,9 +32,10 @@
                 </li>
                 
               </ol>
+              <br><br><br>
         </div>
 
-      
+     
     </div>
     <!-- <div class="row">
 
