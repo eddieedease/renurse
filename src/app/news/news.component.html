@@ -5,77 +5,56 @@
     <!-- Body main wrapper start -->
     <div class="wrapper">
   
-       <!-- End Header Style -->
        
-       
-       <!--Our blob page-->
-       <div class="our_blog_area ptb--100">
-           <div class="container">
-               <div class="row">
-                  <div class="col-lg-4 col-md-8 col-12">
-                      <div class="sidebar_right">
-                            
-                          <div class="widget author_information">
-                              <div class="author_info_imag">
-                                  <img src="images/blog/sidebar/author_image.png" alt="">
-                              </div>
-                              <div class="author_content text-center">
-                                   
-
-                                  <h3 style="color:red">Nieuws</h3>
-                                  <p>Het laatste van RENurse!</p><br>
-                                  <img src="assets/news.png" class="img-reponsive">
-
-
-
-                                  <div class="row">
-                                    <p>Bekijk hier het RENurse Symposium terug van afgelopen 1 juni. We zijn ontzettend blij met het resultaat en willen iedereen bedanken die dit mogelijk heeft gemaakt. Veel kijkplezier!<br><br></p>
-                                    <div class="col-12"><div class="embed-responsive embed-responsive-16by9">
-                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/XnT_pQy1y-s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                      </div></div>
-                                    <div class="col-12"><p>Bekijk ook de gemaakte visual voor het totaalbeeld.<br>Klik erop om te bekijken/downloaden.</p><a href="assets/pdf/totaalbeeld.pdf" target="_blank"><img src="assets/totaalbeeld.png" class="img-fluid" alt="Responsive image"></a></div>
-                                </div>
-                              </div>
-                              
-                          </div>      
-                             
-                          
-                          
-                       </div>
-                  </div>
-                   <div   class="col-lg-7 col-md-12 col-12">
-                       <div *ngFor="let news of newsArray; let i = index" class="post_details_inner">
-                           <div *ngIf="news.coverurl !== ''" class="single_post_thumbnail" [style.background-image]="'url(/uploads/' + news.coverurl + ')'" style="background-size: cover; background-position: center" alt="single post thumbail">
-                               <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                           </div>
-                           <div class="single_post_content">
-                               <div class="single_post_top_contnt">
-                                   <div class="single_post_title">
-                                       <h3>{{news.name}}</h3>
-                                   </div>
-                                   <ul>
-                                        <li>{{news.date}}</li>
-                                    </ul>
-                                   
-                               </div>
-                               
-                               <div [innerHTML]="news.wysig | safe: 'html'" class="post_excerpt">
-      
-                               </div>
-                               
-                               
-                               
-                           </div>
-                           
-                           <br><br>
-                       </div>
-                   </div>
-                
-               </div>
-               
-           </div>
-       </div>
-       <!--Our blob page end-->
       
        <!-- End Footer Area -->
+
+       <div style="background: url(assets/bg/breadcumb3.jpg) no-repeat center center / cover;"
+        class="breadcumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="breadcumb-title">Meer info</h2>
+                    <h3 style="color:white">Bekijk hier de laatste informatie / mededelingen over RENursE</h3>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcumb-area end  -->
+    <!-- blog area start -->
+    <div class="blog-area blog-classic-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-8">
+                    
+                    <div class="shadow" style="padding:50px" *ngFor="let news of newsArray; let i = index">
+                       
+                        <div class="content">
+                            
+                            <h2>{{news.name}}</h2>
+                            <ul class="blog-meta-top">
+                                <li><i class="fa fa-tags"></i>{{news.date}} </li>
+                            </ul><br>
+                            <div *ngIf="news.coverurl !== ''" class="single_post_thumbnail" [style.background-image]="'url(/uploads/' + news.coverurl + ')'" style="background-size: cover; background-position: center" alt="single post thumbail">
+                               <br><br><br> <br><br><br> <br><br><br> <br><br><br> <br><br><br>
+                            </div><br>
+                            <div [innerHTML]="news.wysig | safe: 'html'">
+
+                        </div>
+                    </div>
+                  <br><br><br>
+                </div></div>
+                <div class="col-lg-4">
+                    <img src="assets/news.png" class="img-reponsive">
+                    
+
+                    
+                </div>
+            
+        </div>
+    </div>
+    <!-- blog area end -->
+    <!-- footer area start -->
+   
    </div>

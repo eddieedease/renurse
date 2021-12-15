@@ -5515,7 +5515,7 @@ form.subscription .btn:hover {
 
   z-index: -1;
 
-  opacity: .7;
+  opacity: .5;
 
   content: "";
 
@@ -6901,6 +6901,7 @@ label.error {
   padding-top: 250px;
   background-size: cover;
   overflow: hidden;
+  
 }
 .covid-h-content h2 {
   font-family: 'Oswald', sans-serif;
