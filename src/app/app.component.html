@@ -116,13 +116,13 @@
                                       
                                   </li>
 
-                                  <li><a *ngIf="!isLoggedIn" style="cursor: pointer;" (click)='openModal(loginmodal)'>Inloggen</a>
+                                 <!--  <li><a *ngIf="!isLoggedIn" style="cursor: pointer;" (click)='openModal(loginmodal)'>Inloggen</a>
                                       
                                   </li>
 
                                   <li><a *ngIf="isLoggedIn" style="cursor: pointer;" (click)='logOut()'>Uitloggen</a>
                                       
-                                  </li>
+                                  </li> -->
                                  
                               </ul>
 
@@ -199,10 +199,10 @@
             </li>
             <li  role="menuitem"><a  class="dropdown-item"  class="dropdown-item" *ngIf="isLoggedIn" style="cursor: pointer;" routerLink="/loggedin">Downloads</a>  
             </li>
-            <li  role="menuitem"><a  class="dropdown-item" *ngIf="!isLoggedIn" style="cursor: pointer;" (click)='openModal(loginmodal)'>Inloggen</a>
+            <!-- <li  role="menuitem"><a  class="dropdown-item" *ngIf="!isLoggedIn" style="cursor: pointer;" (click)='openModal(loginmodal)'>Inloggen</a>
             </li>
             <li  role="menuitem"><a  class="dropdown-item" *ngIf="isLoggedIn" style="cursor: pointer;" (click)='logOut()'>Uitloggen</a> 
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>

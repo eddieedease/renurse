@@ -1,111 +1,78 @@
 <section style="margin-top: 20px;" style="background-color:  rgba(85,69,150,0.05)">
-  <div style="background: url(assets/bg/breadcumb7.jpg) no-repeat center center / cover;"
-        class="breadcumb-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="breadcumb-title">Wie zijn wij?</h2>     
-                </div>
-            </div>
+  <div style="background: url(assets/bg/breadcumb7.jpg) no-repeat center center / cover;" class="breadcumb-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="breadcumb-title">Wie zijn wij?</h2>
         </div>
+      </div>
     </div>
+  </div>
   <div class="container">
     <div class="row content">
 
 
       <div class="col-lg-7 col-sm-12">
         <br><br><br>
-           
-            <br>
-            <div class="content" style="margin-right:20px">
-              <p>RENurse bestaat uit een stuurgroep, een onderzoeksgroep en een ondersteunende groep.
-                <br><br>
-                <b>De stuurgroep</b> bevordert en behartigt de belangen van het samenwerkingsverband. Daarnaast geeft zij richting aan het onderzoeksprogramma en de landelijke communicatie. In de stuurgroep zitten zowel vertegenwoordigers van de kartrekkende ziekenhuizen, als prof. dr. Marieke Schuurmans, hoogleraar Verplegingswetenschap, Universiteit Utrecht en dr. Jeroen Dikken, docent Haagse Hogeschool, beide vanwege hun inhoudelijke expertise.
-                <br><br>
-                <b>De onderzoeksgroep</b> is samengesteld uit verpleegkundig onderzoekers en promovendi. Zij schrijven het onderzoeksvoorstel, leggen het ter goedkeuring voor aan de stuurgroep en voeren het onderzoek uit. Vervolgens publiceren de onderzoekers de resultaten in wetenschappelijke artikelen en een onderzoeksrapport, dat gepresenteerd wordt aan de stuurgroep en de ondersteunende groep.
-                <br><br>
-                <b>De ondersteunende</b> groep bestaat uit vertegenwoordigers van de deelnemende ziekenhuizen. Zij leveren een bijdrage aan de dataverzameling voor lopende onderzoeksprojecten. Daarnaast worden de resultaten uit de onderzoeksprojecten binnen deze groep besproken en wordt richting gegeven aan vervolgonderzoek.
-                <br><br>
-                Elk onderzoek wordt uitgewerkt door een nieuw in te richten onderzoeksgroep met verpleegkundig
-                onderzoekers uit de participerende ziekenhuizen. Per onderzoek wordt op maat samenwerking gezocht met
-                Hogescholen en/of Universiteiten.
-              </p>
-            </div>
-     
-      </div>
 
-      
-      <div class="col-lg-5 col-12">
-        <div class="sepcial_banner_content">
-
-          <br><br><br>
-          <h2>Leden stuurgroep:</h2><br>
-          <div class="table-responsive">
-            <table class="table table-striped " style='background-color:white;color: rgb(21, 9, 75)'>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th scope="col">Naam</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let mainn of mainGroup; let i = index">
-                  <td><div [style.background-image]="'url(/uploads/' + mainn.coverurl + ')'" style="width:150px;background-size: cover"><br><br><br><br><br></div></td>
-                  <td>{{mainn.name}}<br>{{mainn.wysig}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div><br><br>
-          
-
-          
-
-          <br><br>
-          
-        </div>
-        <div class="row">
-
-        </div>
-      </div>
-
-     
-
-        
-    
-
-
-
-
-    </div>
-
-    <div class="row">
-      <div class="col-lg-5 col-12">
-        <div class="sepcial_banner_content">
-          <h2>Leden onderzoeksgroep:</h2><br>
-          <div class="table-responsive">
-            <table class="table table-striped " style='background-color:white;color: rgb(21, 9, 75)'>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th scope="col">Naam</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let rese of researchGroup; let i = index">
-                  <td><div [style.background-image]="'url(/uploads/' + rese.coverurl + ')'" style="width:150px;background-size: cover"><br><br><br><br><br></div></td>
-                  <td>{{rese.name}}<br>{{rese.wysig}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div></div>
-
-        <div class="col-lg-2 col-12"></div>
-
-        <div class="col-lg-5 col-12">
-          <div class="sepcial_banner_content">
-            <h2>Leden ondersteunende groep:</h2><br>
-            <div class="table-responsive">
+        <br>
+        <div class="content" style="margin-right:20px">
+          <p>RENurse bestaat uit een stuurgroep, een onderzoeksgroep en een ondersteunende groep.
+            <br><br>
+            <b style="font-size: larger">De stuurgroep</b><br>bevordert en behartigt de belangen van het samenwerkingsverband. Daarnaast geeft zij richting aan het onderzoeksprogramma en de landelijke communicatie. In de stuurgroep zitten zowel vertegenwoordigers van de kartrekkende ziekenhuizen, als prof. dr. Marieke Schuurmans, hoogleraar Verplegingswetenschap, Universiteit Utrecht en dr. Jeroen Dikken, docent Haagse Hogeschool, beide vanwege hun inhoudelijke expertise.
+          </p>
+          <button type="button" class="btn btn-primary btn-block" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">Bekijk leden stuurgroep
+          </button><br>
+          <div id="collapseBasic" [collapse]="!isCollapsed" [isAnimated]="true">
+            <div class="well well-lg card card-block card-header"><div class="table-responsive">
+              <table class="table table-striped " style='background-color:white;color: rgb(21, 9, 75)'>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th scope="col">Naam</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let mainn of mainGroup; let i = index">
+                    <td>
+                      <div [style.background-image]="'url(/uploads/' + mainn.coverurl + ')'" style="width:150px;background-size: cover"><br><br><br><br><br></div>
+                    </td>
+                    <td>{{mainn.name}}<br>{{mainn.wysig}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div></div>
+          </div><br><hr>
+          <p><b style="font-size: larger">De onderzoeksgroep</b><br>is samengesteld uit verpleegkundig onderzoekers en promovendi. Zij schrijven het onderzoeksvoorstel, leggen het ter goedkeuring voor aan de stuurgroep en voeren het onderzoek uit. Vervolgens publiceren de onderzoekers de resultaten in wetenschappelijke artikelen en een onderzoeksrapport, dat gepresenteerd wordt aan de stuurgroep en de ondersteunende groep.
+          </p>
+          <button type="button" class="btn btn-primary btn-block" (click)="isCollapsed2 = !isCollapsed2" [attr.aria-expanded]="!isCollapsed2" aria-controls="collapseBasic2">Bekijk leden onderzoeksgroep
+          </button><br>
+          <div id="collapseBasic2" [collapse]="!isCollapsed2" [isAnimated]="true">
+            <div class="well well-lg card card-block card-header"><div class="table-responsive">
+              <table class="table table-striped " style='background-color:white;color: rgb(21, 9, 75)'>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th scope="col">Naam</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let rese of researchGroup; let i = index">
+                    <td>
+                      <div [style.background-image]="'url(/uploads/' + rese.coverurl + ')'" style="width:150px;background-size: cover"><br><br><br><br><br></div>
+                    </td>
+                    <td>{{rese.name}}<br>{{rese.wysig}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div></div>
+          </div><br><hr>
+          <p><b style="font-size: larger">De ondersteunende groep</b><br>bestaat uit vertegenwoordigers van de deelnemende ziekenhuizen. Zij leveren een bijdrage aan de dataverzameling voor lopende onderzoeksprojecten. Daarnaast worden de resultaten uit de onderzoeksprojecten binnen deze groep besproken en wordt richting gegeven aan vervolgonderzoek.
+          </p>
+          <button type="button" class="btn btn-primary  btn-block" (click)="isCollapsed3 = !isCollapsed3" [attr.aria-expanded]="!isCollapsed3" aria-controls="collapseBasic3">Bekijk leden ondersteunende groep
+          </button><br>
+          <div id="collapseBasic3" [collapse]="!isCollapsed3" [isAnimated]="true">
+            <div class="well well-lg card card-block card-header"><div class="table-responsive">
               <table class="table table-striped " style='background-color:white;color: rgb(21, 9, 75)'>
                 <thead>
                   <tr>
@@ -115,14 +82,42 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let sup of supportGroup; let i = index">
-                    <td><div [style.background-image]="'url(/uploads/' + sup.coverurl + ')'" style="width:150px;background-size: cover"><br><br><br><br><br></div></td>
+                    <td>
+                      <div [style.background-image]="'url(/uploads/' + sup.coverurl + ')'" style="width:150px;background-size: cover"><br><br><br><br><br></div>
+                    </td>
                     <td>{{sup.name}}<br>{{sup.wysig}}</td>
                   </tr>
                 </tbody>
               </table>
-            </div>
-          </div></div>
+            </div></div>
+          </div><br><hr>
+          <br><br>
+        </div>
+
+      </div>
+
+
+      <div class="col-lg-5 col-12"><br><br><br>
+        <img src="assets/wzw.png" class="img-fluid" >
+
+        <br><br><br>
+        <p>
+          Elk onderzoek wordt uitgewerkt door een nieuw in te richten onderzoeksgroep met verpleegkundig
+          onderzoekers uit de participerende ziekenhuizen. Per onderzoek wordt op maat samenwerking gezocht met
+          Hogescholen en/of Universiteiten.
+        </p>
+      </div>
+
+
+
+
+
+
+
+
+
     </div>
+
   </div>
 </section>
 <!--Special Banner start-->

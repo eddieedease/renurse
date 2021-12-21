@@ -14,19 +14,22 @@
 
 
   <div class="container">
-    <br><br>
+    <br><br><br><br>
     <div class="row">
+      
 
+        <div class="col-4">
+          <img src="assets/publica.png" class="img-fluid" ><br><br>
+          Klik op de link van de publicatie om hiernaartoe te navigeren.</div>
 
-        <div class="col-2"></div>
-
-        <div class="col-10">
+        <div class="col-8">
             <ol class="list-group list-group-numbered">
                 <li *ngFor="let pub of publicationArray; let i = index" class="list-group-item d-flex justify-content-between align-items-start">
                   <div class="ms-2 me-auto">
-                    
+                    <br>
                     <div [innerHTML]="pub.wysig | safe: 'html'" class="fw-bold"></div>
                     {{pub.name}}
+                    <br><br>
                   </div>
                   
                 </li>
