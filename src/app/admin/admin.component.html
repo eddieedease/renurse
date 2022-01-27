@@ -505,7 +505,7 @@
 
       <tabset [justified]="true">
           
-        <tab  heading="Onderzoeken" (select)="getSome('research')">
+        <tab  heading="Onderzoeken" (selectTab)="getSome('research')">
           <br>
           <h2 >Onderzoeken</h2>
           <div class="btn-group " role="group" aria-label="Basic example">
@@ -565,7 +565,7 @@
           </ngx-datatable>
 
         </tab>
-        <tab (select)="getSome('publications')" heading="Publicaties"><br>
+        <tab (selectTab)="getSome('publications')" heading="Publicaties"><br>
           <h2>Publicaties</h2><br>
           <p>Publicaties kun je koppelen aan onderzoeken.</p>
           <p>Als de publicatie nergens aan gekoppeld zit, komt deze bij de losstaande publicaties te staan.</p>
@@ -625,7 +625,7 @@
 
           </ngx-datatable>
         </tab>
-        <tab (select)="getSome('groups')" heading="Groepen"><br>
+        <tab (selectTab)="getSome('groups')" heading="Groepen"><br>
           <h2>Groepen</h2><br>
           <p>Gekoppelde gebruikers kunnen bestanden hiervan downloaden op hun downloadpagina.</p>
           <div class="btn-group float-right" role="group" aria-label="Basic example">
@@ -674,7 +674,7 @@
           </ngx-datatable>
         </tab>
 
-        <tab heading="Nieuws" (select)="getSome('news')">
+        <tab heading="Nieuws" (selectTab)="getSome('news')">
             <br>
             <h2>Nieuws</h2>
             <div class="btn-group float-right" role="group" aria-label="Basic example">
@@ -735,7 +735,7 @@
   
           </tab>
 
-        <tab (select)="getSome('users')" heading="Gebruikers"><br>
+        <tab (selectTab)="getSome('users')" heading="Gebruikers"><br>
           <h2>Gebruikers</h2><br>
           <div class="btn-group float-right" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-primary" style="border-radius: 10px"
@@ -794,7 +794,7 @@
           </ngx-datatable>
         </tab>
 
-        <tab heading="Blokteksten" (select)="getSome('textblocks')"><br>
+        <tab heading="Blokteksten" (selectTab)="getSome('textblocks')"><br>
           <h4>Blokteksten aanpassen</h4>
           <p>Hier Hier kun je de Blokteksten aanpassen.</p>
 
@@ -851,7 +851,7 @@
 
         </tab>
 
-        <tab heading="Wie is wie?" (select)="getSome('whoiswho')">
+        <tab heading="Wie is wie?" (selectTab)="getSome('whoiswho')">
             <br>
             <h2>Wie is wie?</h2>
             <div class="btn-group float-right" role="group" aria-label="Basic example">
@@ -927,7 +927,7 @@
   
           </tab>
 
-        <tab heading="Instellingen" (select)="getSome('logos')"><br>
+        <tab heading="Instellingen" (selectTab)="getSome('logos')"><br>
           <h2>Instellingen</h2>
           <br>
           <fieldset class="form-group has-danger">

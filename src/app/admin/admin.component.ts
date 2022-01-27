@@ -967,6 +967,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
   // PUBLICATIONS
   getPublications() {
+    this.edSer.debugLog('gettingPublications');
     this.loading = true;
     this.edSer.API_getpublications().subscribe(value => this.gotPublications(value));
   }

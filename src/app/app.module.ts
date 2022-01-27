@@ -10,12 +10,9 @@ import {
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-
-
-
 import { NgxUploaderModule } from 'ngx-uploader';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-
+import { NgxPageScrollModule } from 'ngx-page-scroll';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
@@ -75,7 +72,10 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { useHash: false } // <-- debugging purposes only
+      { useHash: false,
+        scrollPositionRestoration: 'enabled',
+      anchorScrolling: 'enabled',
+      scrollOffset: [0, 64] }// [x, y]} // <-- debugging purposes only
     ),
     BrowserModule,
     ToastrModule.forRoot(),
@@ -92,7 +92,8 @@ const appRoutes: Routes = [
     // BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
     CollapseModule.forRoot(),
-    ButtonsModule.forRoot()
+    ButtonsModule.forRoot(),
+    NgxPageScrollModule
   ],
   providers: [EdserService],
   bootstrap: [AppComponent]

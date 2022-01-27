@@ -1601,9 +1601,9 @@ ul {
 
 .hero-area {
 
-  padding: 140px 0 211px;
+  padding: 110px 0 110px;
 
-  background: url(/assets/hero-bg2.jpg) center/cover no-repeat;
+  background: url(/assets/hero-bg5.png) center/cover no-repeat;
 
 }
 
@@ -1705,7 +1705,7 @@ ul {
 
   z-index: 2;
 
-  margin-top: -80px;
+  
 
 }
 
@@ -4433,7 +4433,7 @@ form.subscription .btn:hover {
 
   padding-top: 215px;
 
-  background: url(/assets/images/bg/hero3-bg.jpg) center/cover no-repeat;
+  background: url(/assets/images/bg/hero4-bg.jpg) center/cover no-repeat;
 
 }
 
