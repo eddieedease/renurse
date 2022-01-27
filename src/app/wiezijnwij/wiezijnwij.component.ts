@@ -40,6 +40,10 @@ export class WiezijnwijComponent implements OnInit {
   // ondersteunende groep
   supportGroup = [];
 
+  isCollapsed = false;
+  isCollapsed2 = false;
+  isCollapsed3 = false;
+
   constructor(private edSer: EdserService,
     private thisrouter: Router,
     private sanitizer: DomSanitizer,
