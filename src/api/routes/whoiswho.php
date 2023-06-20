@@ -14,7 +14,6 @@ $app->post('/createwho', function (Request $request, Response $response) {
     $whoname = $parsedBody[name];
     $whowysig = $parsedBody[wysig];
     $ttype = $parsedBody[ttype];
-
     $whoname = addcslashes($whoname, "'");
     $whowysig = addcslashes($whowysig, "'");
     
